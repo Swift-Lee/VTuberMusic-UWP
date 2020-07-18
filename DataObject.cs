@@ -16,6 +16,11 @@ namespace VTuberMusic
         public string SongUri { get; set; } // 歌曲文件地址
         public string LrcUri { get; set; } // 歌词文件地址
 
+        public SongObject()
+        {
+
+        }
+
         public List<SongObject> GetTestObjects()
         {
             var objects = new List<SongObject>
