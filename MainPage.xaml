@@ -7,32 +7,96 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <NavigationView x:Name="TheNavigationView" IsBackButtonVisible="Collapsed" PaneDisplayMode="Auto" SelectionChanged="TheNavigationView_SelectionChanged" ItemInvoked="TheNavigationView_ItemInvoked">
-        <NavigationView.AutoSuggestBox>
-            <AutoSuggestBox QueryIcon="Find" AutomationProperties.Name="Search" PlaceholderText="搜索歌曲 / VTuber / 歌单"/>
-        </NavigationView.AutoSuggestBox>
-        <NavigationView.PaneHeader>
-            <TextBlock Text="VTuberMusic" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
-        </NavigationView.PaneHeader>
-        <NavigationView.MenuItems>
-            <NavigationViewItem x:Name="Home" Icon="Home" Content="发现" Tag="Home"/>
-            <NavigationViewItem Icon="People" Content="我的主推" Tag="Subscribe"/>
-            <NavigationViewItemHeader Content="我的音乐"/>
-            <NavigationViewItem Icon="Download" Content="下载的音乐" Tag="Download"/>
-            <NavigationViewItem Icon="Audio" Content="本地音乐" Tag="LocalMusic"/>
-            <NavigationViewItemHeader Content="我创建的歌单"/>
-            <NavigationViewItem Icon="Favorite" Content="我喜欢的音乐" Tag="SongList"/>
-            <NavigationViewItem Icon="MusicInfo" Content="【歌回接力】放空脑袋来嗨吧!"/>
-            <NavigationViewItemHeader Content="我收藏的歌单"/>
-            <NavigationViewItem Icon="MusicInfo" Content="复活!打起精神来唱歌!"/>
-            <NavigationViewItem Icon="MusicInfo" Content="2.16 B限歌回合集"/>
-        </NavigationView.MenuItems>
-        <NavigationView.PaneFooter>
-            <StackPanel>
-                <NavigationViewItem AllowDrop="True" Content="个人空间" Icon="Contact" Tag="Account"/>
-                <NavigationViewItem AllowDrop="False" Content="投稿管理" Icon="Upload" Tag="UploadManger"/>
-            </StackPanel>
-        </NavigationView.PaneFooter>
-        <Frame x:Name="PageFrame"/>
-    </NavigationView>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="85"/>
+            <RowDefinition Height="0"/>
+        </Grid.RowDefinitions>
+        <NavigationView x:Name="TheNavigationView" IsBackButtonVisible="Collapsed" PaneDisplayMode="Auto" SelectionChanged="TheNavigationView_SelectionChanged" ItemInvoked="TheNavigationView_ItemInvoked">
+            <NavigationView.AutoSuggestBox>
+                <AutoSuggestBox QueryIcon="Find" AutomationProperties.Name="Search" PlaceholderText="搜索歌曲 / VTuber / 歌单"/>
+            </NavigationView.AutoSuggestBox>
+            <NavigationView.PaneHeader>
+                <TextBlock Text="VTuberMusic" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0"/>
+            </NavigationView.PaneHeader>
+            <NavigationView.MenuItems>
+                <NavigationViewItem x:Name="Home" Icon="Home" Content="发现" Tag="Home"/>
+                <NavigationViewItem x:Name="Playing" Icon="Play" Content="正在播放" Tag="Playing"/>
+                <NavigationViewItem Icon="People" Content="我的主推" Tag="Subscribe"/>
+                <NavigationViewItemHeader Content="我的音乐"/>
+                <NavigationViewItem Icon="Download" Content="下载的音乐" Tag="Download"/>
+                <NavigationViewItem Icon="Audio" Content="本地音乐" Tag="LocalMusic"/>
+                <NavigationViewItemHeader Content="我创建的歌单"/>
+                <NavigationViewItem Icon="Favorite" Content="我喜欢的音乐" Tag="SongList"/>
+                <NavigationViewItemHeader Content="我收藏的歌单"/>
+            </NavigationView.MenuItems>
+            <!--<NavigationView.PaneFooter>
+                <StackPanel>
+                    <NavigationViewItem x:Name="AccountNavigationViewItem" Content="个人空间" Icon="Contact" Tag="Account" Tapped="AccountNavigationViewItem_Tapped"/>
+                    <NavigationViewItem Content="投稿管理" Icon="Upload" Tag="UploadManger"/>
+                </StackPanel>
+            </NavigationView.PaneFooter>-->
+            <Frame x:Name="PageFrame"/>
+        </NavigationView>
+        <Image Grid.Row="1" Source="https://santiego.gitee.io/vtb-music-source-img/img/1011.png" Stretch="UniformToFill"/>
+        <Grid Grid.Row="1">
+            <Grid.Background>
+                <AcrylicBrush BackgroundSource="Backdrop" TintOpacity="0.6" TintColor="#E55F5F5F"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="PlayingGrid" Tapped="PlayingGrid_Tapped" PointerEntered="PlayingGrid_PointerEntered" PointerExited="PlayingGrid_PointerExited" PointerCanceled="PlayingGrid_PointerCanceled">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.6*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="https://santiego.gitee.io/vtb-music-source-img/img/1011.png" Stretch="UniformToFill"/>
+                <StackPanel Grid.Column="1" Margin="10,24,0,0">
+                    <TextBlock Text="comet" Foreground="White" FontSize="24" Margin="0,-10,0,0" FontFamily="Microsoft YaHei Light"/>
+                    <TextBlock Text="星街すいせい" Foreground="White" FontSize="16" Margin="0,-4,0,0" FontWeight="Bold" FontFamily="Segoe UI Light"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="55"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Margin="0,5,0,0">
+                    <Button x:Name="Previous" Style="{StaticResource CircleButton}" Width="40" Height="40" BorderBrush="{x:Null}" HorizontalAlignment="Center" Margin="0,0,110,0">
+                        <SymbolIcon Symbol="Previous" Foreground="White"/>
+                    </Button>
+                    <Button x:Name="Play" Style="{StaticResource CircleButton}" Width="50" Height="50" BorderBrush="#99808080" HorizontalAlignment="Center" Click="Play_Click">
+                        <SymbolIcon x:Name="PlayIcon" Symbol="Play" Foreground="White"/>
+                    </Button>
+                    <Button x:Name="Next" Style="{StaticResource CircleButton}" Width="40" Height="40" BorderBrush="{x:Null}" HorizontalAlignment="Center" Margin="110,0,0,0">
+                        <SymbolIcon Symbol="Next" Foreground="White"/>
+                    </Button>
+                </Grid>
+                <Grid Grid.Row="1" Margin="0,-5,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="PlayerTime" Text="00:00" VerticalAlignment="Center" Foreground="White" Margin="0,1,0,0"/>
+                    <Slider x:Name="PlayerTimeLine" Grid.Column="1" Style="{StaticResource CircleSliderThumb}" Foreground="{StaticResource SystemAccentColor}" Margin="5,0,5,0" VerticalAlignment="Center" ValueChanged="PlayerTimeLine_ValueChanged"/>
+                    <TextBlock x:Name="PlayerTotalTime" Text="00:00" Grid.Column="2" VerticalAlignment="Center" FocusVisualPrimaryBrush="#FFE29D9D" Foreground="White" Margin="0,1,0,0"/>
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="2" VerticalAlignment="Top" Margin="0,10,10,0">
+                <SymbolIcon Symbol="Volume" Foreground="White" HorizontalAlignment="Right" Margin="0,0,205,0" Height="20" Width="20"/>
+                <Slider x:Name="Vol" Grid.Column="1" Style="{StaticResource CircleSliderThumb}" Foreground="{StaticResource SystemAccentColor}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,95,0" Value="100" Maximum="100" ValueChanged="Vol_ValueChanged" Width="100"/>
+                <Button x:Name="PlayMode" Style="{StaticResource CircleButton}" Width="40" Height="40" BorderBrush="{x:Null}" HorizontalAlignment="Right" Margin="0,0,45,0">
+                    <SymbolIcon Symbol="Shuffle" Foreground="White"/>
+                </Button>
+                <Button x:Name="SongList" Style="{StaticResource CircleButton}" Width="40" Height="40" BorderBrush="{x:Null}" HorizontalAlignment="Right">
+                    <SymbolIcon Symbol="MusicInfo" Foreground="White"/>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
 </Page>

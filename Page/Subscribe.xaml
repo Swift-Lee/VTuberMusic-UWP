@@ -5,16 +5,16 @@
     xmlns:local="using:VTuberMusic.Page"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:data="using:VTuberMusic"
+    xmlns:data="using:VTuberMusic.Modules"
     mc:Ignorable="d" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>
-        <DataTemplate x:Key="SubscrubeListTemplate" x:DataType="data:VocalObject">
-            <Grid AutomationProperties.Name = '{x:Bind Name}' Height="60px">
-                <PersonPicture ProfilePicture="{x:Bind ImageUri}" DisplayName="{x:Bind jpName}" Height="50px" Width="50px" HorizontalAlignment="Left" />
+        <DataTemplate x:Key="SubscrubeListTemplate" x:DataType="data:Vocal">
+            <Grid AutomationProperties.Name = '{x:Bind ChineseName}' Height="60px">
+                <PersonPicture ProfilePicture="{x:Bind AvatarImg}" DisplayName="{x:Bind OriginalName}" Height="50px" Width="50px" HorizontalAlignment="Left" />
                 <StackPanel Margin="55,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
-                    <TextBlock Text="{x:Bind Name}"/>
-                    <TextBlock Text="{x:Bind jpName}" Foreground="#FF8A8A8A"/>
+                    <TextBlock Text="{x:Bind ChineseName}"/>
+                    <TextBlock Text="{x:Bind OriginalName}" Foreground="#FF8A8A8A"/>
                 </StackPanel>
             </Grid>
         </DataTemplate>
@@ -23,9 +23,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="0"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="1" Text="我的主推" Margin="25,25,0,0" FontSize="36" FontFamily="Segoe UI Light"/>
-        <ListView Grid.Row="2" ItemTemplate="{StaticResource SubscrubeListTemplate}" ItemsSource="{x:Bind VocalObjects}" Margin="0,5,0,0"/>
+        <TextBlock x:Name="Title" Grid.Row="1" Text="我的主推" Margin="25,25,0,0" FontSize="36" FontFamily="Segoe UI Light"/>
+        <ListView Grid.Row="2" ItemTemplate="{StaticResource SubscrubeListTemplate}" ItemsSource="{x:Bind vocals}" Margin="0,5,0,0"/>
     </Grid>
 </Page>

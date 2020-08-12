@@ -9,17 +9,12 @@ namespace VTuberMusic
 {
     public class SongObject
     {
-        public int ID { get; set; } // 歌曲 Id
-        public string Title { get; set; } // 歌曲名称
-        public string Vocal { get; set; } // 歌手
-        public string ImageUri { get; set; } // 图片地址
-        public string SongUri { get; set; } // 歌曲文件地址
-        public string LrcUri { get; set; } // 歌词文件地址
-
-        public SongObject()
-        {
-
-        }
+        public int ID { get; private set; } // 歌曲 Id
+        public string Title { get; private set; } // 歌曲名称
+        public string Vocal { get; private set; } // 歌手
+        public string ImageUri { get; private set; } // 图片地址
+        public string SongUri { get; private set; } // 歌曲文件地址
+        public string LrcUri { get; private set; } // 歌词文件地址
 
         public List<SongObject> GetTestObjects()
         {
@@ -68,16 +63,16 @@ namespace VTuberMusic
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public string jpName { get; set; }
+        public string OriginalName { get; set; }
         public string ImageUri { get; set; }
 
         public List<VocalObject> GetTestObject()
         {
             var objects = new List<VocalObject>
             {
-                new VocalObject {ID=1,jpName="星街すいせい", Name="星街彗星", ImageUri="https://santiego.gitee.io/vtb-music-source-img/img/figure/星街彗星.png"},
-                new VocalObject {ID=2,jpName="夏色 まつり", Name="夏色祭",ImageUri="https://santiego.gitee.io/vtb-music-source-img/img/figure/夏色祭.png"},
-                new VocalObject {ID=3,jpName="天音かなた", Name="天音彼方",ImageUri="https://santiego.gitee.io/vtb-music-source-img/img/figure/天音彼方.png"},
+                new VocalObject {ID=1,OriginalName="星街すいせい", Name="星街彗星", ImageUri="https://santiego.gitee.io/vtb-music-source-img/img/figure/星街彗星.png"},
+                new VocalObject {ID=2,OriginalName="夏色 まつり", Name="夏色祭",ImageUri="https://santiego.gitee.io/vtb-music-source-img/img/figure/夏色祭.png"},
+                new VocalObject {ID=3,OriginalName="天音かなた", Name="天音彼方",ImageUri="https://santiego.gitee.io/vtb-music-source-img/img/figure/天音彼方.png"},
             };
             return objects;
         }

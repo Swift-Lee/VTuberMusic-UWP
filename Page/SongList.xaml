@@ -6,25 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    xmlns:data="using:VTuberMusic" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:data="using:VTuberMusic" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
 
-    <Page.Resources>
-        <DataTemplate x:Key="SongsListTemplate" x:DataType="data:SongObject">
-            <Grid AutomationProperties.Name = '{x:Bind Title}' Height="60px">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0"/>
-                    <ColumnDefinition Width="6*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="1*"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="1" Text="{x:Bind Title}"/>
-                <TextBlock Grid.Column="2" Text="{x:Bind Vocal}"/>
-                <TextBlock Grid.Column="3" Text="测试专辑"/>
-                <TextBlock Grid.Column="4" Text="1:00"/>
-            </Grid>
-        </DataTemplate>
-    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0"/>
@@ -45,7 +28,7 @@
                     <TextBlock Text="Misaka-L 创建" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="35,0,0,0" FontSize="20" Padding="5,0,0,0"/>
                 </Grid>
             </StackPanel>
-            <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,0,0,20">
+            <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,0,0,20" Padding="10,0,0,0">
                 <Button>
                     <Grid>
                         <SymbolIcon Symbol="Play" HorizontalAlignment="Left"/>
@@ -70,7 +53,7 @@
                         <TextBlock Text="下载全部" HorizontalAlignment="Left" Margin="25,0,0,0"/>
                     </Grid>
                 </Button>
-                <Button>
+                <Button Margin="10,0,0,0">
                     <Grid>
                         <SymbolIcon Symbol="Rename" HorizontalAlignment="Left"/>
                         <TextBlock Text="重命名" HorizontalAlignment="Left" Margin="25,0,0,0"/>
@@ -78,6 +61,6 @@
                 </Button>
             </StackPanel>
         </Grid>
-        <ListView ItemTemplate="{StaticResource SongsListTemplate}" ItemsSource="{x:Bind SongObjects}" Grid.Row="2"/>
+        
     </Grid>
 </Page>

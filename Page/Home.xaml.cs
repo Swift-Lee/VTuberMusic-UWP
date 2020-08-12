@@ -13,6 +13,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using VTuberMusic.Modules;
+using VTuberMusic.Tools;
+using System.Threading.Tasks;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -23,22 +26,22 @@ namespace VTuberMusic.Page
     /// </summary>
     public sealed partial class Home
     {
-        private List<SongObject> SongObjects;
-        private List<SongListObject> SongListObjects;
-        private List<VocalObject> VocalObjects;
+        Song[] songs = Song.GetHotMusic(1,10);
+        Banner[] banners = Banner.GetBanners();
+        Vocal[] vocals = Vocal.GetVocalList("OriginalName", "", 1, 10, "Watch", "desc");
+        SongListList[] songList = SongListList.GetSongListList("Id", "", 1, 10, "CreateTime", "desc");
 
         public Home()
         {
             this.InitializeComponent();
-            // 载入测试数据
-            SongObject songObject = new SongObject();
-            SongObjects = songObject.GetTestObjects();
+        }
 
-            SongListObject songListObject = new SongListObject();
-            SongListObjects = songListObject.GetTestObject();
-
-            VocalObject vocalObject = new VocalObject();
-            VocalObjects = vocalObject.GetTestObject();
+        private void RefreshContainer_RefreshRequested(RefreshContainer sender, RefreshRequestedEventArgs args)
+        {
+            songs = Song.GetHotMusic(1, 1);
+            banners = Banner.GetBanners();
+            vocals = Vocal.GetVocalList("OriginaName", "", 1, 10, "Watch", "desc");
+            songList = SongListList.GetSongListList("Id", "", 1, 10, "CreateTime", "desc");
         }
     }
 }

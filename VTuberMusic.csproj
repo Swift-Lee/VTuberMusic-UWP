@@ -17,7 +17,9 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <PackageCertificateThumbprint>442F36A4CF67B589C2708971EFF189CE285265B8</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -120,11 +122,33 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="DataObject.cs" />
+    <Compile Include="Modules\Banner.cs" />
+    <Compile Include="Modules\Player.cs" />
+    <Compile Include="Modules\SongList.cs" />
+    <Compile Include="Modules\Song.cs" />
+    <Compile Include="Modules\Vocal.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Network\GetTools\GetModules.cs" />
+    <Compile Include="Network\GetTools\GetTools.cs" />
+    <Compile Include="Page\Account.xaml.cs">
+      <DependentUpon>Account.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Page\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Playing.xaml.cs">
+      <DependentUpon>Playing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Settings\HXD is me\HXD.xaml.cs">
+      <DependentUpon>HXD.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Settings\Log.xaml.cs">
+      <DependentUpon>Log.xaml</DependentUpon>
     </Compile>
     <Compile Include="Page\SongList.xaml.cs">
       <DependentUpon>SongList.xaml</DependentUpon>
@@ -133,6 +157,9 @@
       <DependentUpon>Subscribe.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tools\JointAssetsUrl.cs" />
+    <Compile Include="Tools\Log.cs" />
+    <Compile Include="Tools\Version.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -140,55 +167,38 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\BadgeLogo.scale-100.png" />
-    <Content Include="Assets\BadgeLogo.scale-125.png" />
-    <Content Include="Assets\BadgeLogo.scale-150.png" />
-    <Content Include="Assets\BadgeLogo.scale-200.png" />
-    <Content Include="Assets\BadgeLogo.scale-400.png" />
-    <Content Include="Assets\LargeTile.scale-100.png" />
-    <Content Include="Assets\LargeTile.scale-125.png" />
-    <Content Include="Assets\LargeTile.scale-150.png" />
-    <Content Include="Assets\LargeTile.scale-200.png" />
-    <Content Include="Assets\LargeTile.scale-400.png" />
-    <Content Include="Assets\SmallTile.scale-100.png" />
-    <Content Include="Assets\SmallTile.scale-125.png" />
-    <Content Include="Assets\SmallTile.scale-150.png" />
-    <Content Include="Assets\SmallTile.scale-200.png" />
-    <Content Include="Assets\SmallTile.scale-400.png" />
-    <Content Include="Assets\SplashScreen.scale-100.png" />
-    <Content Include="Assets\SplashScreen.scale-125.png" />
-    <Content Include="Assets\SplashScreen.scale-150.png" />
-    <Content Include="Assets\SplashScreen.scale-200.png" />
-    <Content Include="Assets\SplashScreen.scale-400.png" />
-    <Content Include="Assets\StoreLogo.scale-100.png" />
-    <Content Include="Assets\StoreLogo.scale-125.png" />
-    <Content Include="Assets\StoreLogo.scale-150.png" />
-    <Content Include="Assets\StoreLogo.scale-200.png" />
-    <Content Include="Assets\StoreLogo.scale-400.png" />
-    <Content Include="Assets\VTuberMusicLogo.altform-lightunplated_targetsize-16.png" />
-    <Content Include="Assets\VTuberMusicLogo.altform-lightunplated_targetsize-24.png" />
-    <Content Include="Assets\VTuberMusicLogo.altform-lightunplated_targetsize-256.png" />
-    <Content Include="Assets\VTuberMusicLogo.altform-lightunplated_targetsize-32.png" />
-    <Content Include="Assets\VTuberMusicLogo.altform-lightunplated_targetsize-48.png" />
-    <Content Include="Assets\VTuberMusicLogo.altform-unplated_targetsize-16.png" />
-    <Content Include="Assets\VTuberMusicLogo.altform-unplated_targetsize-24.png" />
-    <Content Include="Assets\VTuberMusicLogo.altform-unplated_targetsize-256.png" />
-    <Content Include="Assets\VTuberMusicLogo.altform-unplated_targetsize-32.png" />
-    <Content Include="Assets\VTuberMusicLogo.altform-unplated_targetsize-48.png" />
-    <Content Include="Assets\VTuberMusicLogo.scale-100.png" />
-    <Content Include="Assets\VTuberMusicLogo.scale-125.png" />
-    <Content Include="Assets\VTuberMusicLogo.scale-150.png" />
-    <Content Include="Assets\VTuberMusicLogo.scale-200.png" />
-    <Content Include="Assets\VTuberMusicLogo.scale-400.png" />
-    <Content Include="Assets\VTuberMusicLogo.targetsize-16.png" />
-    <Content Include="Assets\VTuberMusicLogo.targetsize-24.png" />
-    <Content Include="Assets\VTuberMusicLogo.targetsize-256.png" />
-    <Content Include="Assets\VTuberMusicLogo.targetsize-32.png" />
-    <Content Include="Assets\VTuberMusicLogo.targetsize-48.png" />
-    <Content Include="BakaXL 遇到了问题.png">
+    <Content Include="Assets\AppIcon\AppIcon.altform-lightunplated_targetsize-16.png" />
+    <Content Include="Assets\AppIcon\AppIcon.altform-lightunplated_targetsize-256.png" />
+    <Content Include="Assets\AppIcon\AppIcon.altform-lightunplated_targetsize-48.png" />
+    <Content Include="Assets\AppIcon\AppIcon.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\AppIcon\AppIcon.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\AppIcon\AppIcon.altform-unplated_targetsize-48.png" />
+    <Content Include="Assets\AppIcon\AppIcon.scale-100.png" />
+    <Content Include="Assets\AppIcon\AppIcon.scale-200.png" />
+    <Content Include="Assets\AppIcon\AppIcon.scale-400.png" />
+    <Content Include="Assets\AppIcon\AppIcon.targetsize-16.png" />
+    <Content Include="Assets\AppIcon\AppIcon.targetsize-256.png" />
+    <Content Include="Assets\AppIcon\AppIcon.targetsize-48.png" />
+    <Content Include="Assets\Logo\VtuberMusicLogo.png" />
+    <Content Include="Assets\SplashScreen\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen\SplashScreen.scale-200.png" />
+    <Content Include="Assets\SplashScreen\SplashScreen.scale-400.png" />
+    <Content Include="Assets\StoreLogo\StoreLogo.scale-100.png" />
+    <Content Include="Assets\StoreLogo\StoreLogo.scale-125.png" />
+    <Content Include="Assets\StoreLogo\StoreLogo.scale-150.png" />
+    <Content Include="Assets\StoreLogo\StoreLogo.scale-200.png" />
+    <Content Include="Assets\StoreLogo\StoreLogo.scale-400.png" />
+    <Content Include="Assets\Tile\LargeTile\LargeTile.scale-100.png" />
+    <Content Include="Assets\Tile\LargeTile\LargeTile.scale-200.png" />
+    <Content Include="Assets\Tile\LargeTile\LargeTile.scale-400.png" />
+    <Content Include="Assets\Tile\SmallTile\SmallTile.scale-100.png" />
+    <Content Include="Assets\Tile\SmallTile\SmallTile.scale-200.png" />
+    <Content Include="Assets\Tile\SmallTile\SmallTile.scale-400.png" />
+    <Content Include="Assets\Image\BakaXL 遇到了问题.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="bg.png" />
+    <Content Include="Assets\Image\bg.png" />
+    <Content Include="Page\Settings\HXD is me\Screenshot_2020-08-10-22-53-19.jpg" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -200,7 +210,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Page\Account.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Page\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\Playing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\Settings\HXD is me\HXD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\Settings\Log.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -214,9 +244,19 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="LitJson">
+      <Version>0.16.0</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.9</Version>
     </PackageReference>
+    <PackageReference Include="RestSharp">
+      <Version>106.11.4</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
+    <None Include="VTuberMusic_TemporaryKey.pfx" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

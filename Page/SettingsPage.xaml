@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="VTuberMusic.Page.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:VTuberMusic.Page"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <ScrollViewer>
+        <StackPanel Padding="30,25,0,0">
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="设置" Margin="0,0,0,10"/>
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="日志"/>
+            <HyperlinkButton x:Name="Log" Content="查看日志" Click="Log_Click"/>
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="关于" Margin="0,10,0,10"/>
+            <TextBlock Text="开发者: Misaka-L (没错就我一个)"/>
+            <TextBlock Text="吃人 QQ 群: 737972812"/>
+            <HyperlinkButton Content="点击加入群组" NavigateUri="https://jq.qq.com/?_wv=1027&amp;k=umgkWxFp"/>
+            <TextBlock Text="VTuberMusic © Copyright 2020"/>
+            <HyperlinkButton x:Name="HXD_is_me" Content="记住你们三说过你们要女装的" Click="HXD_is_me_Click"/>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

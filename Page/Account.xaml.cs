@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using VTuberMusic.Modules;
-using VTuberMusic.Tools;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -22,14 +20,11 @@ namespace VTuberMusic.Page
     /// <summary>
     /// 可用于自身或导航至 Frame 内部的空白页。
     /// </summary>
-    public sealed partial class Subscribe
+    public sealed partial class Account
     {
-        Vocal[] vocals = Vocal.GetVocalList("", "", 1, 50, "Watch", "desc");
-
-        public Subscribe()
+        public Account()
         {
-            InitializeComponent();
-            Title.Text = "我的主推 (" + vocals.Length + ")";
+            this.InitializeComponent();
         }
     }
 }

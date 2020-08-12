@@ -4,19 +4,20 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  IgnorableNamespaces="uap mp">
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  IgnorableNamespaces="uap mp uap3">
 
   <Identity
     Name="d0a417bf-8346-4bec-aad8-d72a0e209f88"
-    Publisher="CN=lipww"
+    Publisher="CN=VTuberMusic"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="d0a417bf-8346-4bec-aad8-d72a0e209f88" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>VTuberMusic</DisplayName>
-    <PublisherDisplayName>lipww</PublisherDisplayName>
-    <Logo>Assets\StoreLogo.png</Logo>
+    <PublisherDisplayName>VTuberMusic</PublisherDisplayName>
+    <Logo>Assets\StoreLogo\StoreLogo.png</Logo>
   </Properties>
 
   <Dependencies>
@@ -34,17 +35,19 @@
       <uap:VisualElements
         DisplayName="VTuberMusic"
         Square150x150Logo="Assets\Square150x150Logo.png"
-        Square44x44Logo="Assets\VTuberMusicLogo.png"
+        Square44x44Logo="Assets\AppIcon\AppIcon.png"
         Description="VTuberMusic"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png"/>
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
-        <uap:LockScreen BadgeLogo="Assets\BadgeLogo.png" Notification="badgeAndTileText"/>
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\Tile\LargeTile\LargeTile.png" Square71x71Logo="Assets\Tile\SmallTile\SmallTile.png">
+        </uap:DefaultTile >
+        <uap:SplashScreen Image="Assets\SplashScreen\SplashScreen.png" />
+        <uap:LockScreen BadgeLogo="Assets\BadgeLogo\BadgeLogo.png" Notification="badgeAndTileText"/>
       </uap:VisualElements>
     </Application>
   </Applications>
 
   <Capabilities>
     <Capability Name="internetClient" />
+    <uap3:Capability Name="backgroundMediaPlayback"/>
   </Capabilities>
 </Package>

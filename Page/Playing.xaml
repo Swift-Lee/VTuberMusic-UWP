@@ -1,0 +1,27 @@
+﻿<Page
+    x:Class="VTuberMusic.Page.Playing"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:VTuberMusic.Page"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Image Source="https://santiego.gitee.io/vtb-music-source-img/img/1011.png" Stretch="UniformToFill"/>
+        <Grid>
+            <Grid.Background>
+                <AcrylicBrush TintColor="#33000000" TintOpacity="0.3"/>
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBlock x:Name="MusicName" Style="{StaticResource TitleTextBlockStyle}" Text="正在播放: comet" Foreground="White" Margin="35,40,0,0" FontWeight="Bold"/>
+                <TextBlock x:Name="Vocal" Style="{StaticResource SubtitleTextBlockStyle}" Text="星街すいせい" Foreground="White" Margin="35,0,0,0"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
