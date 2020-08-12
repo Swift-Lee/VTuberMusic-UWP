@@ -121,7 +121,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DataObject.cs" />
     <Compile Include="Modules\Banner.cs" />
     <Compile Include="Modules\Player.cs" />
     <Compile Include="Modules\SongList.cs" />
