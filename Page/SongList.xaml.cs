@@ -22,12 +22,9 @@ namespace VTuberMusic.Page
     /// </summary>
     public sealed partial class SongList
     {
-        private List<SongObject> SongObjects;
         public SongList()
         {
             this.InitializeComponent();
-            SongObject songObject = new SongObject();
-            SongObjects = songObject.GetTestObjects();
         }
     }
 }

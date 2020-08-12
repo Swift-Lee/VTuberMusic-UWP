@@ -38,7 +38,6 @@ namespace VTuberMusic
         public static Frame pageFrame;
         public static NavigationView navigationView;
         private static Player player;
-        public static DispatcherTimer timer = new DispatcherTimer();
         private bool ok = false;
 
         #region Item Tag 属性对应的页面
@@ -66,6 +65,8 @@ namespace VTuberMusic
             player = new Player();
             DispatcherTimer timer = new DispatcherTimer();
             player.SetSource("https://santiego.gitee.io/vtb-music-source-song/song/1017.mp3");
+            player.PlayerPositionChanged += PlayerPositionChanged;
+            player.PlayerStateChanged += PlayerStateChanged;
             ok = true;
 
             navigationView = TheNavigationView;
@@ -138,21 +139,15 @@ namespace VTuberMusic
         {
             if (player.IsPlay() == MediaTimelineControllerState.Running)
             {
-                timer.Stop();
                 player.Pause();
-                PlayIcon.Symbol = Symbol.Play;
             }
             else if (player.IsPlay() == MediaTimelineControllerState.Paused)
             {
-                timer.Interval = TimeSpan.FromSeconds(0.1);
-                timer.Tick += timer_Tick;
-                timer.Start();
                 player.Play();
-                PlayIcon.Symbol = Symbol.Pause;
             }
         }
 
-
+        #region 播放进度条和音量被更改
         private void PlayerTimeLine_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             player.SetPlayerPosition(TimeSpan.FromSeconds(PlayerTimeLine.Value));
@@ -165,20 +160,47 @@ namespace VTuberMusic
                 player.SetVol(Vol.Value / 100);
             }
         }
+        #endregion
 
-        #region 播放进度更新计时器事件
-        void timer_Tick(object sender, object e)
+        #region 播放进度更新事件
+        private void PlayerPositionChanged(MediaTimelineController sender, object args)
         {
-            PlayerTimeLine.Maximum = player.duration.TotalSeconds;
-            PlayerTimeLine.Value = (player.GetPlayerPosition()).TotalSeconds;
-            PlayerTime.Text = player.GetPlayerPosition().ToString(@"mm\:ss");
-            PlayerTotalTime.Text = player.duration.ToString(@"mm\:ss");
-            if (PlayerTimeLine.Value == PlayerTimeLine.Maximum)
+            Invoke(new Action(delegate { 
+                PlayerTimeLine.Maximum = player.Duration.TotalSeconds;
+                PlayerTimeLine.Value = (player.GetPlayerPosition()).TotalSeconds;
+                PlayerTime.Text = player.GetPlayerPosition().ToString(@"mm\:ss");
+                PlayerTotalTime.Text = player.Duration.ToString(@"mm\:ss");
+                if (PlayerTimeLine.Value == PlayerTimeLine.Maximum)
+                {
+                    player.SetPlayerPosition(TimeSpan.FromSeconds(0));
+                    player.Pause();
+                }
+            }));
+        }
+        #endregion
+
+        #region 播放状态更新事件
+        private void PlayerStateChanged(MediaTimelineController sender, object e)
+        {
+            switch (sender.State)
             {
-                player.SetPlayerPosition(TimeSpan.FromSeconds(0));
-                player.Pause();
-                PlayIcon.Symbol = Symbol.Play;
+                case MediaTimelineControllerState.Running:
+                    Invoke(new Action(delegate { PlayIcon.Symbol = Symbol.Pause; }));
+                    break;
+                case MediaTimelineControllerState.Paused:
+                    Invoke(new Action(delegate { PlayIcon.Symbol = Symbol.Play; }));
+                    break;
+                default:
+                    Invoke(new Action(delegate { PlayIcon.Symbol = Symbol.Play; }));
+                    break;
             }
+        }
+        #endregion
+
+        #region Invoke
+        public async void Invoke(Action action, Windows.UI.Core.CoreDispatcherPriority Priority = Windows.UI.Core.CoreDispatcherPriority.Normal)
+        {
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Priority, () => { action(); });
         }
         #endregion
 

@@ -17,12 +17,17 @@ namespace VTuberMusic.Modules
     {
         private MediaPlayer player = new MediaPlayer();
         private MediaTimelineController playerTimelineController = new MediaTimelineController();
-        public TimeSpan duration;
+        public TypedEventHandler<MediaTimelineController, object> PlayerPositionChanged;
+        public TypedEventHandler<MediaTimelineController, object> PlayerStateChanged;
+        public TimeSpan Position;
+        public TimeSpan Duration;
 
         public Player()
         {
             player.TimelineController = playerTimelineController;
             player.AudioCategory = MediaPlayerAudioCategory.Media;
+            playerTimelineController.PositionChanged += PlayerTimelineController_PositionChanged;
+            playerTimelineController.StateChanged += PlayerTimelineController_StateChanged;
             Log.WriteLine("[Player]播放核心加载完成", Level.Info);
         }
 
@@ -36,23 +41,20 @@ namespace VTuberMusic.Modules
 
         private void MediaSource_OpenOperationCompleted(MediaSource sender, MediaSourceOpenOperationCompletedEventArgs args)
         {
-            duration = sender.Duration.GetValueOrDefault();
-            Log.WriteLine("[Player]载入媒体的时长: " + duration.ToString(), Level.DeBug);
+            Duration = sender.Duration.GetValueOrDefault();
+            Log.WriteLine("[Player]载入媒体的时长: " + Duration.ToString(), Level.Info);
         }
 
         public void Play()
         {
-            var position = playerTimelineController.Position;
-            playerTimelineController.Start();
-            playerTimelineController.Position = position;
-            Log.WriteLine("[Player]开始播放 播放进度: " + position.ToString(), Level.Info);
+            playerTimelineController.Resume();
+            Log.WriteLine("[Player]开始播放 播放进度: " + Position.ToString(), Level.Info);
         }
 
         public void Pause()
         {
-            var position = playerTimelineController.Position;
             playerTimelineController.Pause();
-            Log.WriteLine("[Player]暂停播放 播放进度: " + position.ToString(), Level.Info);
+            Log.WriteLine("[Player]暂停播放 播放进度: " + Position, Level.Info);
         }
 
         public MediaTimelineControllerState IsPlay()
@@ -73,6 +75,17 @@ namespace VTuberMusic.Modules
         public void SetVol(double vol)
         {
             player.Volume = vol;
+        }
+
+        private void PlayerTimelineController_PositionChanged(MediaTimelineController sender, object args)
+        {
+            Position = playerTimelineController.Position;
+            PlayerPositionChanged(sender, args);
+        }
+
+        private void PlayerTimelineController_StateChanged(MediaTimelineController sender, object args)
+        {
+            PlayerStateChanged(sender, args);
         }
     }
 }

@@ -14,7 +14,7 @@
                 <PersonPicture ProfilePicture="{x:Bind AvatarImg}" DisplayName="{x:Bind OriginalName}" Height="50px" Width="50px" HorizontalAlignment="Left" />
                 <StackPanel Margin="55,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center">
                     <TextBlock Text="{x:Bind ChineseName}"/>
-                    <TextBlock Text="{x:Bind OriginalName}" Foreground="#FF8A8A8A"/>
+                    <TextBlock Text="{x:Bind OriginalName}" Foreground="Gray"/>
                 </StackPanel>
             </Grid>
         </DataTemplate>
