@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Navigation;
 using VTuberMusic.Modules;
 using VTuberMusic.Tools;
 using System.Threading.Tasks;
+using Windows.Media;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -46,10 +47,28 @@ namespace VTuberMusic.Page
 
         private void SongGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Log.WriteLine(songs[SongGridView.SelectedIndex].OriginName, Level.DeBug);
             MainPage.player.GetSong(songs[SongGridView.SelectedIndex]);
             MainPage.player.SetPlayerPosition(TimeSpan.FromSeconds(0));
-            Frame.Navigate(typeof(Playing));
+        }
+
+        private void SongListGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Frame.Navigate(typeof(SongList), songList[SongListGridView.SelectedIndex].Id);
+        }
+
+        private void SongGridView_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (MainPage.player.SongId == songs[SongGridView.SelectedIndex].Id)
+            {
+                if (MainPage.player.IsPlay() == MediaTimelineControllerState.Running)
+                {
+                    MainPage.player.Pause();
+                }
+                else
+                {
+                    MainPage.player.Play();
+                }
+            }
         }
     }
 }

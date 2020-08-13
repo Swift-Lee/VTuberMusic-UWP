@@ -10,18 +10,6 @@
     >
     <!--页面资源-->
     <Page.Resources>
-        <!--删除 GridViewItem 选中的边框-->
-        <Style x:Name="GridViewItemNoneStyle" TargetType="GridViewItem">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="GridViewItem">
-                        <Grid Background="{TemplateBinding Background}">
-                            <ContentPresenter Content="{TemplateBinding Content}" Margin="{TemplateBinding Margin}"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
         <!--GridView 的模板-->
         <!--歌曲卡片-->
         <DataTemplate x:Key='SongTemplate' x:DataType="data:Song">
@@ -94,7 +82,7 @@
                     <!--热门歌曲-->
                     <TextBlock x:Name="test" Style="{StaticResource SmallTitle}" Text="热门播放" VerticalAlignment="Top"/>
                     <ScrollViewer HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled">
-                        <GridView x:Name="SongGridView" ItemsSource="{x:Bind songs}" ItemTemplate="{StaticResource SongTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top" SelectionChanged="SongGridView_SelectionChanged">
+                        <GridView x:Name="SongGridView" ItemsSource="{x:Bind songs}" ItemTemplate="{StaticResource SongTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top" SelectionChanged="SongGridView_SelectionChanged" Tapped="SongGridView_Tapped">
                             <GridView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <ItemsWrapGrid x:Name="MaxItemsWrapGrid" MaximumRowsOrColumns="1" Orientation="Vertical"/>
@@ -116,7 +104,7 @@
                     <!--歌单-->
                     <TextBlock Style="{StaticResource SmallTitle}" Text="歌单"/>
                     <ScrollViewer HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled">
-                        <GridView ItemsSource="{x:Bind songList}" ItemTemplate="{StaticResource SongListObjectTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top">
+                        <GridView x:Name="SongListGridView" ItemsSource="{x:Bind songList}" ItemTemplate="{StaticResource SongListObjectTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top" SelectionChanged="SongListGridView_SelectionChanged">
                             <GridView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <ItemsWrapGrid x:Name="MaxItemsWrapGrid" MaximumRowsOrColumns="1" Orientation="Vertical"/>

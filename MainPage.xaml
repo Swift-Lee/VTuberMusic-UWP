@@ -26,11 +26,11 @@
                 <NavigationViewItem x:Name="Playing" Icon="Play" Content="正在播放" Tag="Playing"/>
                 <NavigationViewItem Icon="People" Content="我的主推" Tag="Subscribe"/>
                 <NavigationViewItemHeader Content="我的音乐"/>
-                <NavigationViewItem Icon="Download" Content="下载的音乐" Tag="Download"/>
-                <NavigationViewItem Icon="Audio" Content="本地音乐" Tag="LocalMusic"/>
-                <NavigationViewItemHeader Content="我创建的歌单"/>
+                <!--<NavigationViewItem Icon="Download" Content="下载的音乐" Tag="Download"/>
+                <NavigationViewItem Icon="Audio" Content="本地音乐" Tag="LocalMusic"/>-->
                 <NavigationViewItem Icon="Favorite" Content="我喜欢的音乐" Tag="SongList"/>
-                <NavigationViewItemHeader Content="我收藏的歌单"/>
+                <!--<NavigationViewItemHeader Content="我创建的歌单"/>
+                <NavigationViewItemHeader Content="我收藏的歌单"/>-->
             </NavigationView.MenuItems>
             <!--<NavigationView.PaneFooter>
                 <StackPanel>

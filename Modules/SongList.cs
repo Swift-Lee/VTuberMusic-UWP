@@ -23,7 +23,7 @@ namespace VTuberMusic.Modules
         public object introduce { get; set; }
 
         /// <summary>
-        /// 获取 / 搜索歌单列表，当网络错误获取失败时会抛出异常
+        /// 获取 / 搜索歌单列表
         /// </summary>
         /// <param name="SearchCondition">搜索依据</param>
         /// <param name="keyword">搜索关键词</param>
@@ -35,6 +35,7 @@ namespace VTuberMusic.Modules
             string postJson = JsonMapper.ToJson(new GetModules.ListPostModule { search = new GetModules.Search { condition = SearchCondition, keyword = keyword }, pageIndex = PageIndex, pageRows = PageRows, sortField = sortField, sortType = sortType });
             GetModules.SongListListGetModule jsonData = JsonMapper.ToObject<GetModules.SongListListGetModule>(GetTools.PostApi("/v1/GetAlbumsList", postJson));
             SongListList[] songListList = jsonData.Data;
+            Log.WriteLine("搜索歌单"+ SearchCondition + ": " + keyword + " 成功", Level.Info);
             return songListList;
         }
     }
@@ -49,10 +50,9 @@ namespace VTuberMusic.Modules
             for(int i = 0; i != songs.Length; i++)
             {
                 string[] assestUri = JointAssetsUrl.GetAssestUri(songs[i].CDN, GetTools.CDNList, songs[i].CoverImg, songs[i].Music, songs[i].Lyric);
-                songs[i].assestLink.CoverImg = assestUri[0];
-                songs[i].assestLink.Music = assestUri[1];
-                songs[i].assestLink.Lyric = assestUri[2];
+                songs[i].assestLink = new Song.AssestLink { CoverImg = assestUri[0], Music = assestUri[1], Lyric = assestUri[2] };
             }
+            Log.WriteLine("获取歌单 " + id + " 成功", Level.Info);
             return songs;
         }
     }

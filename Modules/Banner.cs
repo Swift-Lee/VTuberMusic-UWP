@@ -21,7 +21,7 @@ namespace VTuberMusic.Modules
         public string Url { get; set; }
 
         /// <summary>
-        /// 获取横幅，当网络错误获取失败时会抛出异常
+        /// 获取横幅
         /// </summary>
         public static Banner[] GetBanners()
         {

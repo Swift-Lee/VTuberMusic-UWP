@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Image x:Name="BackgroundImage" Stretch="UniformToFill"/>
+        <Image x:Name="BackgroundImage" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Grid>
             <Grid.Background>
                 <AcrylicBrush TintColor="#33000000" TintOpacity="0.3"/>
@@ -19,8 +19,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackPanel>
-                <TextBlock x:Name="MusicName" Style="{StaticResource TitleTextBlockStyle}" Text="正在播放: comet" Foreground="White" Margin="35,40,0,0" FontWeight="Bold"/>
-                <TextBlock x:Name="Vocal" Style="{StaticResource SubtitleTextBlockStyle}" Text="星街すいせい" Foreground="White" Margin="35,0,0,0"/>
+                <TextBlock x:Name="MusicName" Style="{StaticResource TitleTextBlockStyle}" Text="Noting" Foreground="White" Margin="35,40,0,0" FontWeight="Bold"/>
+                <TextBlock x:Name="Vocal" Style="{StaticResource SubtitleTextBlockStyle}" Text="Noting" Foreground="White" Margin="35,0,0,0"/>
             </StackPanel>
         </Grid>
     </Grid>

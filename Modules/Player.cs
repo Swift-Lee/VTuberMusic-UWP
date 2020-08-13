@@ -23,6 +23,7 @@ namespace VTuberMusic.Modules
         public string SongName { get; private set; } = "";
         public string VocalName { get; private set; } = "";
         public string SongImage { get; private set; } = "ms-appx:///Assets/Image/noimage.png";
+        public string SongId { get; private set; } = "";
         public TimeSpan Position;
         public TimeSpan Duration;
 
@@ -112,6 +113,7 @@ namespace VTuberMusic.Modules
             SongName = song.OriginName;
             VocalName = song.VocalName;
             SongImage = song.assestLink.CoverImg;
+            SongId = song.Id;
             Log.WriteLine("[Player]载入歌曲 Id: " + song.Id, Level.Info);
             // 载入媒体
             var mediaSource = MediaSource.CreateFromUri(new Uri(song.assestLink.Music));

@@ -53,7 +53,7 @@ namespace VTuberMusic.Modules
         }
 
         /// <summary>
-        /// 获取歌曲对象，当网络错误获取失败时会抛出异常
+        /// 获取歌曲对象
         /// </summary>
         /// <param name="SongId">歌曲 Id</param>
         public static Song GetSongObject(string SongId)
@@ -68,7 +68,7 @@ namespace VTuberMusic.Modules
         }
 
         /// <summary>
-        /// 获取热门歌曲，当网络错误获取失败时会抛出异常
+        /// 获取热门歌曲
         /// </summary>
         /// <param name="PageIndex"></param>
         /// <param name="PageRows"></param>

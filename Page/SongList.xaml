@@ -6,61 +6,89 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    xmlns:data="using:VTuberMusic" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+    xmlns:data="using:VTuberMusic.Modules" Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="0"/>
-            <RowDefinition Height="300px"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0"/>
-                <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="7*"/>
-            </Grid.ColumnDefinitions>
-            <Image Source="/BakaXL 遇到了问题.png" Margin="10,20,12,20" Stretch="UniformToFill" Grid.Column="1" Grid.Row="1"/>
-            <StackPanel Grid.Column="2" Grid.Row="1">
-                <TextBlock Text="我不知道这里应该写什么" FontSize="48" Margin="0,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left"/>
-                <Grid VerticalAlignment="Top" Margin="0,5,0,0" HorizontalAlignment="Left">
-                    <PersonPicture DisplayName="Misaka-L" HorizontalAlignment="Left" Width="35" Height="35"/>
-                    <TextBlock Text="Misaka-L 创建" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="35,0,0,0" FontSize="20" Padding="5,0,0,0"/>
-                </Grid>
-            </StackPanel>
-            <StackPanel Grid.Row="1" Grid.Column="2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,0,0,20" Padding="10,0,0,0">
-                <Button>
-                    <Grid>
-                        <SymbolIcon Symbol="Play" HorizontalAlignment="Left"/>
-                        <TextBlock Text="播放全部" HorizontalAlignment="Left" Margin="25,0,0,0"/>
-                    </Grid>
-                </Button>
-                <Button Margin="10,0,0,0">
-                    <Grid>
-                        <SymbolIcon Symbol="Add" HorizontalAlignment="Left"/>
-                        <TextBlock Text="添加到播放列表" HorizontalAlignment="Left" Margin="25,0,0,0"/>
-                    </Grid>
-                </Button>
-                <Button Margin="10,0,0,0">
-                    <Grid>
-                        <SymbolIcon Symbol="Share" HorizontalAlignment="Left"/>
-                        <TextBlock Text="分享" HorizontalAlignment="Left" Margin="25,0,0,0"/>
-                    </Grid>
-                </Button>
-                <Button Margin="10,0,0,0">
+    <Page.Resources>
+        <DataTemplate x:Key="SongInListTemplate" x:DataType="data:Song">
+            <Grid Height="50" AutomationProperties.Name="{x:Bind OriginName}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.6*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{x:Bind OriginName}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                    <Button Background="#0000" Height="50" Width="50" >
+                        <SymbolIcon Symbol="Play"/>
+                    </Button>
+                    <Button Background="#0000" Height="50" Width="50" >
+                        <SymbolIcon Symbol="Add" VerticalAlignment="Center"/>
+                    </Button>
+                </StackPanel>
+                <TextBlock Text="{x:Bind VocalName}" Grid.Column="2" VerticalAlignment="Center"/>
+                <TextBlock Text="{x:Bind CreateTime}" Grid.Column="3" VerticalAlignment="Center"/>
+                <TextBlock Text="00:00" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <ScrollViewer>
+        <StackPanel>
+            <Grid Height="300">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="7*"/>
+                </Grid.ColumnDefinitions>
+                <Image x:Name="SongListImage" Margin="10,20,12,20" Stretch="UniformToFill" HorizontalAlignment="Center"/>
+                <StackPanel Grid.Column="1">
+                    <TextBlock x:Name="SongListName" Text="Noting" FontSize="32" Margin="0,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextWrapping="Wrap"/>
+                    <StackPanel VerticalAlignment="Top" Margin="0,5,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
+                        <PersonPicture x:Name="SongListCreatorImage" DisplayName="Noting" Width="35" Height="35"/>
+                        <TextBlock x:Name="SongListCreator" Text="Noting 创建" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="20"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,0,0,20" Padding="10,0,0,0">
+                    <Button>
+                        <Grid>
+                            <SymbolIcon Symbol="Play" HorizontalAlignment="Left"/>
+                            <TextBlock Text="播放全部" HorizontalAlignment="Left" Margin="25,0,0,0"/>
+                        </Grid>
+                    </Button>
+                    <Button Margin="10,0,0,0">
+                        <Grid>
+                            <SymbolIcon Symbol="Add" HorizontalAlignment="Left"/>
+                            <TextBlock Text="添加到播放列表" HorizontalAlignment="Left" Margin="25,0,0,0"/>
+                        </Grid>
+                    </Button>
+                    <Button Margin="10,0,0,0">
+                        <Grid>
+                            <SymbolIcon Symbol="Share" HorizontalAlignment="Left"/>
+                            <TextBlock Text="分享" HorizontalAlignment="Left" Margin="25,0,0,0"/>
+                        </Grid>
+                    </Button>
+                    <!--<Button Margin="10,0,0,0">
                     <Grid>
                         <SymbolIcon Symbol="Download" HorizontalAlignment="Left"/>
                         <TextBlock Text="下载全部" HorizontalAlignment="Left" Margin="25,0,0,0"/>
                     </Grid>
-                </Button>
-                <Button Margin="10,0,0,0">
+                </Button>-->
+                    <!--<Button Margin="10,0,0,0">
                     <Grid>
                         <SymbolIcon Symbol="Rename" HorizontalAlignment="Left"/>
                         <TextBlock Text="重命名" HorizontalAlignment="Left" Margin="25,0,0,0"/>
                     </Grid>
-                </Button>
-            </StackPanel>
-        </Grid>
-        
-    </Grid>
+                </Button>-->
+                </StackPanel>
+            </Grid>
+            <ListView x:Name="SongListView" ItemsSource="{x:Bind songs}" ItemTemplate="{StaticResource SongInListTemplate}" ContainerContentChanging="SongListView_ContainerContentChanging" Margin="10,0,10,0">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </StackPanel>
+    </ScrollViewer>
 </Page>
