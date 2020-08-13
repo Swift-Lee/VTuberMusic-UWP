@@ -22,6 +22,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 // https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x804 上介绍了“空白页”项模板
@@ -37,11 +38,11 @@ namespace VTuberMusic
     {
         public static Frame pageFrame;
         public static NavigationView navigationView;
-        private static Player player;
+        public static Player player;
         private bool ok = false;
 
         #region Item Tag 属性对应的页面
-        private readonly List<(string Tag, Type Page)> _pages = new List<(string Tag, Type Page)>
+        public static readonly List<(string Tag, Type Page)> _pages = new List<(string Tag, Type Page)>
         {
             ("Home",typeof(Page.Home)),
             ("Subscribe",typeof(Page.Subscribe)),
@@ -57,21 +58,23 @@ namespace VTuberMusic
             // 输出 Build 版本号和版权信息
             Log.WriteLine("VTuberMusic-UWP Alpha v1.0 Build:" + Tools.Version.GetBuild(File.GetLastWriteTime(GetType().Assembly.Location)), Level.Info);
             Log.WriteLine("Copyright ©  2020 VTuberMusic", Level.Info);
-            Log.WriteLine(GetTools.GetHitokoto(), Level.Info);
             // 导航侧边栏扩展到标题栏
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-
+            // 让其他对象控制页面
+            navigationView = TheNavigationView;
+            Log.WriteLine("[UI]准备就绪", Level.Info);
+            // 获取 CDN 列表并且保存
             GetTools.CDNList = GetTools.GetCDNList();
+            // 初始化播放核心
             player = new Player();
             DispatcherTimer timer = new DispatcherTimer();
-            player.SetSource("https://santiego.gitee.io/vtb-music-source-song/song/1017.mp3");
             player.PlayerPositionChanged += PlayerPositionChanged;
             player.PlayerStateChanged += PlayerStateChanged;
+            player.SongChanged += SongChanged;
             ok = true;
-
-            navigationView = TheNavigationView;
+            // 跳转到首页
             navigationView.SelectedItem = Home;
-            pageFrame = PageFrame;
+            Log.WriteLine("[UI]跳转到首页", Level.Info);
         }
 
         #region NavigationView 相关
@@ -137,13 +140,17 @@ namespace VTuberMusic
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-            if (player.IsPlay() == MediaTimelineControllerState.Running)
+            if(player.Duration != TimeSpan.Zero)
             {
-                player.Pause();
-            }
-            else if (player.IsPlay() == MediaTimelineControllerState.Paused)
-            {
-                player.Play();
+                switch (player.IsPlay())
+                {
+                    case MediaTimelineControllerState.Running:
+                        player.Pause();
+                        break;
+                    case MediaTimelineControllerState.Paused:
+                        player.Play();
+                        break;
+                }
             }
         }
 
@@ -170,7 +177,7 @@ namespace VTuberMusic
                 PlayerTimeLine.Value = (player.GetPlayerPosition()).TotalSeconds;
                 PlayerTime.Text = player.GetPlayerPosition().ToString(@"mm\:ss");
                 PlayerTotalTime.Text = player.Duration.ToString(@"mm\:ss");
-                if (PlayerTimeLine.Value == PlayerTimeLine.Maximum)
+                if (player.Position > player.Duration)
                 {
                     player.SetPlayerPosition(TimeSpan.FromSeconds(0));
                     player.Pause();
@@ -190,10 +197,27 @@ namespace VTuberMusic
                 case MediaTimelineControllerState.Paused:
                     Invoke(new Action(delegate { PlayIcon.Symbol = Symbol.Play; }));
                     break;
+                case MediaTimelineControllerState.Error:
+                    Invoke(new Action(delegate { PlayIcon.Symbol = Symbol.Clear; }));
+                    break;
                 default:
                     Invoke(new Action(delegate { PlayIcon.Symbol = Symbol.Play; }));
                     break;
             }
+        }
+        #endregion
+
+        #region 播放歌曲属性更新
+        private void SongChanged(Player sender,object args)
+        {
+            Invoke(new Action(delegate
+            {
+                BitmapImage SongImageBitmap = new BitmapImage(new Uri(sender.SongImage));
+                SongName.Text = sender.SongName;
+                VocalName.Text = sender.VocalName;
+                SongImage.Source = SongImageBitmap;
+                BackgroudImage.Source = SongImageBitmap;
+            }));
         }
         #endregion
 

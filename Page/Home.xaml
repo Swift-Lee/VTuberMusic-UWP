@@ -94,7 +94,7 @@
                     <!--热门歌曲-->
                     <TextBlock x:Name="test" Style="{StaticResource SmallTitle}" Text="热门播放" VerticalAlignment="Top"/>
                     <ScrollViewer HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled">
-                        <GridView ItemsSource="{x:Bind songs}" ItemTemplate="{StaticResource SongTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top">
+                        <GridView x:Name="SongGridView" ItemsSource="{x:Bind songs}" ItemTemplate="{StaticResource SongTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top" SelectionChanged="SongGridView_SelectionChanged">
                             <GridView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <ItemsWrapGrid x:Name="MaxItemsWrapGrid" MaximumRowsOrColumns="1" Orientation="Vertical"/>

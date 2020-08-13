@@ -5,6 +5,7 @@
     xmlns:local="using:VTuberMusic"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data ="using:VTuberMusic.Modules"
     mc:Ignorable="d" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
@@ -39,25 +40,25 @@
             </NavigationView.PaneFooter>-->
             <Frame x:Name="PageFrame"/>
         </NavigationView>
-        <Image Grid.Row="1" Source="https://santiego.gitee.io/vtb-music-source-img/img/1011.png" Stretch="UniformToFill"/>
-        <Grid Grid.Row="1">
+        <Image x:Name="BackgroudImage" Grid.Row="1" Stretch="UniformToFill"/>
+        <Grid x:Name="PlayerBar" Grid.Row="1">
             <Grid.Background>
                 <AcrylicBrush BackgroundSource="Backdrop" TintOpacity="0.6" TintColor="#E55F5F5F"/>
             </Grid.Background>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
             <Grid x:Name="PlayingGrid" Tapped="PlayingGrid_Tapped" PointerEntered="PlayingGrid_PointerEntered" PointerExited="PlayingGrid_PointerExited" PointerCanceled="PlayingGrid_PointerCanceled">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.6*"/>
+                    <ColumnDefinition Width="0.4*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Image Source="https://santiego.gitee.io/vtb-music-source-img/img/1011.png" Stretch="UniformToFill"/>
+                <Image x:Name="SongImage" Source="/Assets/Image/noimage.png" Stretch="UniformToFill" VerticalAlignment="Center"/>
                 <StackPanel Grid.Column="1" Margin="10,24,0,0">
-                    <TextBlock Text="comet" Foreground="White" FontSize="24" Margin="0,-10,0,0" FontFamily="Microsoft YaHei Light"/>
-                    <TextBlock Text="星街すいせい" Foreground="White" FontSize="16" Margin="0,-4,0,0" FontWeight="Bold" FontFamily="Segoe UI Light"/>
+                    <TextBlock x:Name="SongName" Text="Nothing" Foreground="White" FontSize="15" Margin="0,0,0,0" FontFamily="Microsoft YaHei Light"/>
+                    <TextBlock x:Name="VocalName" Text="Nothing" Foreground="White" FontSize="13" Margin="0,0,0,0" FontWeight="Bold" FontFamily="Segoe UI Light"/>
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1">

@@ -179,6 +179,7 @@
     <Content Include="Assets\AppIcon\AppIcon.targetsize-256.png" />
     <Content Include="Assets\AppIcon\AppIcon.targetsize-48.png" />
     <Content Include="Assets\Logo\VtuberMusicLogo.png" />
+    <Content Include="Assets\Image\noimage.png" />
     <Content Include="Assets\SplashScreen\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen\SplashScreen.scale-200.png" />
     <Content Include="Assets\SplashScreen\SplashScreen.scale-400.png" />

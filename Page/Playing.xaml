@@ -9,7 +9,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Image Source="https://santiego.gitee.io/vtb-music-source-img/img/1011.png" Stretch="UniformToFill"/>
+        <Image x:Name="BackgroundImage" Stretch="UniformToFill"/>
         <Grid>
             <Grid.Background>
                 <AcrylicBrush TintColor="#33000000" TintOpacity="0.3"/>

@@ -81,6 +81,7 @@ namespace VTuberMusic.Network.GetTools
             {
                 CDNList[int.Parse((string)jsonData["Data"][i]["name"])] = (string)jsonData["Data"][i]["url"];
             }
+            Log.WriteLine("[Net]已成功获取 CDN 列表", Level.Info);
             return CDNList;
         }
 

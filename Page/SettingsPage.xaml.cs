@@ -30,12 +30,12 @@ namespace VTuberMusic.Page
 
         private void HXD_is_me_Click(object sender, RoutedEventArgs e)
         {
-            MainPage.pageFrame.Navigate(typeof(Settings.HXD_is_me.HXD));
+            Frame.Navigate(typeof(Settings.HXD_is_me.HXD));
         }
 
         private void Log_Click(object sender, RoutedEventArgs e)
         {
-            MainPage.pageFrame.Navigate(typeof(Settings.Log));
+            Frame.Navigate(typeof(Settings.Log));
         }
     }
 }

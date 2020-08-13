@@ -43,5 +43,13 @@ namespace VTuberMusic.Page
             vocals = Vocal.GetVocalList("OriginaName", "", 1, 10, "Watch", "desc");
             songList = SongListList.GetSongListList("Id", "", 1, 10, "CreateTime", "desc");
         }
+
+        private void SongGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Log.WriteLine(songs[SongGridView.SelectedIndex].OriginName, Level.DeBug);
+            MainPage.player.GetSong(songs[SongGridView.SelectedIndex]);
+            MainPage.player.SetPlayerPosition(TimeSpan.FromSeconds(0));
+            Frame.Navigate(typeof(Playing));
+        }
     }
 }
