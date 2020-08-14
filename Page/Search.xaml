@@ -1,0 +1,53 @@
+﻿<Page
+    x:Class="VTuberMusic.Page.Search"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:VTuberMusic.Page"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:data="using:VTuberMusic.Modules"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.Resources>
+        <DataTemplate x:Key="SongInListTemplate" x:DataType="data:Song">
+            <Grid Height="50" AutomationProperties.Name="{x:Bind OriginName}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.6*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{x:Bind OriginName}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="0,0,5,0">
+                    <Button Background="#0000" Height="50" Width="50" >
+                        <SymbolIcon Symbol="Play" Foreground="#FF414141"/>
+                    </Button>
+                    <Button Background="#0000" Height="50" Width="50" >
+                        <SymbolIcon Symbol="Add" Foreground="#FF414141"/>
+                    </Button>
+                </StackPanel>
+                <TextBlock Text="{x:Bind VocalName}" Grid.Column="2" VerticalAlignment="Center"/>
+                <TextBlock Text="{x:Bind CreateTime}" Grid.Column="3" VerticalAlignment="Center"/>
+                <TextBlock Text="00:00" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <StackPanel Padding="10,0,0,0">
+        <TextBlock Text="搜索 的结果" Margin="10,10,0,0" FontSize="36"/>
+        <Pivot SelectionChanged="Pivot_SelectionChanged">
+            <PivotItem Header="歌曲">
+                <ListView x:Name="SongView" ItemTemplate="{StaticResource SongInListTemplate}" ItemsSource="{x:Bind songs}">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </PivotItem>
+            <PivotItem Header="VTuber"/>
+            <PivotItem Header="歌单"/>
+        </Pivot>
+    </StackPanel>
+</Page>

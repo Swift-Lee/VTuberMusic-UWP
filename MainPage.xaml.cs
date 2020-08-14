@@ -250,5 +250,11 @@ namespace VTuberMusic
             PlayingGrid.Background = null;
         }
         #endregion
+
+        private void Search_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            TheNavigationView.SelectedItem = null;
+            PageFrame.Navigate(typeof(Page.Search),sender.Text);
+        }
     }
 }

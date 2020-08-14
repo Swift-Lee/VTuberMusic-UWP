@@ -19,12 +19,12 @@
                     <ColumnDefinition Width="0.1*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="{x:Bind OriginName}" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                <StackPanel Orientation="Horizontal" Grid.Column="1">
+                <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="0,0,5,0">
                     <Button Background="#0000" Height="50" Width="50" >
-                        <SymbolIcon Symbol="Play"/>
+                        <SymbolIcon Symbol="Play" Foreground="#FF414141"/>
                     </Button>
                     <Button Background="#0000" Height="50" Width="50" >
-                        <SymbolIcon Symbol="Add" VerticalAlignment="Center"/>
+                        <SymbolIcon Symbol="Add" Foreground="#FF414141"/>
                     </Button>
                 </StackPanel>
                 <TextBlock Text="{x:Bind VocalName}" Grid.Column="2" VerticalAlignment="Center"/>
@@ -64,6 +64,12 @@
                     </Button>
                     <Button Margin="10,0,0,0">
                         <Grid>
+                            <SymbolIcon Symbol="Add" HorizontalAlignment="Left"/>
+                            <TextBlock Text="添加到歌单" HorizontalAlignment="Left" Margin="25,0,0,0"/>
+                        </Grid>
+                    </Button>
+                    <Button x:Name="Share" Margin="10,0,0,0" Click="Share_Click">
+                        <Grid>
                             <SymbolIcon Symbol="Share" HorizontalAlignment="Left"/>
                             <TextBlock Text="分享" HorizontalAlignment="Left" Margin="25,0,0,0"/>
                         </Grid>
@@ -82,7 +88,7 @@
                 </Button>-->
                 </StackPanel>
             </Grid>
-            <ListView x:Name="SongListView" ItemsSource="{x:Bind songs}" ItemTemplate="{StaticResource SongInListTemplate}" ContainerContentChanging="SongListView_ContainerContentChanging" Margin="10,0,10,0">
+            <ListView x:Name="SongListView" ItemsSource="{x:Bind songs}" ItemTemplate="{StaticResource SongInListTemplate}" ContainerContentChanging="SongListView_ContainerContentChanging" Margin="10,0,10,0" DoubleTapped="SongListView_DoubleTapped">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

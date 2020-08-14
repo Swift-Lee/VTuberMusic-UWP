@@ -97,7 +97,7 @@ namespace VTuberMusic.Modules
         public static Song[] GetMusicList(string SearchCondition, string keyword, int PageIndex, int PageRows, string sortField, string sortType)
         {
             string postJson = JsonMapper.ToJson(new GetModules.ListPostModule { search = new GetModules.Search { condition = SearchCondition, keyword = keyword }, pageIndex = PageIndex, pageRows = PageRows, sortField = sortField, sortType = sortType });
-            GetModules.MusicListGetModule jsonData = JsonMapper.ToObject<GetModules.MusicListGetModule>(GetTools.PostApi("/v1/GetHotMusicList", postJson));
+            GetModules.MusicListGetModule jsonData = JsonMapper.ToObject<GetModules.MusicListGetModule>(GetTools.PostApi("/v1/GetMusicList", postJson));
             Song[] songs = jsonData.Data;
             for (int i = 0; i != songs.Length; i++)
             {
