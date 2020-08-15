@@ -28,8 +28,10 @@ namespace VTuberMusic.Page
     {
         string searchText;
         Pivot pivot;
-        Song[] songs;
-        
+        ObservableCollection<Song> songs = new ObservableCollection<Song>();
+        ObservableCollection<Vocal> vocals = new ObservableCollection<Vocal>();
+        ObservableCollection<SongListList> songLists = new ObservableCollection<SongListList>();
+
         public Search()
         {
             this.InitializeComponent();
@@ -39,21 +41,70 @@ namespace VTuberMusic.Page
         {
             base.OnNavigatedTo(e);
             searchText = (string)e.Parameter;
+            Title.Text = "搜索 \"" + searchText + "\" 的结果";
+            Log.WriteLine("[UI]跳转到搜索", Level.Info);
         }
 
         private void Pivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             pivot = (Pivot)sender;
-            switch (pivot.SelectedIndex) {
+            switch (pivot.SelectedIndex)
+            {
                 case 0:
-                    songs = Song.GetMusicList("OriginName", searchText, 1, 10, "OriginName", "dasc");
+                    Log.WriteLine("[UI]搜索音乐: " + searchText, Level.Info);
+                    Song[] songsArray;
+                    songsArray = Song.GetMusicList("OriginName", searchText, 1, 50, "OriginName", "dasc");
+                    songs.Clear();
+                    if (songsArray[0].Id != "")
+                    {
+                        for (int i = 0; i != songsArray.Length; i++)
+                        {
+                            songs.Add(songsArray[i]);
+                        }
+                    }
+                    else
+                    {
+                        SongFailText.Text = "找不到内容";
+                        Log.WriteLine("[UI]搜索音乐: " + searchText + " 失败", Level.Error);
+                    }
                     break;
                 case 1:
+                    Vocal[] vocalsArray;
+                    Log.WriteLine("[UI]搜索 VTuber: " + searchText, Level.Info);
+                    vocalsArray = Vocal.GetVocalList("OriginalName", searchText, 1, 50, "OriginalName", "desc");
+                    vocals.Clear();
+                    if (vocalsArray[0].Id != "")
+                    {
+                        for (int i = 0; i != vocalsArray.Length; i++)
+                        {
+                            vocals.Add(vocalsArray[i]);
+                        }
+                    }
+                    else
+                    {
+                        VTuberFailText.Text = "找不到内容";
+                        Log.WriteLine("[UI]搜索 VTuber: " + searchText + " 失败", Level.Error);
+                    }
                     break;
                 case 2:
+                    SongListList[] songListArray;
+                    Log.WriteLine("[UI]搜索歌单: " + searchText, Level.Info);
+                    songListArray = SongListList.GetSongListList("Name", searchText, 1, 50, "Name", "desc");
+                    songLists.Clear();
+                    if (songListArray[0].Id != "")
+                    {
+                        for (int i = 0; i != songListArray.Length; i++)
+                        {
+                            songLists.Add(songListArray[i]);
+                        }
+                    }
+                    else
+                    {
+                        SongListFailText.Text = "找不到内容";
+                        Log.WriteLine("[UI]搜索歌单: " + searchText + " 失败", Level.Error);
+                    }
                     break;
             }
         }
     }
 }
-

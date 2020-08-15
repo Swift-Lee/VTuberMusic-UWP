@@ -11,7 +11,7 @@ namespace VTuberMusic.Tools
     {
         public static string LogText;
 
-        public static void WriteLine(string value, string level)
+        public static void WriteLine(string value, string level = "Debug")
         {
             value = "[" + DateTime.Now.TimeOfDay.ToString() + "][" + level + "]" + value;
             LogText = LogText + value + "\r\n";

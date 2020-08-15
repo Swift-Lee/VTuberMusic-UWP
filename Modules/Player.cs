@@ -115,6 +115,7 @@ namespace VTuberMusic.Modules
             SongImage = song.assestLink.CoverImg;
             SongId = song.Id;
             Log.WriteLine("[Player]载入歌曲 Id: " + song.Id, Level.Info);
+            
             // 载入媒体
             var mediaSource = MediaSource.CreateFromUri(new Uri(song.assestLink.Music));
             mediaSource.OpenOperationCompleted += MediaSource_OpenOperationCompleted;

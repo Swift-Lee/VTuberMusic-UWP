@@ -12,29 +12,29 @@ namespace VTuberMusic.Modules
 {
     public class Song
     {
-        public string Id { get; set; }
-        public string CreateTime { get; set; }
-        public string PublishTime { get; set; }
-        public string CreatorId { get; set; }
-        public string CreatorRealName { get; set; }
-        public bool Deleted { get; set; }
-        public string OriginName { get; set; }
-        public string VocalId { get; set; }
-        public string VocalName { get; set; }
-        public string CoverImg { get; set; }
-        public string Musics { get; set; }
-        public string Music { get; set; }
-        public string Lyric { get; set; }
-        public string CDN { get; set; }
-        public string Source { get; set; }
-        public string BiliBili { get; set; }
-        public string YouTube { get; set; }
-        public string Twitter { get; set; }
-        public int? Likes { get; set; }
-        public int? Length { get; set; }
-        public string Label { get; set; }
+        public string Id { get; set; } = "";
+        public string CreateTime { get; set; } = "";
+        public string PublishTime { get; set; } = "";
+        public string CreatorId { get; set; } = "";
+        public string CreatorRealName { get; set; } = "";
+        public bool Deleted { get; set; } = false;
+        public string OriginName { get; set; } = "";
+        public string VocalId { get; set; } = "";
+        public string VocalName { get; set; } = "";
+        public string CoverImg { get; set; } = "";
+        public string Musics { get; set; } = "";
+        public string Music { get; set; } = "";
+        public string Lyric { get; set; } = "";
+        public string CDN { get; set; } = "";
+        public string Source { get; set; } = "";
+        public string BiliBili { get; set; } = "";
+        public string YouTube { get; set; } = "";
+        public string Twitter { get; set; } = "";
+        public int? Likes { get; set; } = 0;
+        public int? Length { get; set; } = 0;
+        public string Label { get; set; }= "";
         public Vocallist[] VocalList { get; set; }
-        public AssestLink assestLink { get; set; }
+        public AssestLink assestLink { get; set; } = new AssestLink();
 
         public class Vocallist
         {
@@ -61,9 +61,15 @@ namespace VTuberMusic.Modules
             string postJson = JsonMapper.ToJson(new GetModules.SinglePostModule { id = SongId });
             string jsonText = GetTools.PostApi("/v1/GetMusicData",postJson); // 请求 Api
             GetModules.SingleMusicGetModule jsonData = JsonMapper.ToObject<GetModules.SingleMusicGetModule>(jsonText); // 转 Json 为对象
-            Song song = jsonData.Data;
-            string[] assestUri = JointAssetsUrl.GetAssestUri(song.CDN, GetTools.CDNList, song.CoverImg, song.Musics, song.Lyric);
-            song.assestLink = new AssestLink { CoverImg = assestUri[0], Music = assestUri[1], Lyric = assestUri[2] };
+            if (jsonData.Data != null)
+            {
+                string[] assestUri = JointAssetsUrl.GetAssestUri(jsonData.Data.CDN, GetTools.CDNList, jsonData.Data.CoverImg, jsonData.Data.Musics, jsonData.Data.Lyric);
+                jsonData.Data.assestLink = new AssestLink { CoverImg = assestUri[0], Music = assestUri[1], Lyric = assestUri[2] };
+            }
+            else
+            {
+                return new Song();
+            }
             return jsonData.Data;
         }
 
@@ -98,13 +104,21 @@ namespace VTuberMusic.Modules
         {
             string postJson = JsonMapper.ToJson(new GetModules.ListPostModule { search = new GetModules.Search { condition = SearchCondition, keyword = keyword }, pageIndex = PageIndex, pageRows = PageRows, sortField = sortField, sortType = sortType });
             GetModules.MusicListGetModule jsonData = JsonMapper.ToObject<GetModules.MusicListGetModule>(GetTools.PostApi("/v1/GetMusicList", postJson));
-            Song[] songs = jsonData.Data;
-            for (int i = 0; i != songs.Length; i++)
+            if (jsonData.Total != 0)
             {
-                string[] assestUri = JointAssetsUrl.GetAssestUri(songs[i].CDN, GetTools.CDNList, songs[i].CoverImg, songs[i].Music, songs[i].Lyric);
-                songs[i].assestLink = new AssestLink { CoverImg = assestUri[0], Music = assestUri[1], Lyric = assestUri[2] };
+                for (int i = 0; i != jsonData.Data.Length; i++)
+                {
+                    string[] assestUri = JointAssetsUrl.GetAssestUri(jsonData.Data[i].CDN, GetTools.CDNList, jsonData.Data[i].CoverImg, jsonData.Data[i].Music, jsonData.Data[i].Lyric);
+                    jsonData.Data[i].assestLink = new AssestLink { CoverImg = assestUri[0], Music = assestUri[1], Lyric = assestUri[2] };
+                }
             }
-            return songs;
+            else
+            {
+                Song[] song = new Song[1];
+                song[0] = new Song();
+                return song;
+            }
+            return jsonData.Data;
         }
     }
 }

@@ -29,7 +29,7 @@ namespace VTuberMusic.Page
     {
         Song[] songs = Song.GetHotMusic(1,10);
         Banner[] banners = Banner.GetBanners();
-        Vocal[] vocals = Vocal.GetVocalList("OriginalName", "", 1, 10, "Watch", "desc");
+        Vocal[] vocals = Vocal.GetVocalList("OriginalName", "", 1, 20, "Watch", "desc");
         SongListList[] songList = SongListList.GetSongListList("Id", "", 1, 10, "CreateTime", "desc");
 
         public Home()
@@ -58,15 +58,18 @@ namespace VTuberMusic.Page
 
         private void SongGridView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            if (MainPage.player.SongId == songs[SongGridView.SelectedIndex].Id)
+            if (SongGridView.SelectedIndex != -1)
             {
-                if (MainPage.player.IsPlay() == MediaTimelineControllerState.Running)
+                if (MainPage.player.SongId == songs[SongGridView.SelectedIndex].Id)
                 {
-                    MainPage.player.Pause();
-                }
-                else
-                {
-                    MainPage.player.Play();
+                    if (MainPage.player.IsPlay() == MediaTimelineControllerState.Running)
+                    {
+                        MainPage.player.Pause();
+                    }
+                    else
+                    {
+                        MainPage.player.Play();
+                    }
                 }
             }
         }

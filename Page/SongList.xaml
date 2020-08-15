@@ -20,7 +20,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="{x:Bind OriginName}" VerticalAlignment="Center" Margin="5,0,0,0"/>
                 <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="0,0,5,0">
-                    <Button Background="#0000" Height="50" Width="50" >
+                    <Button x:Name="Play_Button" Background="#0000" Height="50" Width="50" Click="PlayButton_Click" Tag="{x:Bind Id}">
                         <SymbolIcon Symbol="Play" Foreground="#FF414141"/>
                     </Button>
                     <Button Background="#0000" Height="50" Width="50" >
@@ -48,6 +48,7 @@
                         <PersonPicture x:Name="SongListCreatorImage" DisplayName="Noting" Width="35" Height="35"/>
                         <TextBlock x:Name="SongListCreator" Text="Noting 创建" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="20"/>
                     </StackPanel>
+                    <TextBlock x:Name="intro" TextWrapping="Wrap" Margin="0,5,10,0"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,0,0,20" Padding="10,0,0,0">
                     <Button>

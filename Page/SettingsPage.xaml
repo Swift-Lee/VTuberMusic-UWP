@@ -8,11 +8,12 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <ScrollViewer>
+    <ScrollViewer KeyUp="ScrollViewer_KeyUp" KeyDown="ScrollViewer_KeyDown">
         <StackPanel Padding="30,25,0,0">
             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="设置" Margin="0,0,0,10"/>
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="日志"/>
             <HyperlinkButton x:Name="Log" Content="查看日志" Click="Log_Click"/>
+            <Button x:Name="ClearLog" Content="清空日志" Click="ClearLog_Click"/>
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="关于" Margin="0,10,0,10"/>
             <TextBlock Text="开发者: Misaka-L (没错就我一个)"/>
             <TextBlock Text="吃人 QQ 群: 737972812"/>

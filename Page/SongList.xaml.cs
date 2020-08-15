@@ -47,6 +47,7 @@ namespace VTuberMusic.Page
                 songs = Modules.SongList.GetSongListSong(songListId);
                 BitmapImage bitmapImage = new BitmapImage(new Uri(songListList[0].CoverImg));
                 SongListName.Text = songListList[0].Name;
+                intro.Text = songListList[0].introduce;
                 SongListCreator.Text = songListList[0].CreatorRealName;
                 SongListCreatorImage.DisplayName = songListList[0].CreatorRealName;
                 SongListImage.Source = (bitmapImage);
@@ -71,9 +72,12 @@ namespace VTuberMusic.Page
 
         private void SongListView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            MainPage.player.GetSong(songs[SongListView.SelectedIndex]);
-            MainPage.player.SetPlayerPosition(TimeSpan.FromSeconds(0));
-            MainPage.player.Play();
+            if (SongListView.SelectedIndex != -1)
+            {
+                MainPage.player.GetSong(songs[SongListView.SelectedIndex]);
+                MainPage.player.SetPlayerPosition(TimeSpan.FromSeconds(0));
+                MainPage.player.Play();
+            }
         }
 
         private void Share_Click(object sender, RoutedEventArgs e)
@@ -87,6 +91,14 @@ namespace VTuberMusic.Page
             args.Request.Data.SetWebLink(new Uri("https://vtbmusic.com/songlist?id=" + songListId));
             args.Request.Data.Properties.Title = "分享歌单";
             args.Request.Data.Properties.Description = songListList[0].Name;
+        }
+
+        private void PlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button clickButtom = (Button)sender;
+            MainPage.player.GetSong(Song.GetSongObject((string)clickButtom.Tag));
+            MainPage.player.SetPlayerPosition(TimeSpan.FromSeconds(0));
+            MainPage.player.Play();
         }
     }
 }

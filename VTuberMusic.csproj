@@ -158,6 +158,9 @@
     <Compile Include="Page\Subscribe.xaml.cs">
       <DependentUpon>Subscribe.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Page\VTuber.xaml.cs">
+      <DependentUpon>VTuber.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\JointAssetsUrl.cs" />
     <Compile Include="Tools\Log.cs" />
@@ -246,6 +249,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Page\Subscribe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Page\VTuber.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
