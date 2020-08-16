@@ -29,6 +29,7 @@ namespace VTuberMusic.Page
         public SettingsPage()
         {
             this.InitializeComponent();
+            BuildVersion.Text = string.Format(Lang.ReadLangText("BuildVersion"), Tools.Version.VersionNum, Tools.Version.Build);
         }
 
         private void HXD_is_me_Click(object sender, RoutedEventArgs e)

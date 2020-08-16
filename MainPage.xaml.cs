@@ -55,8 +55,9 @@ namespace VTuberMusic
         public MainPage()
         {
             InitializeComponent();
+            Tools.Version.Build = Tools.Version.GetBuild(File.GetLastWriteTime(GetType().Assembly.Location));
             // 输出 Build 版本号和版权信息
-            Log.WriteLine("VTuberMusic-UWP Alpha v1.0 Build:" + Tools.Version.GetBuild(File.GetLastWriteTime(GetType().Assembly.Location)), Level.Info);
+            Log.WriteLine("VTuberMusic-UWP " + Tools.Version.VersionNum + " Build:" + Tools.Version.Build, Level.Info);
             Log.WriteLine("Copyright ©  2020 VTuberMusic", Level.Info);
             // 导航侧边栏扩展到标题栏
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;

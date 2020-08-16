@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VTuberMusic</RootNamespace>
     <AssemblyName>VTuberMusic</AssemblyName>
-    <DefaultLanguage>en-US</DefaultLanguage>
+    <DefaultLanguage>zh-CN</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
@@ -277,7 +277,6 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Assets\Strings\zh-CN\Resources.resw" />
-    <PRIResource Include="Assets\Strings\en-US\Resources.resw" />
     <None Include="README.md" />
     <None Include="VTuberMusic_TemporaryKey.pfx" />
   </ItemGroup>

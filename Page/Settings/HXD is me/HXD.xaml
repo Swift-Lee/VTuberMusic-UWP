@@ -10,7 +10,7 @@
 
     <ScrollViewer>
         <StackPanel Padding="10,10,0,0">
-            <TextBlock Text="女装记得啊，你看我都写进程序里面了" FontSize="48"/>
+            <TextBlock Text="女装记得啊，你看我都写进程序里面了" FontSize="48" TextWrapping="Wrap"/>
             <Image Source="/Page/Settings/HXD is me/Screenshot_2020-08-10-22-53-19.jpg" Stretch="Uniform"/>
         </StackPanel>
     </ScrollViewer>

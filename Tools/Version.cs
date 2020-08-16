@@ -9,7 +9,10 @@ using System.Threading.Tasks;
 namespace VTuberMusic.Tools
 {
     class Version
-    {   
+    {
+        public static string Build;
+        public static string VersionNum = "v1.0";
+
         public static string GetBuild(DateTime time)
         {
             return time.ToString("yyyy.MM.dd.HH.mm.ss");

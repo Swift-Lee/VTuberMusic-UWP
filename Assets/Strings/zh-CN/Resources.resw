@@ -131,8 +131,9 @@
   </data>
   <data name="AboutOpenSourceProject.Text" xml:space="preserve">
     <value>使用了 RestSharp 作为请求类库
-官方网站:https://restsharp.dev
-Github 仓库:https://github.com/restsharp/RestSharp</value>
+许可证: Apache LICENSE 2.0 http://www.apache.org/licenses/LICENSE-2.0
+官方网站: https://restsharp.dev
+Github 仓库: https://github.com/restsharp/RestSharp</value>
     <comment>使用: SettingsPage.xaml</comment>
   </data>
   <data name="AboutOpenSourceProjectTitle.Text" xml:space="preserve">
@@ -152,9 +153,9 @@ Github 仓库:https://github.com/restsharp/RestSharp</value>
     <value>关于</value>
     <comment>使用: SettingsPage.xaml</comment>
   </data>
-  <data name="BuildVersion.Text" xml:space="preserve">
-    <value>构建版本: {0}</value>
-    <comment>使用: SettingsPage.xaml</comment>
+  <data name="BuildVersion" xml:space="preserve">
+    <value>构建版本: {0} {1}</value>
+    <comment>使用: SettingsPage.xaml {0}=版本号 {1}=构建版本</comment>
   </data>
   <data name="CheckLog.Content" xml:space="preserve">
     <value>查看日志</value>
@@ -194,7 +195,7 @@ Github 仓库:https://github.com/restsharp/RestSharp</value>
   </data>
   <data name="MySubscrubeTitle" xml:space="preserve">
     <value>我的主推 ({0})</value>
-    <comment>使用: Subscribe.xaml</comment>
+    <comment>使用: Subscribe.xaml {0}=主推数量</comment>
   </data>
   <data name="Playing.Content" xml:space="preserve">
     <value>正在播放</value>
