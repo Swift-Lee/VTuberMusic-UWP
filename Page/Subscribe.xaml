@@ -25,7 +25,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="Title" Grid.Row="1" Text="我的主推" Margin="25,25,0,0" FontSize="36" FontFamily="Segoe UI Light"/>
+        <TextBlock x:Name="Title" x:Uid="MySubscrubeTitle" Grid.Row="1" Text="我的主推" Margin="25,25,0,0" FontSize="36" FontFamily="Segoe UI Light"/>
         <ListView Grid.Row="2" ItemTemplate="{StaticResource SubscrubeListTemplate}" ItemsSource="{x:Bind vocals}" Margin="0,5,0,0"/>
     </Grid>
 </Page>

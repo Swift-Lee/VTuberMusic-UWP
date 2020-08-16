@@ -80,7 +80,7 @@
                         </FlipView.ItemTemplate>
                     </FlipView>
                     <!--热门歌曲-->
-                    <TextBlock x:Name="test" Style="{StaticResource SmallTitle}" Text="热门播放" VerticalAlignment="Top"/>
+                    <TextBlock x:Uid="PopularSong" x:Name="test" Style="{StaticResource SmallTitle}" Text="热门播放" VerticalAlignment="Top"/>
                     <ScrollViewer HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled">
                         <GridView x:Name="SongGridView" ItemsSource="{x:Bind songs}" ItemTemplate="{StaticResource SongTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top" SelectionChanged="SongGridView_SelectionChanged" Tapped="SongGridView_Tapped">
                             <GridView.ItemsPanel>
@@ -91,7 +91,7 @@
                         </GridView>
                     </ScrollViewer>
                     <!--VTuber-->
-                    <TextBlock Style="{StaticResource SmallTitle}" Text="人气 VTubers" VerticalAlignment="Top"/>
+                    <TextBlock x:Uid="PopularVTuber" Style="{StaticResource SmallTitle}" Text="人气 VTubers" VerticalAlignment="Top"/>
                     <ScrollViewer HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled">
                         <GridView ItemsSource="{x:Bind vocals}" ItemTemplate="{StaticResource VocalObjectTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top">
                             <GridView.ItemsPanel>
@@ -102,7 +102,7 @@
                         </GridView>
                     </ScrollViewer>
                     <!--歌单-->
-                    <TextBlock Style="{StaticResource SmallTitle}" Text="歌单"/>
+                    <TextBlock x:Uid="SongList" Style="{StaticResource SmallTitle}" Text="歌单"/>
                     <ScrollViewer HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled">
                         <GridView x:Name="SongListGridView" ItemsSource="{x:Bind songList}" ItemTemplate="{StaticResource SongListObjectTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top" SelectionChanged="SongListGridView_SelectionChanged">
                             <GridView.ItemsPanel>

@@ -41,10 +41,6 @@ namespace VTuberMusic.Page
             Frame.Navigate(typeof(Settings.Log));
         }
 
-        private void ScrollViewer_KeyUp(object sender, KeyRoutedEventArgs e)
-        {
-        }
-
         private static bool IsCtrlKeyPressed()
         {
             var ctrlState = CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Control);
@@ -59,15 +55,9 @@ namespace VTuberMusic.Page
 
         private void ScrollViewer_KeyDown(object sender, KeyRoutedEventArgs e)
         {
-            if (IsCtrlKeyPressed())
+            if (IsCtrlKeyPressed() && IsKeyPressed(VirtualKey.X) && IsKeyPressed(VirtualKey.P))
             {
-                if (IsKeyPressed(VirtualKey.X))
-                {
-                    if (IsKeyPressed(VirtualKey.P))
-                    {
-                        Tools.Log.WriteLine("https://s1.ax1x.com/2020/08/15/dk12Js.gif", Level.Info);
-                    }
-                }
+                Tools.Log.WriteLine("[恭喜!你发现了新大陆]https://s1.ax1x.com/2020/08/15/dk12Js.gif", Level.Info);
             }
         }
 

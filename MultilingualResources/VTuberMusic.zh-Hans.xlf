@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="zh-Hans" original="VTUBERMUSIC/ASSETS/STRINGS/ZH-CN/RESOURCES.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6916.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="VTUBERMUSIC/ASSETS/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
+        <trans-unit id="Home.Content" translate="yes" xml:space="preserve">
+          <source>Home</source>
+          <target state="new">Home</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="LikesMusic.Content" translate="yes" xml:space="preserve">
+          <source>LikesMusic</source>
+          <target state="new">LikesMusic</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="MyMusic.Content" translate="yes" xml:space="preserve">
+          <source>MyMusic</source>
+          <target state="new">MyMusic</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="Playing.Content" translate="yes" xml:space="preserve">
+          <source>Playing</source>
+          <target state="new">Playing</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="PopularSong.Text" translate="yes" xml:space="preserve">
+          <source>PopularSong</source>
+          <target state="new">PopularSong</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Home.xaml</note>
+        </trans-unit>
+        <trans-unit id="PopularVTuber.Text" translate="yes" xml:space="preserve">
+          <source>PopularVTuber</source>
+          <target state="new">PopularVTuber</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Home.xaml</note>
+        </trans-unit>
+        <trans-unit id="SearchPlaceholder.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>SearchPlaceholder</source>
+          <target state="new">SearchPlaceholder</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="SongList.Text" translate="yes" xml:space="preserve">
+          <source>SongList</source>
+          <target state="new">SongList</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Home.xaml 和 Search.xaml</note>
+        </trans-unit>
+        <trans-unit id="MySubscrube.Content" translate="yes" xml:space="preserve">
+          <source>MySubscrube</source>
+          <target state="new">MySubscrube</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="MySubscrubeTitle" translate="yes" xml:space="preserve">
+          <source>MySubscrubeTitle ({0})</source>
+          <target state="new">MySubscrubeTitle ({0})</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

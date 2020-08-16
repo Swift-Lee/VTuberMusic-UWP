@@ -29,7 +29,8 @@ namespace VTuberMusic.Page
         public Subscribe()
         {
             InitializeComponent();
-            Title.Text = "我的主推 (" + vocals.Length + ")";
+            // Title.Text = "我的主推 (" + vocals.Length + ")";
+            Title.Text = string.Format(Lang.ReadLangText("MySubscrubeTitle"), vocals.Length.ToString());
         }
     }
 }

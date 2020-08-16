@@ -8,18 +8,23 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <ScrollViewer KeyUp="ScrollViewer_KeyUp" KeyDown="ScrollViewer_KeyDown">
+    <ScrollViewer KeyDown="ScrollViewer_KeyDown">
         <StackPanel Padding="30,25,0,0">
-            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="设置" Margin="0,0,0,10"/>
-            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="日志"/>
-            <HyperlinkButton x:Name="Log" Content="查看日志" Click="Log_Click"/>
-            <Button x:Name="ClearLog" Content="清空日志" Click="ClearLog_Click"/>
-            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="关于" Margin="0,10,0,10"/>
-            <TextBlock Text="开发者: Misaka-L (没错就我一个)"/>
-            <TextBlock Text="吃人 QQ 群: 737972812"/>
-            <HyperlinkButton Content="点击加入群组" NavigateUri="https://jq.qq.com/?_wv=1027&amp;k=umgkWxFp"/>
-            <TextBlock Text="VTuberMusic © Copyright 2020"/>
-            <HyperlinkButton x:Name="HXD_is_me" Content="记住你们三说过你们要女装的" Click="HXD_is_me_Click"/>
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" x:Uid="SettingsTitle" Text="设置" Margin="0,0,0,10" TextWrapping="Wrap"/>
+            <TextBlock x:Uid="LogTitle" Style="{StaticResource SubtitleTextBlockStyle}" Text="日志" TextWrapping="Wrap"/>
+            <HyperlinkButton x:Name="Log" x:Uid="CheckLog" Content="查看日志" Click="Log_Click"/>
+            <Button x:Name="ClearLog" x:Uid="ClearLog" Content="清空日志" Click="ClearLog_Click"/>
+            <TextBlock x:Uid="AboutTitle" Style="{StaticResource SubtitleTextBlockStyle}" Text="关于" Margin="0,10,0,10" TextWrapping="Wrap"/>
+            <TextBlock x:Uid="BuildVersion" Text="构建版本: v1.0" TextWrapping="Wrap"/>
+            <TextBlock x:Uid="AboutDevTitle" Text="开发者" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,10,0,10" TextWrapping="Wrap"/>
+            <TextBlock x:Uid="AboutDev" Text="主开发: Misaka-L" TextWrapping="Wrap"/>
+            <TextBlock x:Uid="AboutSpecialThanksTitle" Text="特别感谢" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,10,0,10" TextWrapping="Wrap"/>
+            <TextBlock x:Uid="AboutSpecialThanks" Text="这里应该是特别感谢内容" TextWrapping="Wrap"/>
+            <TextBlock x:Uid="AboutOpenSourceProjectTitle" Text="使用的开源组件" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,10,0,10" TextWrapping="Wrap"/>
+            <TextBlock x:Uid="AboutOpenSourceProject" Text="这里应该写在语言文件" TextWrapping="Wrap"/>
+            <TextBlock x:Uid="AboutJoinUs" Text="加入我们" Style="{StaticResource SubtitleTextBlockStyle}" Margin="0,10,0,10" TextWrapping="Wrap"/>
+            <HyperlinkButton x:Uid="ClickToJoinQQGroup" Content="点击加入 QQ 群组" NavigateUri="https://jq.qq.com/?_wv=1027&amp;k=umgkWxFp"/>
+            <HyperlinkButton x:Uid="HXDLink" x:Name="HXD_is_me" Content="记住你们三说过你们要女装的" Click="HXD_is_me_Click"/>
         </StackPanel>
     </ScrollViewer>
 </Page>
