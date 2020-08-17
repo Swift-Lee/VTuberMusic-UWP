@@ -6,12 +6,103 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:data="using:VTuberMusic.Modules"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*"/>
-            <ColumnDefinition Width="0.5*"/>
-        </Grid.ColumnDefinitions>
-    </Grid>
+    <Page.Resources>
+        <DataTemplate x:Key="SongInListTemplate" x:DataType="data:Song">
+            <Grid Height="50" AutomationProperties.Name="{x:Bind OriginName}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.6*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="0.3*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="{x:Bind OriginName}" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="0,0,5,0">
+                    <Button x:Name="Play_Button" Background="#0000" Height="50" Width="50" Tag="{x:Bind Id}">
+                        <SymbolIcon Symbol="Play" Foreground="#FF414141"/>
+                    </Button>
+                    <Button Background="#0000" Height="50" Width="50" >
+                        <SymbolIcon Symbol="Add" Foreground="#FF414141"/>
+                    </Button>
+                </StackPanel>
+                <TextBlock Text="{x:Bind VocalName}" Grid.Column="2" VerticalAlignment="Center"/>
+                <TextBlock Text="{x:Bind CreateTime}" Grid.Column="3" VerticalAlignment="Center"/>
+                <TextBlock Text="00:00" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <ScrollViewer>
+        <StackPanel>
+            <!--VTuber 信息显示-->
+            <Grid Height="300">
+                <Image x:Name="BackgroundImage" Stretch="UniformToFill"/>
+                <Grid>
+                    <Grid.Background>
+                        <AcrylicBrush TintOpacity="0.5" BackgroundSource="Backdrop" TintColor="#CC000000"/>
+                    </Grid.Background>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <PersonPicture x:Name="VocalImage" Height="250" Width="250"/>
+                    <StackPanel Padding="10,20,10,0" Grid.Column="1">
+                        <TextBlock x:Name="OriginalName" Text="" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="Wrap" Foreground="White"/>
+                        <TextBlock x:Name="ChineseName" Text="" Margin="0,5,0,0" FontSize="16" Foreground="White"/>
+                        <TextBlock x:Name="VocalGroup" Text="" Margin="0,5,0,0" Foreground="White"/>
+                        <TextBlock x:Name="VocalLang" Text="" Foreground="White"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0,25">
+                        <Button x:Name="PlayAll" Background="{x:Null}">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Play" Foreground="White"/>
+                                <TextBlock Text="播放全部" x:Uid="PlayAll" Foreground="White" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="AddTo" Background="{x:Null}">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Add" Foreground="White"/>
+                                <TextBlock Text="添加到" x:Uid="AddTo" Foreground="White" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="BiliBili" Background="{x:Null}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontFamily="/Assets/Font/iconfont.ttf#iconfont" Text="&#xe6e9;" Foreground="White" FontSize="16" Padding="0,2,0,0"/>
+                                <TextBlock Text="BiliBili" x:Uid="BiliBiliLink" Foreground="White" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="Youtube" Background="{x:Null}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontFamily="/Assets/Font/iconfont.ttf#iconfont" Text="&#xe7af;" Foreground="White" FontSize="16" Padding="0,2,0,0"/>
+                                <TextBlock Text="Yoututbe" x:Uid="YoutubeLink" Foreground="White" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="Twitter" Background="{x:Null}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock FontFamily="/Assets/Font/iconfont.ttf#iconfont" Text="&#xe600;" Foreground="White" FontSize="16" Padding="0,2,0,0"/>
+                                <TextBlock Text="Twitter" x:Uid="TwitterLink" Foreground="White" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="Share" Background="{x:Null}">
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="Share" Foreground="White"/>
+                                <TextBlock Text="分享" x:Uid="Share" Foreground="White" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <!--歌曲列表-->
+            <ListView x:Name="SongListView" ItemsSource="{x:Bind songs}" ItemTemplate="{StaticResource SongInListTemplate}" Margin="5,0,5,0" ContainerContentChanging="SongListView_ContainerContentChanging">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

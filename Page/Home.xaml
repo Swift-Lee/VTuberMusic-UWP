@@ -93,7 +93,7 @@
                     <!--VTuber-->
                     <TextBlock x:Uid="PopularVTuber" Style="{StaticResource SmallTitle}" Text="人气 VTubers" VerticalAlignment="Top"/>
                     <ScrollViewer HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled">
-                        <GridView ItemsSource="{x:Bind vocals}" ItemTemplate="{StaticResource VocalObjectTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top">
+                        <GridView x:Name="VocalGridView" ItemsSource="{x:Bind vocals}" ItemTemplate="{StaticResource VocalObjectTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top" Tapped="VocalGridView_Tapped">
                             <GridView.ItemsPanel>
                                 <ItemsPanelTemplate>
                                     <ItemsWrapGrid x:Name="MaxItemsWrapGrid" MaximumRowsOrColumns="1" Orientation="Vertical"/>

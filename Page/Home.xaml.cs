@@ -73,5 +73,13 @@ namespace VTuberMusic.Page
                 }
             }
         }
+
+        private void VocalGridView_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (VocalGridView.SelectedIndex != -1)
+            {
+                Frame.Navigate(typeof(Page.VTuber), vocals[VocalGridView.SelectedIndex].Id);
+            }
+        }
     }
 }

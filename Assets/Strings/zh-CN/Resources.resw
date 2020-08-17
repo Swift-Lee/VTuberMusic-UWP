@@ -118,7 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDev.Text" xml:space="preserve">
-    <value>主开发: Misaka-L</value>
+    <value>后端: Dishonek
+前端: BK 黑木先森
+算法: LovEver
+架构: 绒球帽
+Vtbs.moe 协力: Simon
+UI: i-mage 
+UWP 开发: Misaka-L</value>
     <comment>使用: SettingsPage.xaml</comment>
   </data>
   <data name="AboutDevTitle.Text" xml:space="preserve">
@@ -133,7 +139,11 @@
     <value>使用了 RestSharp 作为请求类库
 许可证: Apache LICENSE 2.0 http://www.apache.org/licenses/LICENSE-2.0
 官方网站: https://restsharp.dev
-Github 仓库: https://github.com/restsharp/RestSharp</value>
+Github 仓库: https://github.com/restsharp/RestSharp
+
+使用了 LitJson 作为 Json 解析库
+官方网站: https://litjson.net
+Github 仓库: https://github.com/LitJSON/litjson</value>
     <comment>使用: SettingsPage.xaml</comment>
   </data>
   <data name="AboutOpenSourceProjectTitle.Text" xml:space="preserve">
@@ -152,6 +162,14 @@ Github 仓库: https://github.com/restsharp/RestSharp</value>
   <data name="AboutTitle.Text" xml:space="preserve">
     <value>关于</value>
     <comment>使用: SettingsPage.xaml</comment>
+  </data>
+  <data name="AddTo.Text" xml:space="preserve">
+    <value>添加到</value>
+    <comment>使用: VTuber.xaml SongList.xaml</comment>
+  </data>
+  <data name="BiliBiliLink.Text" xml:space="preserve">
+    <value>BiliBili</value>
+    <comment>使用: VTuber.xaml</comment>
   </data>
   <data name="BuildVersion" xml:space="preserve">
     <value>构建版本: {0} {1}</value>
@@ -197,6 +215,10 @@ Github 仓库: https://github.com/restsharp/RestSharp</value>
     <value>我的主推 ({0})</value>
     <comment>使用: Subscribe.xaml {0}=主推数量</comment>
   </data>
+  <data name="PlayAll.Text" xml:space="preserve">
+    <value>全部播放</value>
+    <comment>使用: VTuber.xaml SongList.xaml</comment>
+  </data>
   <data name="Playing.Content" xml:space="preserve">
     <value>正在播放</value>
     <comment>使用: MainPage.xaml</comment>
@@ -217,8 +239,28 @@ Github 仓库: https://github.com/restsharp/RestSharp</value>
     <value>设置</value>
     <comment>使用: SettingsPage.xaml</comment>
   </data>
+  <data name="Share.Text" xml:space="preserve">
+    <value>分享</value>
+    <comment>使用: VTuber.xaml SongList.xaml</comment>
+  </data>
   <data name="SongList.Text" xml:space="preserve">
     <value>歌单</value>
     <comment>使用: Home.xaml Search.xaml</comment>
+  </data>
+  <data name="Twitter.Text" xml:space="preserve">
+    <value>Twitter</value>
+    <comment>使用: VTuber.xaml</comment>
+  </data>
+  <data name="VTuberGroup" xml:space="preserve">
+    <value>所属: {0}</value>
+    <comment>使用: VTuber.xaml {0}=Vtuber 所属</comment>
+  </data>
+  <data name="VTuberLang" xml:space="preserve">
+    <value>语言: {0}</value>
+    <comment>使用: VTuber.xaml {0}=Vtuber 语言</comment>
+  </data>
+  <data name="YoutubeLink.Text" xml:space="preserve">
+    <value>Youtube</value>
+    <comment>使用: VTuber.xaml</comment>
   </data>
 </root>

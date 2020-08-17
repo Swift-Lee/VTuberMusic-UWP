@@ -277,6 +277,7 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Assets\Strings\zh-CN\Resources.resw" />
+    <Content Include="Assets\Font\iconfont.ttf" />
     <None Include="README.md" />
     <None Include="VTuberMusic_TemporaryKey.pfx" />
   </ItemGroup>

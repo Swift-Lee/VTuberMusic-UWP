@@ -46,7 +46,7 @@
                     <TextBlock x:Name="SongListName" Text="Noting" FontSize="32" Margin="0,20,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" TextWrapping="Wrap"/>
                     <StackPanel VerticalAlignment="Top" Margin="0,5,0,0" HorizontalAlignment="Left" Orientation="Horizontal">
                         <PersonPicture x:Name="SongListCreatorImage" DisplayName="Noting" Width="35" Height="35"/>
-                        <TextBlock x:Name="SongListCreator" Text="Noting 创建" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="20"/>
+                        <TextBlock x:Name="SongListCreator" Text="Noting" VerticalAlignment="Center" Margin="5,0,0,0" FontSize="20"/>
                     </StackPanel>
                     <TextBlock x:Name="intro" TextWrapping="Wrap" Margin="0,5,10,0"/>
                 </StackPanel>
@@ -54,25 +54,19 @@
                     <Button>
                         <Grid>
                             <SymbolIcon Symbol="Play" HorizontalAlignment="Left"/>
-                            <TextBlock Text="播放全部" HorizontalAlignment="Left" Margin="25,0,0,0"/>
+                            <TextBlock Text="播放全部" x:Uid="PlayAll" HorizontalAlignment="Left" Margin="25,0,0,0"/>
                         </Grid>
                     </Button>
                     <Button Margin="10,0,0,0">
                         <Grid>
                             <SymbolIcon Symbol="Add" HorizontalAlignment="Left"/>
-                            <TextBlock Text="添加到播放列表" HorizontalAlignment="Left" Margin="25,0,0,0"/>
-                        </Grid>
-                    </Button>
-                    <Button Margin="10,0,0,0">
-                        <Grid>
-                            <SymbolIcon Symbol="Add" HorizontalAlignment="Left"/>
-                            <TextBlock Text="添加到歌单" HorizontalAlignment="Left" Margin="25,0,0,0"/>
+                            <TextBlock Text="添加到" x:Uid="AddTo" HorizontalAlignment="Left" Margin="25,0,0,0"/>
                         </Grid>
                     </Button>
                     <Button x:Name="Share" Margin="10,0,0,0" Click="Share_Click">
                         <Grid>
                             <SymbolIcon Symbol="Share" HorizontalAlignment="Left"/>
-                            <TextBlock Text="分享" HorizontalAlignment="Left" Margin="25,0,0,0"/>
+                            <TextBlock Text="分享" x:Uid="Share" HorizontalAlignment="Left" Margin="25,0,0,0"/>
                         </Grid>
                     </Button>
                     <!--<Button Margin="10,0,0,0">

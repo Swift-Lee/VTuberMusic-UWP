@@ -1,59 +1,203 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
-  <file datatype="xml" source-language="en-US" target-language="zh-Hans" original="VTUBERMUSIC/ASSETS/STRINGS/ZH-CN/RESOURCES.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+  <file datatype="xml" source-language="zh-CN" target-language="zh-Hans" original="VTUBERMUSIC/ASSETS/STRINGS/ZH-CN/RESOURCES.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
     <header>
       <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6916.0" tool-company="Microsoft" />
     </header>
     <body>
-      <group id="VTUBERMUSIC/ASSETS/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
+      <group id="VTUBERMUSIC/ASSETS/STRINGS/ZH-CN/RESOURCES.RESW" datatype="resx">
+        <trans-unit id="AboutDev.Text" translate="yes" xml:space="preserve">
+          <source>后端: Dishonek
+前端: BK 黑木先森
+算法: LovEver
+架构: 绒球帽
+Vtbs.moe 协力: Simon
+UI: i-mage 
+UWP 开发: Misaka-L</source>
+          <target state="new">后端: Dishonek
+前端: BK 黑木先森
+算法: LovEver
+架构: 绒球帽
+Vtbs.moe 协力: Simon
+UI: i-mage 
+UWP 开发: Misaka-L</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: SettingsPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="AboutDevTitle.Text" translate="yes" xml:space="preserve">
+          <source>关于开发者</source>
+          <target state="new">关于开发者</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: SettingsPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="AboutJoinUs" translate="yes" xml:space="preserve">
+          <source>加入我们</source>
+          <target state="new">加入我们</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: SettingsPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="AboutOpenSourceProject.Text" translate="yes" xml:space="preserve">
+          <source>使用了 RestSharp 作为请求类库
+许可证: Apache LICENSE 2.0 http://www.apache.org/licenses/LICENSE-2.0
+官方网站: https://restsharp.dev
+Github 仓库: https://github.com/restsharp/RestSharp
+
+使用了 LitJson 作为 Json 解析库
+官方网站: https://litjson.net
+Github 仓库: https://github.com/LitJSON/litjson</source>
+          <target state="new">使用了 RestSharp 作为请求类库
+许可证: Apache LICENSE 2.0 http://www.apache.org/licenses/LICENSE-2.0
+官方网站: https://restsharp.dev
+Github 仓库: https://github.com/restsharp/RestSharp
+
+使用了 LitJson 作为 Json 解析库
+官方网站: https://litjson.net
+Github 仓库: https://github.com/LitJSON/litjson</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: SettingsPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="AboutOpenSourceProjectTitle.Text" translate="yes" xml:space="preserve">
+          <source>使用的开源组件</source>
+          <target state="new">使用的开源组件</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: SettingsPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="AboutSpecialThanks.Text" translate="yes" xml:space="preserve">
+          <source>感谢各位 dd 的使用和支持，没有你们的支持没有现在的我们
+感谢 VTuber 们愿意将音乐授权给本站，没有你们也不会有本站</source>
+          <target state="new">感谢各位 dd 的使用和支持，没有你们的支持没有现在的我们
+感谢 VTuber 们愿意将音乐授权给本站，没有你们也不会有本站</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: SettingsPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="AboutSpecialThanksTitle" translate="yes" xml:space="preserve">
+          <source>特别感谢</source>
+          <target state="new">特别感谢</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: SettingsPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="AboutTitle.Text" translate="yes" xml:space="preserve">
+          <source>关于</source>
+          <target state="new">关于</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: SettingsPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="BuildVersion" translate="yes" xml:space="preserve">
+          <source>构建版本: {0} {1}</source>
+          <target state="new">构建版本: {0} {1}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: SettingsPage.xaml {0}=版本号 {1}=构建版本</note>
+        </trans-unit>
+        <trans-unit id="CheckLog.Content" translate="yes" xml:space="preserve">
+          <source>查看日志</source>
+          <target state="new">查看日志</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: SettingsPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="ClearLog.Content" translate="yes" xml:space="preserve">
+          <source>清空日志</source>
+          <target state="new">清空日志</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: SettingsPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="ClickToJoinQQGroup.Content" translate="yes" xml:space="preserve">
+          <source>点击加入 QQ 群组: 737972812</source>
+          <target state="new">点击加入 QQ 群组: 737972812</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: SettingsPage.xaml</note>
+        </trans-unit>
         <trans-unit id="Home.Content" translate="yes" xml:space="preserve">
-          <source>Home</source>
-          <target state="new">Home</target>
+          <source>发现</source>
+          <target state="new">发现</target>
           <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="HXDLink.Content" translate="yes" xml:space="preserve">
+          <source>记住你们三说过你们要女装的</source>
+          <target state="new">记住你们三说过你们要女装的</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: SettingsPage.xaml</note>
         </trans-unit>
         <trans-unit id="LikesMusic.Content" translate="yes" xml:space="preserve">
-          <source>LikesMusic</source>
-          <target state="new">LikesMusic</target>
+          <source>我喜欢的音乐</source>
+          <target state="new">我喜欢的音乐</target>
           <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="LogTitle.Text" translate="yes" xml:space="preserve">
+          <source>日志</source>
+          <target state="new">日志</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: SettingsPage.xaml</note>
         </trans-unit>
         <trans-unit id="MyMusic.Content" translate="yes" xml:space="preserve">
-          <source>MyMusic</source>
-          <target state="new">MyMusic</target>
+          <source>我的音乐</source>
+          <target state="new">我的音乐</target>
           <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml</note>
-        </trans-unit>
-        <trans-unit id="Playing.Content" translate="yes" xml:space="preserve">
-          <source>Playing</source>
-          <target state="new">Playing</target>
-          <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml</note>
-        </trans-unit>
-        <trans-unit id="PopularSong.Text" translate="yes" xml:space="preserve">
-          <source>PopularSong</source>
-          <target state="new">PopularSong</target>
-          <note from="MultilingualBuild" annotates="source" priority="2">使用: Home.xaml</note>
-        </trans-unit>
-        <trans-unit id="PopularVTuber.Text" translate="yes" xml:space="preserve">
-          <source>PopularVTuber</source>
-          <target state="new">PopularVTuber</target>
-          <note from="MultilingualBuild" annotates="source" priority="2">使用: Home.xaml</note>
-        </trans-unit>
-        <trans-unit id="SearchPlaceholder.PlaceholderText" translate="yes" xml:space="preserve">
-          <source>SearchPlaceholder</source>
-          <target state="new">SearchPlaceholder</target>
-          <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml</note>
-        </trans-unit>
-        <trans-unit id="SongList.Text" translate="yes" xml:space="preserve">
-          <source>SongList</source>
-          <target state="new">SongList</target>
-          <note from="MultilingualBuild" annotates="source" priority="2">使用: Home.xaml 和 Search.xaml</note>
         </trans-unit>
         <trans-unit id="MySubscrube.Content" translate="yes" xml:space="preserve">
-          <source>MySubscrube</source>
-          <target state="new">MySubscrube</target>
+          <source>我的主推</source>
+          <target state="new">我的主推</target>
           <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml</note>
         </trans-unit>
         <trans-unit id="MySubscrubeTitle" translate="yes" xml:space="preserve">
-          <source>MySubscrubeTitle ({0})</source>
-          <target state="new">MySubscrubeTitle ({0})</target>
+          <source>我的主推 ({0})</source>
+          <target state="new">我的主推 ({0})</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Subscribe.xaml {0}=主推数量</note>
+        </trans-unit>
+        <trans-unit id="Playing.Content" translate="yes" xml:space="preserve">
+          <source>正在播放</source>
+          <target state="new">正在播放</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="PopularSong.Text" translate="yes" xml:space="preserve">
+          <source>热门歌曲</source>
+          <target state="new">热门歌曲</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Home.xaml</note>
+        </trans-unit>
+        <trans-unit id="PopularVTuber.Text" translate="yes" xml:space="preserve">
+          <source>人气 VTuber</source>
+          <target state="new">人气 VTuber</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Home.xaml</note>
+        </trans-unit>
+        <trans-unit id="SearchPlaceholder.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>搜索歌曲 / VTuber / 歌单</source>
+          <target state="new">搜索歌曲 / VTuber / 歌单</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="SettingsTitle.Text" translate="yes" xml:space="preserve">
+          <source>设置</source>
+          <target state="new">设置</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: SettingsPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="SongList.Text" translate="yes" xml:space="preserve">
+          <source>歌单</source>
+          <target state="new">歌单</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Home.xaml Search.xaml</note>
+        </trans-unit>
+        <trans-unit id="VTuberGroup" translate="yes" xml:space="preserve">
+          <source>所属: {0}</source>
+          <target state="new">所属: {0}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: VTuber.xaml {0}=Vtuber 所属</note>
+        </trans-unit>
+        <trans-unit id="VTuberLang" translate="yes" xml:space="preserve">
+          <source>语言: {0}</source>
+          <target state="new">语言: {0}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: VTuber.xaml {0}=Vtuber 语言</note>
+        </trans-unit>
+        <trans-unit id="AddTo.Text" translate="yes" xml:space="preserve">
+          <source>添加到</source>
+          <target state="new">添加到</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: VTuber.xaml SongList.xaml</note>
+        </trans-unit>
+        <trans-unit id="BiliBiliLink.Text" translate="yes" xml:space="preserve">
+          <source>BiliBili</source>
+          <target state="new">BiliBili</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: VTuber.xaml</note>
+        </trans-unit>
+        <trans-unit id="PlayAll.Text" translate="yes" xml:space="preserve">
+          <source>全部播放</source>
+          <target state="new">全部播放</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: VTuber.xaml SongList.xaml</note>
+        </trans-unit>
+        <trans-unit id="Share.Text" translate="yes" xml:space="preserve">
+          <source>分享</source>
+          <target state="new">分享</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: VTuber.xaml SongList.xaml</note>
+        </trans-unit>
+        <trans-unit id="Twitter.Text" translate="yes" xml:space="preserve">
+          <source>Twitter</source>
+          <target state="new">Twitter</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: VTuber.xaml</note>
+        </trans-unit>
+        <trans-unit id="YoutubeLink.Text" translate="yes" xml:space="preserve">
+          <source>Youtube</source>
+          <target state="new">Youtube</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: VTuber.xaml</note>
         </trans-unit>
       </group>
     </body>
