@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -40,6 +41,7 @@ namespace VTuberMusic
         public static NavigationView navigationView;
         public static Player player;
         private bool ok = false;
+        ObservableCollection<Song> playList = new ObservableCollection<Song>();
 
         #region Item Tag 属性对应的页面
         public static readonly List<(string Tag, Type Page)> _pages = new List<(string Tag, Type Page)>
@@ -72,6 +74,7 @@ namespace VTuberMusic
             player.PlayerPositionChanged += PlayerPositionChanged;
             player.PlayerStateChanged += PlayerStateChanged;
             player.SongChanged += SongChanged;
+            player.PlayListChanged += PlayListUpdate;
             ok = true;
             // 跳转到首页
             navigationView.SelectedItem = Home;
@@ -139,6 +142,7 @@ namespace VTuberMusic
         #endregion
         #endregion
 
+        #region 播放控制按钮
         private void Play_Click(object sender, RoutedEventArgs e)
         {
             if(player.Duration != TimeSpan.Zero)
@@ -154,6 +158,19 @@ namespace VTuberMusic
                 }
             }
         }
+        #endregion
+
+        #region 播放列表更新
+        private void PlayListUpdate(object obj, object args)
+        {
+            PlayListNum.Text = string.Format(Lang.ReadLangText("PlayList"), player.PlayList.Count.ToString());
+            playList.Clear();
+            for (int i = 0; i != player.PlayList.Count; i++)
+            {
+                playList.Add(player.PlayList[i]);
+            }
+        }
+        #endregion
 
         #region 播放进度条和音量被更改
         private void PlayerTimeLine_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
@@ -178,11 +195,6 @@ namespace VTuberMusic
                 PlayerTimeLine.Value = (player.GetPlayerPosition()).TotalSeconds;
                 PlayerTime.Text = player.GetPlayerPosition().ToString(@"mm\:ss");
                 PlayerTotalTime.Text = player.Duration.ToString(@"mm\:ss");
-                if (player.Position > player.Duration)
-                {
-                    player.SetPlayerPosition(TimeSpan.FromSeconds(0));
-                    player.Pause();
-                }
             }));
         }
         #endregion
@@ -218,6 +230,7 @@ namespace VTuberMusic
                 VocalName.Text = sender.VocalName;
                 SongImage.Source = SongImageBitmap;
                 BackgroudImage.Source = SongImageBitmap;
+                
             }));
         }
         #endregion
@@ -256,6 +269,54 @@ namespace VTuberMusic
         {
             TheNavigationView.SelectedItem = null;
             PageFrame.Navigate(typeof(Page.Search),sender.Text);
+        }
+
+        private void SongList_Click(object sender, RoutedEventArgs e)
+        {
+            if (PlayListWindow.Visibility == Visibility.Visible)
+            {
+                PlayListWindow.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                PlayListWindow.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void ClearPlayList_Click(object sender, RoutedEventArgs e)
+        {
+            player.PlayListClear();
+        }
+
+        private void PlayListView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
+        {
+            if (args.ItemIndex % 2 == 0)
+            {
+                args.ItemContainer.Background = new SolidColorBrush(Colors.WhiteSmoke);
+            }
+            else
+            {
+                args.ItemContainer.Background = new SolidColorBrush(Colors.White);
+            }
+        }
+
+        private void PlayMode_Click(object sender, RoutedEventArgs e)
+        {
+            switch (player.PlayMode)
+            {
+                case 0:
+                    player.PlayMode = 1;
+                    PlayModeIcon.Symbol = Symbol.RepeatOne;
+                    break;
+                case 1:
+                    player.PlayMode = 2;
+                    PlayModeIcon.Symbol = Symbol.Shuffle;
+                    break;
+                case 2:
+                    player.PlayMode = 0;
+                    PlayModeIcon.Symbol = Symbol.RepeatAll;
+                    break;
+            }
         }
     }
 }

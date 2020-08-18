@@ -223,6 +223,10 @@ Github 仓库: https://github.com/LitJSON/litjson</value>
     <value>正在播放</value>
     <comment>使用: MainPage.xaml</comment>
   </data>
+  <data name="PlayList" xml:space="preserve">
+    <value>播放列表 ({0})</value>
+    <comment>使用: MainPage.xaml {0}=播放列表歌曲数</comment>
+  </data>
   <data name="PopularSong.Text" xml:space="preserve">
     <value>热门歌曲</value>
     <comment>使用: Home.xaml</comment>

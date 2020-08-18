@@ -8,11 +8,36 @@
     xmlns:data ="using:VTuberMusic.Modules"
     mc:Ignorable="d" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <DataTemplate x:Key="PlayListDataTemplate" x:DataType="data:Song">
+            <Grid Height="50" AutomationProperties.Name="{x:Bind OriginName}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <SymbolIcon Symbol="Play" Tag="{x:Bind Id}" Visibility="Visible"/>
+                <Grid Grid.Column="1" Margin="5,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0.5*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{x:Bind OriginName}" VerticalAlignment="Center" Margin="0,5,5,0"/>
+                    <TextBlock Text="{x:Bind VocalName}" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,0,10"/>
+                </Grid>
+                <Button x:Name="PlayListDelSong" Grid.Column="2" Width="35" Height="35" Margin="0,0,5,0" Background="{x:Null}">
+                    <SymbolIcon Symbol="Remove"/>
+                </Button>
+                <TextBlock Grid.Column="3" Text="00:00" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="85"/>
-            <RowDefinition Height="0"/>
         </Grid.RowDefinitions>
         <NavigationView x:Name="TheNavigationView" IsBackButtonVisible="Collapsed" PaneDisplayMode="Auto" SelectionChanged="TheNavigationView_SelectionChanged" ItemInvoked="TheNavigationView_ItemInvoked">
             <NavigationView.AutoSuggestBox>
@@ -91,13 +116,32 @@
             <Grid Grid.Column="2" VerticalAlignment="Top" Margin="0,10,10,0">
                 <SymbolIcon Symbol="Volume" Foreground="White" HorizontalAlignment="Right" Margin="0,0,205,0" Height="20" Width="20"/>
                 <Slider x:Name="Vol" Grid.Column="1" Style="{StaticResource CircleSliderThumb}" Foreground="{StaticResource SystemAccentColor}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,95,0" Value="100" Maximum="100" ValueChanged="Vol_ValueChanged" Width="100"/>
-                <Button x:Name="PlayMode" Style="{StaticResource CircleButton}" Width="40" Height="40" BorderBrush="{x:Null}" HorizontalAlignment="Right" Margin="0,0,45,0">
-                    <SymbolIcon Symbol="Shuffle" Foreground="White"/>
+                <Button x:Name="PlayMode" Style="{StaticResource CircleButton}" Width="40" Height="40" BorderBrush="{x:Null}" HorizontalAlignment="Right" Margin="0,0,45,0" Click="PlayMode_Click">
+                    <SymbolIcon x:Name="PlayModeIcon" Symbol="RepeatAll" Foreground="White"/>
                 </Button>
-                <Button x:Name="SongList" Style="{StaticResource CircleButton}" Width="40" Height="40" BorderBrush="{x:Null}" HorizontalAlignment="Right">
+                <Button x:Name="SongList" Style="{StaticResource CircleButton}" Width="40" Height="40" BorderBrush="{x:Null}" HorizontalAlignment="Right" Click="SongList_Click">
                     <SymbolIcon Symbol="MusicInfo" Foreground="White"/>
                 </Button>
             </Grid>
+        </Grid>
+        <Grid x:Name="PlayListWindow" Width="500" HorizontalAlignment="Right" Margin="0,100,0,0" Background="{StaticResource SystemControlAcrylicElementBrush}" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Padding="5,5,5,5">
+                <TextBlock x:Name="PlayListNum" Text="播放列表" FontSize="24" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                <Button x:Name="ClearPlayList" HorizontalAlignment="Right" Width="40" Height="40" Background="{x:Null}" Click="ClearPlayList_Click">
+                    <SymbolIcon Symbol="Delete" Margin="2,0,0,0"/>
+                </Button>
+            </Grid>
+            <ListView x:Name="PlayListView" Grid.Row="1" ItemTemplate="{StaticResource PlayListDataTemplate}" ItemsSource="{x:Bind playList}" ContainerContentChanging="PlayListView_ContainerContentChanging">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
         </Grid>
     </Grid>
 </Page>

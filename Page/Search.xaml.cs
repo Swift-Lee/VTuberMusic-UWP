@@ -9,6 +9,7 @@ using VTuberMusic.Tools;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Imaging;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -104,6 +105,42 @@ namespace VTuberMusic.Page
                         Log.WriteLine("[UI]搜索歌单: " + searchText + " 失败", Level.Error);
                     }
                     break;
+            }
+        }
+
+        private void SongView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
+        {
+            if (args.ItemIndex % 2 == 0)
+            {
+                args.ItemContainer.Background = new SolidColorBrush(Colors.WhiteSmoke);
+            }
+            else
+            {
+                args.ItemContainer.Background = new SolidColorBrush(Colors.White);
+            }
+        }
+
+        private void VTuberView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
+        {
+            if (args.ItemIndex % 2 == 0)
+            {
+                args.ItemContainer.Background = new SolidColorBrush(Colors.WhiteSmoke);
+            }
+            else
+            {
+                args.ItemContainer.Background = new SolidColorBrush(Colors.White);
+            }
+        }
+
+        private void SongListView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
+        {
+            if (args.ItemIndex % 2 == 0)
+            {
+                args.ItemContainer.Background = new SolidColorBrush(Colors.WhiteSmoke);
+            }
+            else
+            {
+                args.ItemContainer.Background = new SolidColorBrush(Colors.White);
             }
         }
     }

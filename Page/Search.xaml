@@ -67,7 +67,7 @@
         <Pivot SelectionChanged="Pivot_SelectionChanged" Grid.Row="1">
             <PivotItem Header="歌曲">
                 <Grid>
-                    <ListView x:Name="SongView" ItemTemplate="{StaticResource SongInListTemplate}" ItemsSource="{x:Bind songs}">
+                    <ListView x:Name="SongView" ItemTemplate="{StaticResource SongInListTemplate}" ItemsSource="{x:Bind songs}" ContainerContentChanging="SongView_ContainerContentChanging">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -79,13 +79,13 @@
             </PivotItem>
             <PivotItem Header="VTuber">
                 <Grid>
-                    <ListView Grid.Row="2" ItemTemplate="{StaticResource VTuberListTemplate}" ItemsSource="{x:Bind vocals}" Margin="0,5,0,0"/>
+                    <ListView x:Name="VTuberView" Grid.Row="2" ItemTemplate="{StaticResource VTuberListTemplate}" ItemsSource="{x:Bind vocals}" Margin="0,5,0,0" ContainerContentChanging="VTuberView_ContainerContentChanging"/>
                     <TextBlock x:Name="VTuberFailText" HorizontalAlignment="Center" VerticalAlignment="Center" Text=""/>
                 </Grid>
             </PivotItem>
             <PivotItem Header="歌单">
                 <Grid>
-                    <ListView Grid.Row="2" ItemTemplate="{StaticResource SongListListTemplate}" ItemsSource="{x:Bind songLists}" Margin="0,5,0,0">
+                    <ListView x:Name="SongListView" Grid.Row="2" ItemTemplate="{StaticResource SongListListTemplate}" ItemsSource="{x:Bind songLists}" Margin="0,5,0,0" ContainerContentChanging="SongListView_ContainerContentChanging">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

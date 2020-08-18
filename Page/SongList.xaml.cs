@@ -74,9 +74,9 @@ namespace VTuberMusic.Page
         {
             if (SongListView.SelectedIndex != -1)
             {
-                MainPage.player.GetSong(songs[SongListView.SelectedIndex]);
-                MainPage.player.SetPlayerPosition(TimeSpan.FromSeconds(0));
-                MainPage.player.Play();
+                MainPage.player.PlayListClear();
+                MainPage.player.PlayListAddSongList(songs);
+                MainPage.player.PlayIndex(MainPage.player.PlayList.IndexOf(songs[SongListView.SelectedIndex]));
             }
         }
 
@@ -96,9 +96,9 @@ namespace VTuberMusic.Page
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             Button clickButtom = (Button)sender;
-            MainPage.player.GetSong(Song.GetSongObject((string)clickButtom.Tag));
-            MainPage.player.SetPlayerPosition(TimeSpan.FromSeconds(0));
-            MainPage.player.Play();
+            MainPage.player.PlayListClear();
+            MainPage.player.PlayListAddSongList(songs);
+            MainPage.player.PlayIndex(MainPage.player.PlayList.IndexOf(Song.GetSongObject((string)clickButtom.Tag)));
         }
     }
 }

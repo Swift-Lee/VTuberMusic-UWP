@@ -199,6 +199,11 @@ Github 仓库: https://github.com/LitJSON/litjson</target>
           <target state="new">Youtube</target>
           <note from="MultilingualBuild" annotates="source" priority="2">使用: VTuber.xaml</note>
         </trans-unit>
+        <trans-unit id="PlayList" translate="yes" xml:space="preserve">
+          <source>播放列表 ({0})</source>
+          <target state="new">播放列表 ({0})</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml {0}=播放列表歌曲数</note>
+        </trans-unit>
       </group>
     </body>
   </file>

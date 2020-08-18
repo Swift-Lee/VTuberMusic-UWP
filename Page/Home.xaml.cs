@@ -47,8 +47,8 @@ namespace VTuberMusic.Page
 
         private void SongGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MainPage.player.GetSong(songs[SongGridView.SelectedIndex]);
-            MainPage.player.SetPlayerPosition(TimeSpan.FromSeconds(0));
+            MainPage.player.PlayListAddSong(songs[SongGridView.SelectedIndex]);
+            MainPage.player.PlayIndex(MainPage.player.PlayList.IndexOf(songs[SongGridView.SelectedIndex]));
         }
 
         private void SongListGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
