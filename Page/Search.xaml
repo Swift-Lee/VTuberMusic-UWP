@@ -20,10 +20,10 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="{x:Bind OriginName}" VerticalAlignment="Center" Margin="5,0,0,0"/>
                 <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="0,0,5,0">
-                    <Button Background="#0000" Height="50" Width="50" >
+                    <Button x:Name="PlayButton" Background="#0000" Height="50" Width="50" Tag="{x:Bind Id}" Click="PlayButton_Click">
                         <SymbolIcon Symbol="Play" Foreground="#FF414141"/>
                     </Button>
-                    <Button Background="#0000" Height="50" Width="50" >
+                    <Button x:Name="AddToPlayList" Background="#0000" Height="50" Width="50" Tag="{x:Bind Id}">
                         <SymbolIcon Symbol="Add" Foreground="#FF414141"/>
                     </Button>
                 </StackPanel>
@@ -67,7 +67,7 @@
         <Pivot SelectionChanged="Pivot_SelectionChanged" Grid.Row="1">
             <PivotItem Header="歌曲">
                 <Grid>
-                    <ListView x:Name="SongView" ItemTemplate="{StaticResource SongInListTemplate}" ItemsSource="{x:Bind songs}" ContainerContentChanging="SongView_ContainerContentChanging">
+                    <ListView x:Name="SongView" ItemTemplate="{StaticResource SongInListTemplate}" ItemsSource="{x:Bind songs}" Margin="0,5,0,0" ContainerContentChanging="SongView_ContainerContentChanging" DoubleTapped="SongView_DoubleTapped">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -79,13 +79,13 @@
             </PivotItem>
             <PivotItem Header="VTuber">
                 <Grid>
-                    <ListView x:Name="VTuberView" Grid.Row="2" ItemTemplate="{StaticResource VTuberListTemplate}" ItemsSource="{x:Bind vocals}" Margin="0,5,0,0" ContainerContentChanging="VTuberView_ContainerContentChanging"/>
+                    <ListView x:Name="VTuberView" Grid.Row="2" ItemTemplate="{StaticResource VTuberListTemplate}" ItemsSource="{x:Bind vocals}" Margin="0,5,0,0" ContainerContentChanging="VTuberView_ContainerContentChanging" Tapped="VTuberView_Tapped"/>
                     <TextBlock x:Name="VTuberFailText" HorizontalAlignment="Center" VerticalAlignment="Center" Text=""/>
                 </Grid>
             </PivotItem>
             <PivotItem Header="歌单">
                 <Grid>
-                    <ListView x:Name="SongListView" Grid.Row="2" ItemTemplate="{StaticResource SongListListTemplate}" ItemsSource="{x:Bind songLists}" Margin="0,5,0,0" ContainerContentChanging="SongListView_ContainerContentChanging">
+                    <ListView x:Name="SongListView" Grid.Row="2" ItemTemplate="{StaticResource SongListListTemplate}" ItemsSource="{x:Bind songLists}" Margin="0,5,0,0" ContainerContentChanging="SongListView_ContainerContentChanging" Tapped="SongListView_Tapped">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

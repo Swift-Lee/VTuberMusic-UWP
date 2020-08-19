@@ -53,13 +53,35 @@ namespace VTuberMusic.Modules
         }
 
         /// <summary>
-        /// 获取歌曲对象
+        /// 获取单个歌曲对象
         /// </summary>
         /// <param name="SongId">歌曲 Id</param>
         public static Song GetSongObject(string SongId)
         {
-            string postJson = JsonMapper.ToJson(new GetModules.SinglePostModule { id = SongId });
+            string[] getSong = { SongId };
+            string postJson = JsonMapper.ToJson(new GetModules.ArrayPostModule { ids = getSong });
             string jsonText = GetTools.PostApi("/v1/GetMusicData",postJson); // 请求 Api
+            GetModules.MusicListGetModule jsonData = JsonMapper.ToObject<GetModules.MusicListGetModule>(jsonText); // 转 Json 为对象
+            if (jsonData.Data != null)
+            {
+                string[] assestUri = JointAssetsUrl.GetAssestUri(jsonData.Data[0].CDN, GetTools.CDNList, jsonData.Data[0].CoverImg, jsonData.Data[0].Music, jsonData.Data[0].Lyric);
+                jsonData.Data[0].assestLink = new AssestLink { CoverImg = assestUri[0], Music = assestUri[1], Lyric = assestUri[2] };
+            }
+            else
+            {
+                return new Song();
+            }
+            return jsonData.Data[0];
+        }
+
+        /// <summary>
+        /// 获取多个歌曲对象
+        /// </summary>
+        /// <param name="SongId">歌曲 Id</param>
+        public static Song GetSongObjects(string[] SongId)
+        {
+            string postJson = JsonMapper.ToJson(new GetModules.ArrayPostModule { ids = SongId });
+            string jsonText = GetTools.PostApi("/v1/GetMusicData", postJson); // 请求 Api
             GetModules.SingleMusicGetModule jsonData = JsonMapper.ToObject<GetModules.SingleMusicGetModule>(jsonText); // 转 Json 为对象
             if (jsonData.Data != null)
             {
@@ -93,7 +115,7 @@ namespace VTuberMusic.Modules
         }
 
         /// <summary>
-        /// 获取 / 搜索歌曲，当网络错误获取失败时会抛出异常
+        /// 获取 / 搜索歌曲
         /// </summary>
         /// <param name="SearchCondition">搜索依据</param>
         /// <param name="keyword">搜索关键词</param>

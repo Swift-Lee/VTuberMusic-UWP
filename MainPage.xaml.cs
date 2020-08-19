@@ -57,7 +57,10 @@ namespace VTuberMusic
             Log.WriteLine("Copyright ©  2020 VTuberMusic", Level.Info);
             // 导航侧边栏扩展到标题栏
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-            // 让其他对象控制页面
+            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            // 让其他对象控制导航视图
             navigationView = TheNavigationView;
             Log.WriteLine("[UI]准备就绪", Level.Info);
             // 获取 CDN 列表并且保存

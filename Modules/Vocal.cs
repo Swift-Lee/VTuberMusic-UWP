@@ -46,6 +46,10 @@ namespace VTuberMusic.Modules
                 {
                     jsonData.Data.EnglistName = "";
                 }
+                if (string.IsNullOrEmpty(jsonData.Data.ChineseName))
+                {
+                    jsonData.Data.ChineseName = "";
+                }
             }
             else
             {

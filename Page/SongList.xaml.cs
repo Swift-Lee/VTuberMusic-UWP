@@ -95,10 +95,10 @@ namespace VTuberMusic.Page
 
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
-            Button clickButtom = (Button)sender;
+            Button clickButton = (Button)sender;
             MainPage.player.PlayListClear();
             MainPage.player.PlayListAddSongList(songs);
-            MainPage.player.PlayIndex(MainPage.player.PlayList.IndexOf(Song.GetSongObject((string)clickButtom.Tag)));
+            MainPage.player.PlayIndex(MainPage.player.PlayList.IndexOf(Song.GetSongObject((string)clickButton.Tag)));
         }
     }
 }

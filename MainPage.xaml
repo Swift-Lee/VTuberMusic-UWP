@@ -5,6 +5,7 @@
     xmlns:local="using:VTuberMusic"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:appmodel="using:Windows.ApplicationModel"
     xmlns:data ="using:VTuberMusic.Modules"
     mc:Ignorable="d" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -39,7 +40,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="85"/>
         </Grid.RowDefinitions>
-        <NavigationView x:Name="TheNavigationView" IsBackButtonVisible="Collapsed" PaneDisplayMode="Auto" SelectionChanged="TheNavigationView_SelectionChanged" ItemInvoked="TheNavigationView_ItemInvoked">
+        <NavigationView x:Name="TheNavigationView" IsBackButtonVisible="Collapsed" SelectionChanged="TheNavigationView_SelectionChanged" ItemInvoked="TheNavigationView_ItemInvoked">
             <NavigationView.AutoSuggestBox>
                 <AutoSuggestBox x:Name="Search" x:Uid="SearchPlaceholder" QueryIcon="Find" AutomationProperties.Name="Search" PlaceholderText="搜索歌曲 / VTuber / 歌单" QuerySubmitted="Search_QuerySubmitted"/>
             </NavigationView.AutoSuggestBox>

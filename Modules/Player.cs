@@ -98,7 +98,9 @@ namespace VTuberMusic.Modules
             mediaSource.OpenOperationCompleted += MediaSource_OpenOperationCompleted;
             player.Source = mediaSource;
             Log.WriteLine("[Player]设置播放源为: " + song.assestLink.Music, Level.Info);
-            SongChanged(this, true);
+            // 触发缓冲进度修改和歌曲改变事件
+            SongChanged(this, null);
+            BufferingProgressChanged(mediaPlayBackSession, null);
         }
         #endregion
 
@@ -291,7 +293,7 @@ namespace VTuberMusic.Modules
                     break;
                 case MediaTimelineControllerState.Stalled:
                     systemMediaTransportControls.PlaybackStatus = MediaPlaybackStatus.Changing;
-                    Log.WriteLine("[Player]缓冲中... 进度: " + BufferingProgress,Level.Info);
+                    Log.WriteLine("[Player]缓冲中... 进度: " + BufferingProgress * 100,Level.Info);
                     break;
             }
             PlayerStateChanged(sender, args);

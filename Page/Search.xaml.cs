@@ -54,7 +54,7 @@ namespace VTuberMusic.Page
                 case 0:
                     Log.WriteLine("[UI]搜索音乐: " + searchText, Level.Info);
                     Song[] songsArray;
-                    songsArray = Song.GetMusicList("OriginName", searchText, 1, 50, "OriginName", "dasc");
+                    songsArray = Song.GetMusicList("OriginName", searchText, 1, 200, "OriginName", "dasc");
                     songs.Clear();
                     if (songsArray[0].Id != "")
                     {
@@ -72,7 +72,7 @@ namespace VTuberMusic.Page
                 case 1:
                     Vocal[] vocalsArray;
                     Log.WriteLine("[UI]搜索 VTuber: " + searchText, Level.Info);
-                    vocalsArray = Vocal.GetVocalList("OriginalName", searchText, 1, 50, "OriginalName", "desc");
+                    vocalsArray = Vocal.GetVocalList("OriginalName", searchText, 1, 200, "OriginalName", "desc");
                     vocals.Clear();
                     if (vocalsArray[0].Id != "")
                     {
@@ -141,6 +141,36 @@ namespace VTuberMusic.Page
             else
             {
                 args.ItemContainer.Background = new SolidColorBrush(Colors.White);
+            }
+        }
+
+        private void PlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button clickButton = (Button)sender;
+            Song clickSong = Song.GetSongObject((string)clickButton.Tag);
+            MainPage.player.PlayListAddSong(clickSong);
+            MainPage.player.PlayIndex(MainPage.player.PlayList.IndexOf(clickSong));
+        }
+
+        private void SongView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            MainPage.player.PlayListAddSong(songs[SongView.SelectedIndex]);
+            MainPage.player.PlayIndex(MainPage.player.PlayList.IndexOf(songs[SongView.SelectedIndex]));
+        }
+
+        private void VTuberView_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (VTuberView.SelectedIndex != -1)
+            {
+                Frame.Navigate(typeof(VTuber), vocals[VTuberView.SelectedIndex].Id);
+            }
+        }
+
+        private void SongListView_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if (SongListView.SelectedIndex != -1)
+            {
+                Frame.Navigate(typeof(SongList), songLists[SongListView.SelectedIndex].Id);
             }
         }
     }

@@ -77,6 +77,11 @@ namespace VTuberMusic.Network.GetTools
         {
             public string id { get; set; }
         }
+
+        public class ArrayPostModule
+        {
+            public string[] ids { get; set; }
+        }
         #endregion
 
         #region Banner 请求数据模型
