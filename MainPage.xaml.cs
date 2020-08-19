@@ -14,6 +14,7 @@ using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Media;
+using Windows.Media.Playback;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -26,15 +27,8 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
-// https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x804 上介绍了“空白页”项模板
-
 namespace VTuberMusic
 {
-    /// <summary>
-    /// 可用于自身或导航至 Frame 内部的空白页。
-    /// </summary>
-    /// 
-
     public sealed partial class MainPage
     {
         public static Frame pageFrame;
@@ -75,6 +69,7 @@ namespace VTuberMusic
             player.PlayerStateChanged += PlayerStateChanged;
             player.SongChanged += SongChanged;
             player.PlayListChanged += PlayListUpdate;
+            player.BufferingProgressChanged += BufferingProgressChanged;
             ok = true;
             // 跳转到首页
             navigationView.SelectedItem = Home;
@@ -205,16 +200,31 @@ namespace VTuberMusic
             switch (sender.State)
             {
                 case MediaTimelineControllerState.Running:
-                    Invoke(new Action(delegate { PlayIcon.Symbol = Symbol.Pause; }));
+                    Invoke(new Action(delegate {
+                        LoadingRing.IsActive = false;
+                        PlayIcon.Visibility = Visibility.Visible;
+                        PlayIcon.Symbol = Symbol.Pause; 
+                    }));
                     break;
                 case MediaTimelineControllerState.Paused:
-                    Invoke(new Action(delegate { PlayIcon.Symbol = Symbol.Play; }));
+                    Invoke(new Action(delegate {
+                        LoadingRing.IsActive = false;
+                        PlayIcon.Symbol = Symbol.Play;
+                        PlayIcon.Visibility = Visibility.Visible;
+                    }));
                     break;
                 case MediaTimelineControllerState.Error:
-                    Invoke(new Action(delegate { PlayIcon.Symbol = Symbol.Clear; }));
+                    Invoke(new Action(delegate {
+                        LoadingRing.IsActive = false;
+                        PlayIcon.Symbol = Symbol.Clear;
+                        PlayIcon.Visibility = Visibility.Visible;
+                    }));
                     break;
-                default:
-                    Invoke(new Action(delegate { PlayIcon.Symbol = Symbol.Play; }));
+                case MediaTimelineControllerState.Stalled:
+                    Invoke(new Action(delegate {
+                        LoadingRing.IsActive = true;
+                        PlayIcon.Visibility = Visibility.Collapsed;
+                    }));
                     break;
             }
         }
@@ -317,6 +327,13 @@ namespace VTuberMusic
                     PlayModeIcon.Symbol = Symbol.RepeatAll;
                     break;
             }
+        }
+
+        private void BufferingProgressChanged(MediaPlaybackSession sender, object args)
+        {
+            Invoke(new Action(delegate { 
+                LoadingBar.Value = player.BufferingProgress * 100;
+            }));
         }
     }
 }

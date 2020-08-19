@@ -19,10 +19,12 @@ namespace VTuberMusic.Modules
     {
         private MediaPlayer player = new MediaPlayer();
         private MediaTimelineController playerTimelineController = new MediaTimelineController();
+        private MediaPlaybackSession mediaPlayBackSession;
         public TypedEventHandler<MediaTimelineController, object> PlayerPositionChanged;
         public TypedEventHandler<MediaTimelineController, object> PlayerStateChanged;
         public TypedEventHandler<Player, object> SongChanged;
         public TypedEventHandler<Player, object> PlayListChanged;
+        public TypedEventHandler<MediaPlaybackSession, object> BufferingProgressChanged;
         public string SongName { get; private set; } = "";
         public string VocalName { get; private set; } = "";
         public string SongImage { get; private set; } = "ms-appx:///Assets/Image/noimage.png";
@@ -34,14 +36,17 @@ namespace VTuberMusic.Modules
         public int PlayMode = 0; // 0=列表循环 1=单曲循环 2=随机播放
         public bool LoadComplete { get; private set; } = false;
         private SystemMediaTransportControls systemMediaTransportControls;
+        public double BufferingProgress = 0;
 
         public Player()
         {
             // 绑定事件和控制器
             player.TimelineController = playerTimelineController;
             player.AudioCategory = MediaPlayerAudioCategory.Media;
+            mediaPlayBackSession = player.PlaybackSession;
             playerTimelineController.PositionChanged += PlayerTimelineController_PositionChanged;
             playerTimelineController.StateChanged += PlayerTimelineController_StateChanged;
+            mediaPlayBackSession.DownloadProgressChanged += MediaPlayBackSession_BufferingProgressChanged;
             // 全局播放控件
             systemMediaTransportControls = player.SystemMediaTransportControls;
             player.CommandManager.IsEnabled = false;
@@ -59,7 +64,7 @@ namespace VTuberMusic.Modules
             playerTimelineController.Start();
         }
 
-
+        #region 通过 Song Id 载入歌曲
         private void GetSong(Song song)
         {
             // 设置播放歌曲信息
@@ -95,6 +100,8 @@ namespace VTuberMusic.Modules
             Log.WriteLine("[Player]设置播放源为: " + song.assestLink.Music, Level.Info);
             SongChanged(this, true);
         }
+        #endregion
+
         #region 播放列表
         #region 添加删除歌曲
         public void PlayListAddSong(Song song)
@@ -269,7 +276,7 @@ namespace VTuberMusic.Modules
 
         private void PlayerTimelineController_StateChanged(MediaTimelineController sender, object args)
         {
-            // 通知系统我播放状态变了
+            // 通知系统我播放状态变了,再执行点其他操作
             switch (sender.State)
             {
                 case MediaTimelineControllerState.Running:
@@ -280,6 +287,11 @@ namespace VTuberMusic.Modules
                     break;
                 case MediaTimelineControllerState.Error:
                     systemMediaTransportControls.PlaybackStatus = MediaPlaybackStatus.Stopped;
+                    Log.WriteLine("[Player]播放错误",Level.Error);
+                    break;
+                case MediaTimelineControllerState.Stalled:
+                    systemMediaTransportControls.PlaybackStatus = MediaPlaybackStatus.Changing;
+                    Log.WriteLine("[Player]缓冲中... 进度: " + BufferingProgress,Level.Info);
                     break;
             }
             PlayerStateChanged(sender, args);
@@ -307,6 +319,15 @@ namespace VTuberMusic.Modules
                     break;
             }
         }
+        #endregion
+
+        #region 缓冲进度
+        private void MediaPlayBackSession_BufferingProgressChanged(MediaPlaybackSession sender, object args)
+        {
+            BufferingProgress = sender.DownloadProgress;
+            BufferingProgressChanged(sender, args);
+        }
+
         #endregion
     }
 }

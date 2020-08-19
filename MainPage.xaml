@@ -95,12 +95,13 @@
                     <Button x:Name="Previous" Style="{StaticResource CircleButton}" Width="40" Height="40" BorderBrush="{x:Null}" HorizontalAlignment="Center" Margin="0,0,110,0">
                         <SymbolIcon Symbol="Previous" Foreground="White"/>
                     </Button>
-                    <Button x:Name="Play" Style="{StaticResource CircleButton}" Width="50" Height="50" BorderBrush="#99808080" HorizontalAlignment="Center" Click="Play_Click">
-                        <SymbolIcon x:Name="PlayIcon" Symbol="Play" Foreground="White"/>
+                    <Button x:Name="Play" Style="{StaticResource CircleButton}" Width="50" Height="50" BorderBrush="#99808080" HorizontalAlignment="Center" Click="Play_Click" Canvas.ZIndex="10">
+                        <SymbolIcon x:Name="PlayIcon" Symbol="Play" Foreground="White" Visibility="Visible"/>
                     </Button>
                     <Button x:Name="Next" Style="{StaticResource CircleButton}" Width="40" Height="40" BorderBrush="{x:Null}" HorizontalAlignment="Center" Margin="110,0,0,0">
                         <SymbolIcon Symbol="Next" Foreground="White"/>
                     </Button>
+                    <ProgressRing x:Name="LoadingRing" IsActive="False"/>
                 </Grid>
                 <Grid Grid.Row="1" Margin="0,-5,0,5">
                     <Grid.ColumnDefinitions>
@@ -109,6 +110,7 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock x:Name="PlayerTime" Text="00:00" VerticalAlignment="Center" Foreground="White" Margin="0,1,0,0"/>
+                    <ProgressBar x:Name="LoadingBar" Grid.Column="1" Margin="5,0,5,0" Opacity="0.3"/>
                     <Slider x:Name="PlayerTimeLine" Grid.Column="1" Style="{StaticResource CircleSliderThumb}" Foreground="{StaticResource SystemAccentColor}" Margin="5,0,5,0" VerticalAlignment="Center" ValueChanged="PlayerTimeLine_ValueChanged"/>
                     <TextBlock x:Name="PlayerTotalTime" Text="00:00" Grid.Column="2" VerticalAlignment="Center" FocusVisualPrimaryBrush="#FFE29D9D" Foreground="White" Margin="0,1,0,0"/>
                 </Grid>
