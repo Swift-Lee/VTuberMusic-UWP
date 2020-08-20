@@ -338,5 +338,21 @@ namespace VTuberMusic
                 LoadingBar.Value = player.BufferingProgress * 100;
             }));
         }
+
+        private void Next_Click(object sender, RoutedEventArgs e)
+        {
+            if (player.PlayList.Count != 0)
+            {
+                player.PlayNext();
+            }
+        }
+
+        private void Previous_Click(object sender, RoutedEventArgs e)
+        {
+            if (player.PlayList.Count != 0)
+            {
+                player.PlayPrev();
+            }
+        }
     }
 }

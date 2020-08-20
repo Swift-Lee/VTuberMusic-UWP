@@ -154,8 +154,11 @@ namespace VTuberMusic.Page
 
         private void SongView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            MainPage.player.PlayListAddSong(songs[SongView.SelectedIndex]);
-            MainPage.player.PlayIndex(MainPage.player.PlayList.IndexOf(songs[SongView.SelectedIndex]));
+            if (SongView.SelectedIndex != -1)
+            {
+                MainPage.player.PlayListAddSong(songs[SongView.SelectedIndex]);
+                MainPage.player.PlayIndex(MainPage.player.PlayList.IndexOf(songs[SongView.SelectedIndex]));
+            }
         }
 
         private void VTuberView_Tapped(object sender, TappedRoutedEventArgs e)

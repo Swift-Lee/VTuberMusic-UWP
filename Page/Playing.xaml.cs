@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using VTuberMusic.Modules;
 using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -33,6 +34,16 @@ namespace VTuberMusic.Page
             MusicName.Text = MainPage.player.SongName;
             Vocal.Text = MainPage.player.VocalName;
             BackgroundImage.Source = new BitmapImage(new Uri(MainPage.player.SongImage));
+            if (MainPage.player.SongId == "")
+            {
+                Share.Visibility = Visibility.Collapsed;
+                Comment.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                Share.Visibility = Visibility.Visible;
+                Comment.Visibility = Visibility.Visible;
+            }
         }
 
         private void UpdateInfo(Player sender,object args)
@@ -42,6 +53,16 @@ namespace VTuberMusic.Page
                 MusicName.Text = sender.SongName;
                 Vocal.Text = sender.VocalName;
                 BackgroundImage.Source = new BitmapImage(new Uri(sender.SongImage));
+                if (MainPage.player.SongId == "")
+                {
+                    Share.Visibility = Visibility.Collapsed;
+                    Comment.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    Share.Visibility = Visibility.Visible;
+                    Comment.Visibility = Visibility.Visible;
+                }
             }));
         }
 
@@ -51,5 +72,18 @@ namespace VTuberMusic.Page
             await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Priority, () => { action(); });
         }
         #endregion
+
+        private void Share_Click(object sender, RoutedEventArgs e)
+        {
+            DataTransferManager.GetForCurrentView().DataRequested += DataRequested;
+            DataTransferManager.ShowShareUI();
+        }
+
+        private void DataRequested(DataTransferManager sender, DataRequestedEventArgs args)
+        {
+            args.Request.Data.SetWebLink(new Uri("https://vtbmusic.com/song?id=" + MainPage.player.SongId));
+            args.Request.Data.Properties.Title = "分享歌曲";
+            args.Request.Data.Properties.Description = MainPage.player.SongName + " - " + MainPage.player.VocalName;
+        }
     }
 }

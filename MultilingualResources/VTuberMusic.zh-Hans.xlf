@@ -187,7 +187,7 @@ Github 仓库: https://github.com/LitJSON/litjson</target>
         <trans-unit id="Share.Text" translate="yes" xml:space="preserve">
           <source>分享</source>
           <target state="new">分享</target>
-          <note from="MultilingualBuild" annotates="source" priority="2">使用: VTuber.xaml SongList.xaml</note>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: VTuber.xaml SongList.xaml Playing.xaml</note>
         </trans-unit>
         <trans-unit id="Twitter.Text" translate="yes" xml:space="preserve">
           <source>Twitter</source>
@@ -203,6 +203,11 @@ Github 仓库: https://github.com/LitJSON/litjson</target>
           <source>播放列表 ({0})</source>
           <target state="new">播放列表 ({0})</target>
           <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml {0}=播放列表歌曲数</note>
+        </trans-unit>
+        <trans-unit id="Comment.Text" translate="yes" xml:space="preserve">
+          <source>评论</source>
+          <target state="new">评论</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Playing.xaml</note>
         </trans-unit>
       </group>
     </body>

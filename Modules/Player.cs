@@ -111,6 +111,7 @@ namespace VTuberMusic.Modules
             if (PlayList.Count == 0)
             {
                 PlayList.Add(song);
+                PlayIndex(0);
             }
             else
             {
@@ -293,7 +294,7 @@ namespace VTuberMusic.Modules
                     break;
                 case MediaTimelineControllerState.Stalled:
                     systemMediaTransportControls.PlaybackStatus = MediaPlaybackStatus.Changing;
-                    Log.WriteLine("[Player]缓冲中... 进度: " + BufferingProgress * 100,Level.Info);
+                    Log.WriteLine("[Player]缓冲中... 进度: " + BufferingProgress * 100, Level.Info);
                     break;
             }
             PlayerStateChanged(sender, args);

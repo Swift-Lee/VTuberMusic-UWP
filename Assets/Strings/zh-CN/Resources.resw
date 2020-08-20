@@ -187,6 +187,10 @@ Github 仓库: https://github.com/LitJSON/litjson</value>
     <value>点击加入 QQ 群组: 737972812</value>
     <comment>使用: SettingsPage.xaml</comment>
   </data>
+  <data name="Comment.Text" xml:space="preserve">
+    <value>评论</value>
+    <comment>使用: Playing.xaml</comment>
+  </data>
   <data name="Home.Content" xml:space="preserve">
     <value>发现</value>
     <comment>使用: MainPage.xaml</comment>
@@ -245,7 +249,7 @@ Github 仓库: https://github.com/LitJSON/litjson</value>
   </data>
   <data name="Share.Text" xml:space="preserve">
     <value>分享</value>
-    <comment>使用: VTuber.xaml SongList.xaml</comment>
+    <comment>使用: VTuber.xaml SongList.xaml Playing.xaml</comment>
   </data>
   <data name="SongList.Text" xml:space="preserve">
     <value>歌单</value>

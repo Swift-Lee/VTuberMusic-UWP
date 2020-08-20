@@ -20,9 +20,6 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="{x:Bind OriginName}" VerticalAlignment="Center" Margin="5,0,0,0"/>
                 <StackPanel Orientation="Horizontal" Grid.Column="1" Margin="0,0,5,0">
-                    <Button x:Name="Play_Button" Background="#0000" Height="50" Width="50" Click="PlayButton_Click" Tag="{x:Bind Id}">
-                        <SymbolIcon Symbol="Play" Foreground="#FF414141"/>
-                    </Button>
                     <Button Background="#0000" Height="50" Width="50" >
                         <SymbolIcon Symbol="Add" Foreground="#FF414141"/>
                     </Button>
@@ -51,7 +48,7 @@
                     <TextBlock x:Name="intro" TextWrapping="Wrap" Margin="0,5,10,0"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,0,0,20" Padding="10,0,0,0">
-                    <Button>
+                    <Button x:Name="PlayAll" Click="PlayAll_Click">
                         <Grid>
                             <SymbolIcon Symbol="Play" HorizontalAlignment="Left"/>
                             <TextBlock Text="播放全部" x:Uid="PlayAll" HorizontalAlignment="Left" Margin="25,0,0,0"/>

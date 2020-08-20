@@ -93,13 +93,13 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid Margin="0,5,0,0">
-                    <Button x:Name="Previous" Style="{StaticResource CircleButton}" Width="40" Height="40" BorderBrush="{x:Null}" HorizontalAlignment="Center" Margin="0,0,110,0">
+                    <Button x:Name="Previous" Style="{StaticResource CircleButton}" Width="40" Height="40" BorderBrush="{x:Null}" HorizontalAlignment="Center" Margin="0,0,110,0" Click="Previous_Click">
                         <SymbolIcon Symbol="Previous" Foreground="White"/>
                     </Button>
                     <Button x:Name="Play" Style="{StaticResource CircleButton}" Width="50" Height="50" BorderBrush="#99808080" HorizontalAlignment="Center" Click="Play_Click" Canvas.ZIndex="10">
                         <SymbolIcon x:Name="PlayIcon" Symbol="Play" Foreground="White" Visibility="Visible"/>
                     </Button>
-                    <Button x:Name="Next" Style="{StaticResource CircleButton}" Width="40" Height="40" BorderBrush="{x:Null}" HorizontalAlignment="Center" Margin="110,0,0,0">
+                    <Button x:Name="Next" Style="{StaticResource CircleButton}" Width="40" Height="40" BorderBrush="{x:Null}" HorizontalAlignment="Center" Margin="110,0,0,0" Click="Next_Click">
                         <SymbolIcon Symbol="Next" Foreground="White"/>
                     </Button>
                     <ProgressRing x:Name="LoadingRing" IsActive="False"/>

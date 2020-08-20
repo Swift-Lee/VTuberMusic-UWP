@@ -18,9 +18,23 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <StackPanel>
-                <TextBlock x:Name="MusicName" Style="{StaticResource TitleTextBlockStyle}" Text="Noting" Foreground="White" Margin="35,40,0,0" FontWeight="Bold"/>
-                <TextBlock x:Name="Vocal" Style="{StaticResource SubtitleTextBlockStyle}" Text="Noting" Foreground="White" Margin="35,0,0,0"/>
+            <StackPanel Padding="35,40,0,0">
+                <TextBlock x:Name="MusicName" Style="{StaticResource TitleTextBlockStyle}" Text="Noting" Foreground="White" FontWeight="Bold"/>
+                <TextBlock x:Name="Vocal" Style="{StaticResource SubtitleTextBlockStyle}" Text="Noting" Foreground="White" />
+            </StackPanel>
+            <StackPanel Padding="35,0,40,0" HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button x:Name="Comment" Background="{x:Null}">
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Symbol="Comment" Foreground="White"/>
+                        <TextBlock Text="评论" x:Uid="Comment" Foreground="White" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="Share" Margin="10,0,0,0" Background="{x:Null}" Click="Share_Click">
+                    <StackPanel Orientation="Horizontal">
+                        <SymbolIcon Symbol="Share" Foreground="White"/>
+                        <TextBlock Text="分享" x:Uid="Share" Foreground="White" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </Button>
             </StackPanel>
         </Grid>
     </Grid>

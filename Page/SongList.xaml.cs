@@ -93,12 +93,14 @@ namespace VTuberMusic.Page
             args.Request.Data.Properties.Description = songListList[0].Name;
         }
 
-        private void PlayButton_Click(object sender, RoutedEventArgs e)
+        private void PlayAll_Click(object sender, RoutedEventArgs e)
         {
-            Button clickButton = (Button)sender;
-            MainPage.player.PlayListClear();
-            MainPage.player.PlayListAddSongList(songs);
-            MainPage.player.PlayIndex(MainPage.player.PlayList.IndexOf(Song.GetSongObject((string)clickButton.Tag)));
+            if(songs.Length != 0)
+            {
+                MainPage.player.PlayListClear();
+                MainPage.player.PlayListAddSongList(songs);
+                MainPage.player.PlayIndex(0);
+            }
         }
     }
 }
