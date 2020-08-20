@@ -27,7 +27,7 @@
                     <TextBlock Text="{x:Bind OriginName}" VerticalAlignment="Center" Margin="0,5,5,0"/>
                     <TextBlock Text="{x:Bind VocalName}" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,0,10"/>
                 </Grid>
-                <Button x:Name="PlayListDelSong" Grid.Column="2" Width="35" Height="35" Margin="0,0,5,0" Background="{x:Null}">
+                <Button x:Name="PlayListDelSong" Grid.Column="2" Width="35" Height="35" Margin="0,0,5,0" Background="{x:Null}" Tag="{x:Bind Id}" Click="PlayListDelSong_Click">
                     <SymbolIcon Symbol="Remove"/>
                 </Button>
                 <TextBlock Grid.Column="3" Text="00:00" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -83,8 +83,8 @@
                 </Grid.ColumnDefinitions>
                 <Image x:Name="SongImage" Source="/Assets/Image/noimage.png" Stretch="UniformToFill" VerticalAlignment="Center"/>
                 <StackPanel Grid.Column="1" Margin="10,24,0,0">
-                    <TextBlock x:Name="SongName" Text="Nothing" Foreground="White" FontSize="15" Margin="0,0,0,0" FontFamily="Microsoft YaHei Light"/>
-                    <TextBlock x:Name="VocalName" Text="Nothing" Foreground="White" FontSize="13" Margin="0,0,0,0" FontWeight="Bold" FontFamily="Segoe UI Light"/>
+                    <TextBlock x:Name="SongName" Text="" Foreground="White" FontSize="15" Margin="0,0,0,0" FontFamily="Microsoft YaHei Light"/>
+                    <TextBlock x:Name="VocalName" Text="" Foreground="White" FontSize="13" Margin="0,0,0,0" FontWeight="Bold" FontFamily="Segoe UI Light"/>
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1">

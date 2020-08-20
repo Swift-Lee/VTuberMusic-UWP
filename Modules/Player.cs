@@ -64,6 +64,28 @@ namespace VTuberMusic.Modules
             playerTimelineController.Start();
         }
 
+        #region 停止播放
+        public void Stop()
+        {
+            // 清空播放信息
+            SongName = "";
+            VocalName = "";
+            SongImage = "ms-appx:///Assets/Image/noimage.png";
+            SongId = "";
+            Duration = TimeSpan.Zero;
+            // 停止播放
+            Pause();
+            player.Source = null;
+            systemMediaTransportControls.IsEnabled = false;
+            // 清空缓存显示
+            BufferingProgress = 0;
+            // 触发事件
+            BufferingProgressChanged(mediaPlayBackSession, null);
+            SongChanged(this, null);
+            PlayerPositionChanged(playerTimelineController, null);
+        }
+        #endregion
+
         #region 通过 Song Id 载入歌曲
         private void GetSong(Song song)
         {
@@ -73,6 +95,7 @@ namespace VTuberMusic.Modules
             SongImage = song.assestLink.CoverImg;
             SongId = song.Id;
             // 启用 Button 们
+            systemMediaTransportControls.IsEnabled = true;
             systemMediaTransportControls.IsPlayEnabled = true;
             systemMediaTransportControls.IsPauseEnabled = true;
             systemMediaTransportControls.IsPreviousEnabled = true;
@@ -148,11 +171,7 @@ namespace VTuberMusic.Modules
         public void PlayListClear()
         {
             PlayList.Clear();
-            SongId = "";
-            SongName = "";
-            SongImage = "ms-appx:///Assets/Image/noimage.png";
-            VocalName = "";
-            Pause();
+            Stop();
             PlayListChanged(this, null);
         }
         #endregion
@@ -202,6 +221,20 @@ namespace VTuberMusic.Modules
             playerTimelineController.Start();
             playerTimelineController.Resume();
             PlayListNowPlay = index;
+        }
+        #endregion
+
+        #region 寻找歌单歌曲 Index
+        public int PlayListFindSongIndex(string Id)
+        {
+            for (int i = 0; i != PlayList.Count; i++)
+            {
+                if (PlayList[i].Id == Id)
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
         #endregion
 
@@ -324,7 +357,7 @@ namespace VTuberMusic.Modules
         }
         #endregion
 
-        #region 缓冲进度
+        #region 缓冲进度更新
         private void MediaPlayBackSession_BufferingProgressChanged(MediaPlaybackSession sender, object args)
         {
             BufferingProgress = sender.DownloadProgress;

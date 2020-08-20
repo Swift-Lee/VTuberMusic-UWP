@@ -354,5 +354,11 @@ namespace VTuberMusic
                 player.PlayPrev();
             }
         }
+
+        private void PlayListDelSong_Click(object sender, RoutedEventArgs e)
+        {
+            Button clikButton = (Button)sender;
+            player.PlayListDeleteSong(player.PlayListFindSongIndex((string)clikButton.Tag));
+        }
     }
 }

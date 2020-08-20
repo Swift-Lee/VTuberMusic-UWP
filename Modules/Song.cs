@@ -38,18 +38,18 @@ namespace VTuberMusic.Modules
 
         public class Vocallist
         {
-            public string Id { get; set; }
-            public string cn { get; set; }
-            public string jp { get; set; }
-            public string en { get; set; }
-            public string originlang { get; set; }
+            public string Id { get; set; } = "";
+            public string cn { get; set; } = "";
+            public string jp { get; set; } = "";
+            public string en { get; set; } = "";
+            public string originlang { get; set; } = "";
         }
 
         public class AssestLink
         {
-            public string CoverImg { get; set; }
-            public string Music { get; set; }
-            public string Lyric { get; set; }
+            public string CoverImg { get; set; } = "ms-appx:///Assets/Image/noimage.png";
+            public string Music { get; set; } = "";
+            public string Lyric { get; set; } = "";
         }
 
         /// <summary>
