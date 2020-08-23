@@ -14,7 +14,7 @@ namespace VTuberMusic.Network.GetTools
         {
             public int Total { get; set; }
             public Song[] Data { get; set; }
-            public bool Success { get; set; }
+            public bool Success { get; set; } = false;
             public int ErrorCode { get; set; }
             public object Msg { get; set; }
         }
@@ -60,11 +60,11 @@ namespace VTuberMusic.Network.GetTools
         #region 请求 Json 模型
         public class ListPostModule
         {
-            public Search search { get; set; }
+            public Search search { get; set; } = new Search();
             public int pageIndex { get; set; }
             public int pageRows { get; set; }
-            public string sortField { get; set; }
-            public string sortType { get; set; }
+            public string sortField { get; set; } = "Id";
+            public string sortType { get; set; } = "desc";
         }
 
         public class Search
@@ -108,6 +108,9 @@ namespace VTuberMusic.Network.GetTools
         public class SongListGetModule
         {
             public rdData Data { get; set; }
+            public bool Success { get; set; }
+            public int ErrorCode { get; set; }
+            public object Msg { get; set; }
 
             public class rdData
             {

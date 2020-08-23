@@ -191,6 +191,10 @@ Github 仓库: https://github.com/LitJSON/litjson</value>
     <value>评论</value>
     <comment>使用: Playing.xaml</comment>
   </data>
+  <data name="History.Text" xml:space="preserve">
+    <value>历史记录</value>
+    <comment>使用: History.xaml</comment>
+  </data>
   <data name="Home.Content" xml:space="preserve">
     <value>发现</value>
     <comment>使用: MainPage.xaml</comment>

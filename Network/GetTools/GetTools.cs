@@ -24,21 +24,12 @@ namespace VTuberMusic.Network.GetTools
         /// </summary>
         /// <param name="Uri">请求 Uri</param>
         /// <param name="Raw">请求内容</param>
-        /// <returns>Post 失败会返回空白信息</returns>
-        public static string PostApi(string Uri, string Raw)
+        /// <returns>向 Api 发送 Post 请求</returns>
+        public static IRestResponse PostApi(string Uri, string Raw)
         {
             var client = new RestClient(ApiUri);
             var request = new RestRequest(Uri, DataFormat.Json).AddJsonBody(Raw);
-            var response = client.Post(request);
-            if (response.IsSuccessful)
-            {
-                return response.Content;
-            }
-            else
-            {
-                Log.WriteLine("POST " + ApiUri + Uri + " 发生错误 错误信息: \r\n" + response.ErrorException, Level.Error);
-                return response.Content;
-            }
+            return client.Post(request);
         }
 
         /// <summary>
@@ -75,14 +66,30 @@ namespace VTuberMusic.Network.GetTools
         /// <returns>获取失败会抛出异常</returns>
         public static string[] GetCDNList()
         {
-            JsonData jsonData = JsonMapper.ToObject(PostApi("/v1/GetCDNList", "{\"pageIndex\": 1,\"pageRows\": 999}"));
-            string[] CDNList = new string[20];
-            for (int i = (int)jsonData["Total"] - 1; i != -1; i--)
+            var response = PostApi("/v1/GetCDNList", "{\"pageIndex\": 1,\"pageRows\": 999}");
+            if (response.IsSuccessful)
             {
-                CDNList[int.Parse((string)jsonData["Data"][i]["name"])] = (string)jsonData["Data"][i]["url"];
+                JsonData jsonData = JsonMapper.ToObject(response.Content);
+                if ((bool)jsonData["Success"])
+                {
+                    string[] CDNList = new string[20];
+                    for (int i = (int)jsonData["Total"] - 1; i != -1; i--)
+                    {
+                        CDNList[int.Parse((string)jsonData["Data"][i]["name"])] = (string)jsonData["Data"][i]["url"];
+                    }
+                    Log.WriteLine("[Net]已成功获取 CDN 列表", Level.Info);
+                    return CDNList;
+                }
+                else
+                {
+                    Log.WriteLine("请求失败:\r\n" + response.Content, Level.Error);
+                    throw new Exception((string)jsonData["Msg"]);
+                }
             }
-            Log.WriteLine("[Net]已成功获取 CDN 列表", Level.Info);
-            return CDNList;
+            else
+            {
+                throw new Exception("错误代码:" + response.StatusCode.ToString());
+            }
         }
 
         public class PostTemplate

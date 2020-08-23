@@ -45,6 +45,7 @@ namespace VTuberMusic
             ("SongList",typeof(Page.SongList)),
             ("Account",typeof(Page.Account)),
             ("Playing",typeof(Page.Playing)),
+            ("History",typeof(Page.History))
         };
         #endregion
 
@@ -135,7 +136,12 @@ namespace VTuberMusic
         private void AccountNavigationViewItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
             // TheNavigationView.SelectedItem = AccountNavigationViewItem;
-            PageFrame.Navigate(typeof(Page.Account));
+        }
+
+        private void HistoryItem_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            TheNavigationView.SelectedItem = HistoryItem;
+
         }
         #endregion
         #endregion

@@ -33,32 +33,31 @@ namespace VTuberMusic.Modules
         public static SongListList[] GetSongListList(string SearchCondition, string keyword, int PageIndex, int PageRows, string sortField, string sortType)
         {
             string postJson = JsonMapper.ToJson(new GetModules.ListPostModule { search = new GetModules.Search { condition = SearchCondition, keyword = keyword }, pageIndex = PageIndex, pageRows = PageRows, sortField = sortField, sortType = sortType });
-            GetModules.SongListListGetModule jsonData = JsonMapper.ToObject<GetModules.SongListListGetModule>(GetTools.PostApi("/v1/GetAlbumsList", postJson));
-            if(jsonData.Total != 0)
+            var response = GetTools.PostApi("/v1/GetAlbumsList", postJson);
+            if (response.IsSuccessful)
             {
-                for (int i = 0; i != jsonData.Data.Length; i++)
+                GetModules.SongListListGetModule jsonData = JsonMapper.ToObject<GetModules.SongListListGetModule>(response.Content);
+                if (jsonData.Success)
                 {
-                    if (string.IsNullOrEmpty(jsonData.Data[i].introduce))
+                    for (int i = 0; i != jsonData.Data.Length; i++)
                     {
-                        jsonData.Data[i].introduce = "";
+                        if (string.IsNullOrEmpty(jsonData.Data[i].introduce))
+                        {
+                            jsonData.Data[i].introduce = "";
+                        }
                     }
-                }
-                if (SearchCondition == "")
-                {
-                    Log.WriteLine("搜索歌单" + SearchCondition + ": " + keyword + " 成功", Level.Info);
+                    return jsonData.Data;
                 }
                 else
                 {
-                    Log.WriteLine("搜索歌单列表成功", Level.Info);
+                    Log.WriteLine("请求失败:\r\n" + response.Content, Level.Error);
+                    throw new Exception(jsonData.Msg.ToString());
                 }
             }
             else
             {
-                SongListList[] songListList = new SongListList[1];
-                songListList[0] = new SongListList();
-                return songListList;
+                throw new Exception("错误代码:" + response.StatusCode.ToString());
             }
-            return jsonData.Data;
         }
     }
 
@@ -67,23 +66,30 @@ namespace VTuberMusic.Modules
         public static Song[] GetSongListSong(string id)
         {
             string postJson = JsonMapper.ToJson(new GetModules.SinglePostModule { id = id });
-            GetModules.SongListGetModule jsonData = JsonMapper.ToObject<GetModules.SongListGetModule>(GetTools.PostApi("/v1/GetAlbumsData", postJson));
-            if (jsonData.Data != null)
+            var response = GetTools.PostApi("/v1/GetAlbumsData", postJson);
+            if (response.IsSuccessful)
             {
-                for (int i = 0; i != jsonData.Data.Data.Length; i++)
+                GetModules.SongListGetModule jsonData = JsonMapper.ToObject<GetModules.SongListGetModule>(response.Content);
+                if (jsonData.Success)
                 {
-                    string[] assestUri = JointAssetsUrl.GetAssestUri(jsonData.Data.Data[i].CDN, GetTools.CDNList, jsonData.Data.Data[i].CoverImg, jsonData.Data.Data[i].Music, jsonData.Data.Data[i].Lyric);
-                    jsonData.Data.Data[i].assestLink = new Song.AssestLink { CoverImg = assestUri[0], Music = assestUri[1], Lyric = assestUri[2] };
+                    for (int i = 0; i != jsonData.Data.Data.Length; i++)
+                    {
+                        string[] assestUri = JointAssetsUrl.GetAssestUri(jsonData.Data.Data[i].CDN, GetTools.CDNList, jsonData.Data.Data[i].CoverImg, jsonData.Data.Data[i].Music, jsonData.Data.Data[i].Lyric);
+                        jsonData.Data.Data[i].assestLink = new Song.AssestLink { CoverImg = assestUri[0], Music = assestUri[1], Lyric = assestUri[2] };
+                    }
+                    Log.WriteLine("获取歌单 " + id + " 成功", Level.Info);
+                    return jsonData.Data.Data;
                 }
-                Log.WriteLine("获取歌单 " + id + " 成功", Level.Info);
+                else
+                {
+                    Log.WriteLine("请求失败:\r\n" + response.Content, Level.Error);
+                    throw new Exception(jsonData.Msg.ToString());
+                }
             }
             else
             {
-                Song[] song = new Song[1];
-                song[0] = new Song();
-                return song;
+                throw new Exception("错误代码:" + response.StatusCode.ToString());
             }
-            return jsonData.Data.Data;
         }
     }
 }

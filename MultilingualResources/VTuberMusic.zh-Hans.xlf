@@ -209,6 +209,11 @@ Github 仓库: https://github.com/LitJSON/litjson</target>
           <target state="new">评论</target>
           <note from="MultilingualBuild" annotates="source" priority="2">使用: Playing.xaml</note>
         </trans-unit>
+        <trans-unit id="History.Text" translate="yes" xml:space="preserve">
+          <source>历史记录</source>
+          <target state="new">历史记录</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: History.xaml</note>
+        </trans-unit>
       </group>
     </body>
   </file>

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VTuberMusic.Network.GetTools;
 using VTuberMusic.Tools;
+using Windows.Devices.Sensors;
 
 namespace VTuberMusic.Modules
 {
@@ -30,68 +31,82 @@ namespace VTuberMusic.Modules
         public static Vocal GetVocalObject(string id)
         {
             string postJson = JsonMapper.ToJson(new GetModules.SinglePostModule { id = id });
-            string jsonText = GetTools.PostApi("/v1/GetVtbsData", postJson); // 请求 Api
-            GetModules.SingleVocalGetModule jsonData = JsonMapper.ToObject<GetModules.SingleVocalGetModule>(jsonText); // 转 Json 为对象
-            if (jsonData.Data != null)
+            var response = GetTools.PostApi("/v1/GetVtbsData", postJson); // 请求 Api
+            if (response.IsSuccessful)
             {
-                if (string.IsNullOrEmpty(jsonData.Data.OriginalName))
+                GetModules.SingleVocalGetModule jsonData = JsonMapper.ToObject<GetModules.SingleVocalGetModule>(response.Content); // 转 Json 为对象
+                if (jsonData.Success)
                 {
-                    jsonData.Data.OriginalName = "";
+                    if (string.IsNullOrEmpty(jsonData.Data.OriginalName))
+                    {
+                        jsonData.Data.OriginalName = "";
+                    }
+                    if (string.IsNullOrEmpty(jsonData.Data.JapaneseName))
+                    {
+                        jsonData.Data.JapaneseName = "";
+                    }
+                    if (string.IsNullOrEmpty(jsonData.Data.EnglistName))
+                    {
+                        jsonData.Data.EnglistName = "";
+                    }
+                    if (string.IsNullOrEmpty(jsonData.Data.ChineseName))
+                    {
+                        jsonData.Data.ChineseName = "";
+                    }
+                    return jsonData.Data;
                 }
-                if (string.IsNullOrEmpty(jsonData.Data.JapaneseName))
+                else
                 {
-                    jsonData.Data.JapaneseName = "";
-                }
-                if (string.IsNullOrEmpty(jsonData.Data.EnglistName))
-                {
-                    jsonData.Data.EnglistName = "";
-                }
-                if (string.IsNullOrEmpty(jsonData.Data.ChineseName))
-                {
-                    jsonData.Data.ChineseName = "";
+                    Log.WriteLine("请求失败:\r\n" + response.Content, Level.Error);
+                    throw new Exception(jsonData.Msg.ToString());
                 }
             }
             else
             {
-                return new Vocal();
+                throw new Exception(response.StatusCode.ToString());
             }
-            return jsonData.Data;
         }
 
         public static Vocal[] GetVocalList(string SearchCondition, string keyword, int PageIndex, int PageRows, string sortField, string sortType)
         {
             string postJson = JsonMapper.ToJson(new GetModules.ListPostModule { pageIndex = PageIndex, pageRows = PageRows, sortField = sortField, sortType = sortType, search = new GetModules.Search { condition = SearchCondition, keyword = keyword } });
-            string jsonText = GetTools.PostApi("/v1/GetVtbsList", postJson); // 请求 Api
-            GetModules.VocalListGetModule jsonData = JsonMapper.ToObject<GetModules.VocalListGetModule>(jsonText); // 转 Json 为对象
-            if (jsonData.Total != 0)
+            var response = GetTools.PostApi("/v1/GetVtbsList", postJson); // 请求 Api
+            if (response.IsSuccessful)
             {
-                for (int i = 0; i != jsonData.Data.Length; i++)
+                GetModules.VocalListGetModule jsonData = JsonMapper.ToObject<GetModules.VocalListGetModule>(response.Content); // 转 Json 为对象
+                if (jsonData.Success)
                 {
-                    if (string.IsNullOrEmpty(jsonData.Data[i].OriginalName))
+                    for (int i = 0; i != jsonData.Data.Length; i++)
                     {
-                        jsonData.Data[i].OriginalName = "";
+                        if (string.IsNullOrEmpty(jsonData.Data[i].OriginalName))
+                        {
+                            jsonData.Data[i].OriginalName = "";
+                        }
+                        if (string.IsNullOrEmpty(jsonData.Data[i].JapaneseName))
+                        {
+                            jsonData.Data[i].JapaneseName = "";
+                        }
+                        if (string.IsNullOrEmpty(jsonData.Data[i].EnglistName))
+                        {
+                            jsonData.Data[i].EnglistName = "";
+                        }
+                        if (string.IsNullOrEmpty(jsonData.Data[i].ChineseName))
+                        {
+                            jsonData.Data[i].ChineseName = "";
+                        }
                     }
-                    if (string.IsNullOrEmpty(jsonData.Data[i].JapaneseName))
-                    {
-                        jsonData.Data[i].JapaneseName = "";
-                    }
-                    if (string.IsNullOrEmpty(jsonData.Data[i].EnglistName))
-                    {
-                        jsonData.Data[i].EnglistName = "";
-                    }
-                    if (string.IsNullOrEmpty(jsonData.Data[i].ChineseName))
-                    {
-                        jsonData.Data[i].ChineseName = "";
-                    }
+                    return jsonData.Data;
+                }
+                else
+                {
+                    Log.WriteLine("请求失败:\r\n" + response.Content, Level.Error);
+                    throw new Exception(jsonData.Msg.ToString());
                 }
             }
             else
             {
-                Vocal[] vocal = new Vocal[1];
-                vocal[0] = new Vocal();
-                return vocal;
+                throw new Exception(response.StatusCode.ToString());
             }
-            return jsonData.Data;
         }
     }
 }

@@ -58,12 +58,13 @@
                 <!--<NavigationViewItemHeader Content="我创建的歌单"/>
                 <NavigationViewItemHeader Content="我收藏的歌单"/>-->
             </NavigationView.MenuItems>
-            <!--<NavigationView.PaneFooter>
+            <NavigationView.PaneFooter>
                 <StackPanel>
-                    <NavigationViewItem x:Name="AccountNavigationViewItem" Content="个人空间" Icon="Contact" Tag="Account" Tapped="AccountNavigationViewItem_Tapped"/>
-                    <NavigationViewItem Content="投稿管理" Icon="Upload" Tag="UploadManger"/>
+                    <NavigationViewItem Name="HistoryItem" Content="播放历史" Icon="Clock" Tapped="HistoryItem_Tapped" Tag="History"/>
+                    <!--<NavigationViewItem x:Name="AccountNavigationViewItem" Content="个人空间" Icon="Contact" Tag="Account" Tapped="AccountNavigationViewItem_Tapped"/>
+                    <NavigationViewItem Content="投稿管理" Icon="Upload" Tag="UploadManger"/>-->
                 </StackPanel>
-            </NavigationView.PaneFooter>-->
+            </NavigationView.PaneFooter>
             <Frame x:Name="PageFrame"/>
         </NavigationView>
         <Image x:Name="BackgroudImage" Grid.Row="1" Stretch="UniformToFill"/>

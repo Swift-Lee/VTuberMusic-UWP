@@ -26,9 +26,24 @@ namespace VTuberMusic.Modules
         public static Banner[] GetBanners()
         {
             string postJson = JsonMapper.ToJson(new GetModules.ListPostModule { pageIndex = 1,pageRows= 20, sortField="Id",sortType="desc",search = new GetModules.Search() });
-            string jsonText = GetTools.PostApi("/v1/GetDataList", postJson); // 请求 Api
-            GetModules.BannerGetModule jsonData = JsonMapper.ToObject<GetModules.BannerGetModule>(jsonText); // 转 Json 为对象
-            return jsonData.Data;
+            var response = GetTools.PostApi("/v1/GetDataList", postJson); // 请求 Api
+            if (response.IsSuccessful)
+            {
+                GetModules.BannerGetModule jsonData = JsonMapper.ToObject<GetModules.BannerGetModule>(response.Content); // 转 Json 为对象
+                if (jsonData.Success)
+                {
+                    return jsonData.Data;
+                }
+                else
+                {
+                    Log.WriteLine("请求失败:\r\n" + response.Content, Level.Error);
+                    throw new Exception(jsonData.Msg.ToString());
+                }
+            }
+            else
+            {
+                throw new Exception("错误代码:" + response.StatusCode.ToString());
+            }
         }
     }
 }

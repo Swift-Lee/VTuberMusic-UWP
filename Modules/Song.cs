@@ -60,18 +60,26 @@ namespace VTuberMusic.Modules
         {
             string[] getSong = { SongId };
             string postJson = JsonMapper.ToJson(new GetModules.ArrayPostModule { ids = getSong });
-            string jsonText = GetTools.PostApi("/v1/GetMusicData",postJson); // 请求 Api
-            GetModules.MusicListGetModule jsonData = JsonMapper.ToObject<GetModules.MusicListGetModule>(jsonText); // 转 Json 为对象
-            if (jsonData.Data != null)
+            var response = GetTools.PostApi("/v1/GetMusicData", postJson); // 请求 Api
+            if (response.IsSuccessful)
             {
-                string[] assestUri = JointAssetsUrl.GetAssestUri(jsonData.Data[0].CDN, GetTools.CDNList, jsonData.Data[0].CoverImg, jsonData.Data[0].Music, jsonData.Data[0].Lyric);
-                jsonData.Data[0].assestLink = new AssestLink { CoverImg = assestUri[0], Music = assestUri[1], Lyric = assestUri[2] };
+                GetModules.MusicListGetModule jsonData = JsonMapper.ToObject<GetModules.MusicListGetModule>(response.Content); // 转 Json 为对象
+                if (jsonData.Success)
+                {
+                    string[] assestUri = JointAssetsUrl.GetAssestUri(jsonData.Data[0].CDN, GetTools.CDNList, jsonData.Data[0].CoverImg, jsonData.Data[0].Music, jsonData.Data[0].Lyric);
+                    jsonData.Data[0].assestLink = new AssestLink { CoverImg = assestUri[0], Music = assestUri[1], Lyric = assestUri[2] };
+                    return jsonData.Data[0];
+                }
+                else
+                {
+                    Log.WriteLine("请求失败:\r\n" + response.Content, Level.Error);
+                    throw new Exception(jsonData.Msg.ToString());
+                }
             }
             else
             {
-                return new Song();
+                throw new Exception("错误代码:" + response.StatusCode.ToString());
             }
-            return jsonData.Data[0];
         }
 
         /// <summary>
@@ -81,18 +89,26 @@ namespace VTuberMusic.Modules
         public static Song GetSongObjects(string[] SongId)
         {
             string postJson = JsonMapper.ToJson(new GetModules.ArrayPostModule { ids = SongId });
-            string jsonText = GetTools.PostApi("/v1/GetMusicData", postJson); // 请求 Api
-            GetModules.SingleMusicGetModule jsonData = JsonMapper.ToObject<GetModules.SingleMusicGetModule>(jsonText); // 转 Json 为对象
-            if (jsonData.Data != null)
+            var response = GetTools.PostApi("/v1/GetMusicData", postJson); // 请求 Api
+            if (response.IsSuccessful)
             {
-                string[] assestUri = JointAssetsUrl.GetAssestUri(jsonData.Data.CDN, GetTools.CDNList, jsonData.Data.CoverImg, jsonData.Data.Musics, jsonData.Data.Lyric);
-                jsonData.Data.assestLink = new AssestLink { CoverImg = assestUri[0], Music = assestUri[1], Lyric = assestUri[2] };
+                GetModules.MusicListGetModule jsonData = JsonMapper.ToObject<GetModules.MusicListGetModule>(response.Content); // 转 Json 为对象
+                if (jsonData.Success)
+                {
+                    string[] assestUri = JointAssetsUrl.GetAssestUri(jsonData.Data[0].CDN, GetTools.CDNList, jsonData.Data[0].CoverImg, jsonData.Data[0].Music, jsonData.Data[0].Lyric);
+                    jsonData.Data[0].assestLink = new AssestLink { CoverImg = assestUri[0], Music = assestUri[1], Lyric = assestUri[2] };
+                    return jsonData.Data[0];
+                }
+                else
+                {
+                    Log.WriteLine("请求失败:\r\n" + response.Content, Level.Error);
+                    throw new Exception(jsonData.Msg.ToString());
+                }
             }
             else
             {
-                return new Song();
+                throw new Exception("错误代码:" + response.StatusCode.ToString());
             }
-            return jsonData.Data;
         }
 
         /// <summary>
@@ -104,14 +120,30 @@ namespace VTuberMusic.Modules
         public static Song[] GetHotMusic(int PageIndex,int PageRows)
         {
             string postJson = JsonMapper.ToJson(new GetModules.ListPostModule { pageIndex = PageIndex, pageRows = PageRows});
-            GetModules.MusicListGetModule jsonData = JsonMapper.ToObject<GetModules.MusicListGetModule>(GetTools.PostApi("/v1/GetHotMusicList",postJson));
-            Song[] songs = jsonData.Data;
-            for(int i=0; i != songs.Length; i++)
+            var response = GetTools.PostApi("/v1/GetMusicList", postJson);
+            if (response.IsSuccessful)
             {
-                string[] assestUri = JointAssetsUrl.GetAssestUri(songs[i].CDN, GetTools.CDNList, songs[i].CoverImg, songs[i].Music, songs[i].Lyric);
-                songs[i].assestLink = new AssestLink { CoverImg = assestUri[0], Music = assestUri[1], Lyric = assestUri[2] };
+                GetModules.MusicListGetModule jsonData = JsonMapper.ToObject<GetModules.MusicListGetModule>(response.Content);
+                if (jsonData.Success)
+                {
+                    Song[] songs = jsonData.Data;
+                    for (int i = 0; i != songs.Length; i++)
+                    {
+                        string[] assestUri = JointAssetsUrl.GetAssestUri(songs[i].CDN, GetTools.CDNList, songs[i].CoverImg, songs[i].Music, songs[i].Lyric);
+                        songs[i].assestLink = new AssestLink { CoverImg = assestUri[0], Music = assestUri[1], Lyric = assestUri[2] };
+                    }
+                    return songs;
+                }
+                else
+                {
+                    Log.WriteLine("请求失败:\r\n" + response.Content, Level.Error);
+                    throw new Exception(jsonData.Msg.ToString());
+                }
             }
-            return songs;
+            else
+            {
+                throw new Exception("错误代码:" + response.StatusCode.ToString());
+            }
         }
 
         /// <summary>
@@ -125,22 +157,29 @@ namespace VTuberMusic.Modules
         public static Song[] GetMusicList(string SearchCondition, string keyword, int PageIndex, int PageRows, string sortField, string sortType)
         {
             string postJson = JsonMapper.ToJson(new GetModules.ListPostModule { search = new GetModules.Search { condition = SearchCondition, keyword = keyword }, pageIndex = PageIndex, pageRows = PageRows, sortField = sortField, sortType = sortType });
-            GetModules.MusicListGetModule jsonData = JsonMapper.ToObject<GetModules.MusicListGetModule>(GetTools.PostApi("/v1/GetMusicList", postJson));
-            if (jsonData.Total != 0)
+            var response = GetTools.PostApi("/v1/GetMusicList", postJson);
+            if (response.IsSuccessful)
             {
-                for (int i = 0; i != jsonData.Data.Length; i++)
+                GetModules.MusicListGetModule jsonData = JsonMapper.ToObject<GetModules.MusicListGetModule>(response.Content);
+                if (jsonData.Success)
                 {
-                    string[] assestUri = JointAssetsUrl.GetAssestUri(jsonData.Data[i].CDN, GetTools.CDNList, jsonData.Data[i].CoverImg, jsonData.Data[i].Music, jsonData.Data[i].Lyric);
-                    jsonData.Data[i].assestLink = new AssestLink { CoverImg = assestUri[0], Music = assestUri[1], Lyric = assestUri[2] };
+                    for (int i = 0; i != jsonData.Data.Length; i++)
+                    {
+                        string[] assestUri = JointAssetsUrl.GetAssestUri(jsonData.Data[i].CDN, GetTools.CDNList, jsonData.Data[i].CoverImg, jsonData.Data[i].Music, jsonData.Data[i].Lyric);
+                        jsonData.Data[i].assestLink = new AssestLink { CoverImg = assestUri[0], Music = assestUri[1], Lyric = assestUri[2] };
+                    }
+                    return jsonData.Data;
+                }
+                else
+                {
+                    Log.WriteLine("请求失败:\r\n" + response.Content, Level.Error);
+                    throw new Exception(jsonData.Msg.ToString());
                 }
             }
             else
             {
-                Song[] song = new Song[1];
-                song[0] = new Song();
-                return song;
+                throw new Exception("错误代码:" + response.StatusCode.ToString());
             }
-            return jsonData.Data;
         }
     }
 }
