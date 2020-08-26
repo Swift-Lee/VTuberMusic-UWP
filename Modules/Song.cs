@@ -78,7 +78,7 @@ namespace VTuberMusic.Modules
             }
             else
             {
-                throw new Exception("错误代码:" + response.StatusCode.ToString());
+                throw new Exception(response.StatusCode.ToString());
             }
         }
 
@@ -107,7 +107,7 @@ namespace VTuberMusic.Modules
             }
             else
             {
-                throw new Exception("错误代码:" + response.StatusCode.ToString());
+                throw new Exception(response.StatusCode.ToString());
             }
         }
 
@@ -178,7 +178,7 @@ namespace VTuberMusic.Modules
             }
             else
             {
-                throw new Exception("错误代码:" + response.StatusCode.ToString());
+                throw new Exception(response.StatusCode.ToString());
             }
         }
     }

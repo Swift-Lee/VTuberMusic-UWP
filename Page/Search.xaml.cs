@@ -4,8 +4,10 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using VTuberMusic.Modules;
 using VTuberMusic.Tools;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Imaging;
@@ -51,72 +53,138 @@ namespace VTuberMusic.Page
             pivot = (Pivot)sender;
             switch (pivot.SelectedIndex)
             {
+                #region 歌曲搜索
                 case 0:
                     Log.WriteLine("[UI]搜索音乐: " + searchText, Level.Info);
-                    Song[] songsArray;
-                    songsArray = Song.GetMusicList("OriginName", searchText, 1, 200, "OriginName", "dasc");
-                    songs.Clear();
-                    if (songsArray[0].Id != "")
+                    SongProgressRing.IsActive = true;
+                    new Thread(a =>
                     {
-                        for (int i = 0; i != songsArray.Length; i++)
+                        Song[] songsArray = new Song[0];
+                        try
                         {
-                            songs.Add(songsArray[i]);
+                            songsArray = Song.GetMusicList("OriginName", searchText, 1, 200, "OriginName", "dasc");
                         }
-                    }
-                    else
-                    {
-                        SongFailText.Text = "找不到内容";
-                        Log.WriteLine("[UI]搜索音乐: " + searchText + " 失败", Level.Error);
-                    }
+                        catch (Exception ex)
+                        {
+                            Invoke(new Action(delegate {
+                                SongProgressRing.IsActive = false;
+                                Frame.Navigate(typeof(Fail), new Error { ErrorCode = ex.Message, CanBackHome = true, ReTryPage = typeof(Search), ReTryArgs = searchText }); 
+                            }));
+                        }
+
+                        Invoke(new Action(delegate { SongProgressRing.IsActive = false; }));
+                        if (songsArray.Length != 0)
+                        {
+                            Invoke(new Action(delegate
+                            {
+                                songs.Clear();
+                                for (int i = 0; i != songsArray.Length; i++)
+                                {
+                                    songs.Add(songsArray[i]);
+                                }
+                            }));
+                        }
+                        else
+                        {
+                            Invoke(new Action(delegate { SongFailText.Text = "找不到内容"; }));
+                            Log.WriteLine("[UI]搜索音乐: " + searchText + " 失败", Level.Error);
+                        }
+                    }).Start();
                     break;
+                #endregion
+                #region VTuber 搜索
                 case 1:
-                    Vocal[] vocalsArray;
                     Log.WriteLine("[UI]搜索 VTuber: " + searchText, Level.Info);
-                    vocalsArray = Vocal.GetVocalList("OriginalName", searchText, 1, 200, "OriginalName", "desc");
-                    vocals.Clear();
-                    if (vocalsArray[0].Id != "")
+                    VTuberProgressRing.IsActive = true;
+                    new Thread(a =>
                     {
-                        for (int i = 0; i != vocalsArray.Length; i++)
+                        Vocal[] vocalsArray = new Vocal[0];
+                        try
                         {
-                            vocals.Add(vocalsArray[i]);
+                            vocalsArray = Vocal.GetVocalList("OriginalName", searchText, 1, 200, "OriginalName", "desc");
                         }
-                    }
-                    else
-                    {
-                        VTuberFailText.Text = "找不到内容";
-                        Log.WriteLine("[UI]搜索 VTuber: " + searchText + " 失败", Level.Error);
-                    }
+                        catch (Exception ex)
+                        {
+                            Invoke(new Action(delegate { 
+                                Frame.Navigate(typeof(Fail), new Error { ErrorCode = ex.Message, CanBackHome = true, ReTryPage = typeof(Search), ReTryArgs = searchText });
+                                VTuberProgressRing.IsActive = false;
+                            }));
+                        }
+
+                        Invoke(new Action(delegate { VTuberProgressRing.IsActive = false; }));
+                        if(vocalsArray.Length != 0)
+                        {
+                            Invoke(new Action(delegate
+                            {
+                                vocals.Clear();
+                                for (int i = 0; i != vocalsArray.Length; i++)
+                                {
+                                    vocals.Add(vocalsArray[i]);
+                                }
+                            }));
+                        }
+                        else
+                        {
+                            Invoke(new Action(delegate { VTuberFailText.Text = "找不到内容"; }));
+                            Log.WriteLine("[UI]搜索 VTuber: " + searchText + " 失败", Level.Error);
+                        }
+                    }).Start();
                     break;
+                #endregion
+                #region 歌单搜索
                 case 2:
-                    SongListList[] songListArray;
                     Log.WriteLine("[UI]搜索歌单: " + searchText, Level.Info);
-                    songListArray = SongListList.GetSongListList("Name", searchText, 1, 50, "Name", "desc");
-                    songLists.Clear();
-                    if (songListArray[0].Id != "")
+                    SongListProgressRing.IsActive = true;
+                    new Thread(a =>
                     {
-                        for (int i = 0; i != songListArray.Length; i++)
+                        SongListList[] songListArray = new SongListList[0];
+                        try
                         {
-                            songLists.Add(songListArray[i]);
+                            songListArray = SongListList.GetSongListList("Name", searchText, 1, 50, "Name", "desc");
                         }
-                    }
-                    else
-                    {
-                        SongListFailText.Text = "找不到内容";
-                        Log.WriteLine("[UI]搜索歌单: " + searchText + " 失败", Level.Error);
-                    }
+                        catch (Exception ex)
+                        {
+                            Invoke(new Action(delegate { 
+                                Frame.Navigate(typeof(Fail), new Error { ErrorCode = ex.Message, CanBackHome = true, ReTryPage = typeof(Search), ReTryArgs = searchText });
+                                SongListProgressRing.IsActive = false;
+                            }));
+                        }
+
+                        Invoke(new Action(delegate { SongListProgressRing.IsActive = false; }));
+                        if (songListArray.Length != 0)
+                        {
+                            Invoke(new Action(delegate
+                            {
+                                songLists.Clear();
+                                for (int i = 0; i != songListArray.Length; i++)
+                                {
+                                    songLists.Add(songListArray[i]);
+                                }
+                            }));
+                        }
+                        else
+                        {
+                            Invoke(new Action(delegate { SongListFailText.Text = "找不到内容"; }));
+                            Log.WriteLine("[UI]搜索歌单: " + searchText + " 失败", Level.Error);
+                        }
+                    }).Start();
                     break;
+                    #endregion
             }
         }
 
+        #region 列表颜色相间
         private void SongView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
         {
             if (args.ItemIndex % 2 == 0)
             {
-                args.ItemContainer.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                var brush = new SolidColorBrush((Color)Resources["SystemListLowColor"]);
+                args.ItemContainer.Background = brush;
             }
             else
             {
-                args.ItemContainer.Background = new SolidColorBrush(Colors.White);
+                var brush = new SolidColorBrush((Color)Resources["SystemChromeMediumColor"]);
+                args.ItemContainer.Background = brush;
             }
         }
 
@@ -124,11 +192,13 @@ namespace VTuberMusic.Page
         {
             if (args.ItemIndex % 2 == 0)
             {
-                args.ItemContainer.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                var brush = new SolidColorBrush((Color)Resources["SystemListLowColor"]);
+                args.ItemContainer.Background = brush;
             }
             else
             {
-                args.ItemContainer.Background = new SolidColorBrush(Colors.White);
+                var brush = new SolidColorBrush((Color)Resources["SystemChromeMediumColor"]);
+                args.ItemContainer.Background = brush;
             }
         }
 
@@ -136,14 +206,18 @@ namespace VTuberMusic.Page
         {
             if (args.ItemIndex % 2 == 0)
             {
-                args.ItemContainer.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                var brush = new SolidColorBrush((Color)Resources["SystemListLowColor"]);
+                args.ItemContainer.Background = brush;
             }
             else
             {
-                args.ItemContainer.Background = new SolidColorBrush(Colors.White);
+                var brush = new SolidColorBrush((Color)Resources["SystemChromeMediumColor"]);
+                args.ItemContainer.Background = brush;
             }
         }
+        #endregion
 
+        #region 监听歌单搜索列表
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             Button clickButton = (Button)sender;
@@ -160,7 +234,9 @@ namespace VTuberMusic.Page
                 MainPage.player.PlayIndex(MainPage.player.PlayList.IndexOf(songs[SongView.SelectedIndex]));
             }
         }
+        #endregion
 
+        #region 列表点击事件
         private void VTuberView_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (VTuberView.SelectedIndex != -1)
@@ -175,6 +251,17 @@ namespace VTuberMusic.Page
             {
                 Frame.Navigate(typeof(SongList), songLists[SongListView.SelectedIndex].Id);
             }
+        }
+        #endregion
+
+        public void Invoke(Action action, Windows.UI.Core.CoreDispatcherPriority Priority = Windows.UI.Core.CoreDispatcherPriority.Normal)
+        {
+            var reslut = CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Priority, () => { action(); });
+            while (reslut.Status != AsyncStatus.Completed)
+            {
+                //
+            }
+            return;
         }
     }
 }

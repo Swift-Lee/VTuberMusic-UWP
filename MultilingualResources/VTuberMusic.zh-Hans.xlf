@@ -7,14 +7,16 @@
     <body>
       <group id="VTUBERMUSIC/ASSETS/STRINGS/ZH-CN/RESOURCES.RESW" datatype="resx">
         <trans-unit id="AboutDev.Text" translate="yes" xml:space="preserve">
-          <source>后端: Dishonek
+          <source>前任站长 (隐退): 静谷
+现任站长 &amp; 后端: Dishonek
 前端: BK 黑木先森
 算法: LovEver
 架构: 绒球帽
 Vtbs.moe 协力: Simon
 UI: i-mage 
 UWP 开发: Misaka-L</source>
-          <target state="new">后端: Dishonek
+          <target state="new">前任站长 (隐退): 静谷
+现任站长 &amp; 后端: Dishonek
 前端: BK 黑木先森
 算法: LovEver
 架构: 绒球帽
@@ -59,9 +61,11 @@ Github 仓库: https://github.com/LitJSON/litjson</target>
         </trans-unit>
         <trans-unit id="AboutSpecialThanks.Text" translate="yes" xml:space="preserve">
           <source>感谢各位 dd 的使用和支持，没有你们的支持没有现在的我们
-感谢 VTuber 们愿意将音乐授权给本站，没有你们也不会有本站</source>
+感谢各位 VTuber 的贡献，没有你们也不会有本站
+感谢所有开发和工作人员</source>
           <target state="new">感谢各位 dd 的使用和支持，没有你们的支持没有现在的我们
-感谢 VTuber 们愿意将音乐授权给本站，没有你们也不会有本站</target>
+感谢各位 VTuber 的贡献，没有你们也不会有本站
+感谢所有开发和工作人员</target>
           <note from="MultilingualBuild" annotates="source" priority="2">使用: SettingsPage.xaml</note>
         </trans-unit>
         <trans-unit id="AboutSpecialThanksTitle" translate="yes" xml:space="preserve">
@@ -213,6 +217,51 @@ Github 仓库: https://github.com/LitJSON/litjson</target>
           <source>历史记录</source>
           <target state="new">历史记录</target>
           <note from="MultilingualBuild" annotates="source" priority="2">使用: History.xaml</note>
+        </trans-unit>
+        <trans-unit id="ErrorCode" translate="yes" xml:space="preserve">
+          <source>错误信息: {0}</source>
+          <target state="new">错误信息: {0}</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Fail.xaml {0}=错误代码</note>
+        </trans-unit>
+        <trans-unit id="Fail.Text" translate="yes" xml:space="preserve">
+          <source>Oops... 发生了错误</source>
+          <target state="new">Oops... 发生了错误</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Fail.xaml</note>
+        </trans-unit>
+        <trans-unit id="ErrorCodeNotFound" translate="yes" xml:space="preserve">
+          <source>无法输出错误信息</source>
+          <target state="new">无法输出错误信息</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Fail.xaml</note>
+        </trans-unit>
+        <trans-unit id="Login.Header" translate="yes" xml:space="preserve">
+          <source>登录</source>
+          <target state="new">登录</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Login.xaml</note>
+        </trans-unit>
+        <trans-unit id="MyCreateSongList.Content" translate="yes" xml:space="preserve">
+          <source>我创建的歌单</source>
+          <target state="new">我创建的歌单</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="MySpace.Content" translate="yes" xml:space="preserve">
+          <source>个人空间</source>
+          <target state="new">个人空间</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="PlayHistory.Content" translate="yes" xml:space="preserve">
+          <source>播放历史</source>
+          <target state="new">播放历史</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: MianPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="Register.Header" translate="yes" xml:space="preserve">
+          <source>注册</source>
+          <target state="new">注册</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Login.xaml</note>
+        </trans-unit>
+        <trans-unit id="UploadManger.Content" translate="yes" xml:space="preserve">
+          <source>投稿管理</source>
+          <target state="new">投稿管理</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml</note>
         </trans-unit>
       </group>
     </body>

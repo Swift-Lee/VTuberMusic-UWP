@@ -87,6 +87,7 @@
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
+            <ProgressRing x:Name="LoadingRing" IsActive="True" Width="50" Height="50" Margin="0,20,0,0"/>
         </StackPanel>
     </ScrollViewer>
 </Page>

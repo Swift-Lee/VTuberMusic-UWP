@@ -93,13 +93,16 @@
                 </Grid>
             </Grid>
             <!--歌曲列表-->
-            <ListView x:Name="SongListView" ItemsSource="{x:Bind songs}" ItemTemplate="{StaticResource SongInListTemplate}" Margin="5,0,5,0" ContainerContentChanging="SongListView_ContainerContentChanging" DoubleTapped="SongListView_DoubleTapped">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                    </Style>
-                </ListView.ItemContainerStyle>
-            </ListView>
+            <Grid>
+                <ListView x:Name="SongListView" ItemsSource="{x:Bind songs}" ItemTemplate="{StaticResource SongInListTemplate}" Margin="5,0,5,0" ContainerContentChanging="SongListView_ContainerContentChanging" DoubleTapped="SongListView_DoubleTapped">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+                <ProgressRing x:Name="LoadingRing" IsActive="False" Width="50" Height="50" Margin="0,20,0,0"/>
+            </Grid>
         </StackPanel>
     </ScrollViewer>
 </Page>

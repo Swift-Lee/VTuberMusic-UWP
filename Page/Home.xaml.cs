@@ -17,6 +17,11 @@ using VTuberMusic.Modules;
 using VTuberMusic.Tools;
 using System.Threading.Tasks;
 using Windows.Media;
+using System.Collections.ObjectModel;
+using System.Threading;
+using Windows.ApplicationModel.Core;
+using System.ServiceModel.Channels;
+using Windows.UI.Notifications;
 
 // https://go.microsoft.com/fwlink/?LinkId=234238 上介绍了“空白页”项模板
 
@@ -27,22 +32,142 @@ namespace VTuberMusic.Page
     /// </summary>
     public sealed partial class Home
     {
-        Song[] songs = Song.GetHotMusic(1,10);
-        Banner[] banners = Banner.GetBanners();
-        Vocal[] vocals = Vocal.GetVocalList("OriginalName", "", 1, 20, "Watch", "desc");
-        SongListList[] songList = SongListList.GetSongListList("Id", "", 1, 10, "CreateTime", "desc");
+        ObservableCollection<Song> songs = new ObservableCollection<Song>();
+        ObservableCollection<Banner> banners = new ObservableCollection<Banner>();
+        ObservableCollection<Vocal> vocals = new ObservableCollection<Vocal>();
+        ObservableCollection<SongListList> songLists = new ObservableCollection<SongListList>();
 
         public Home()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            new Thread(a =>
+            {
+                int i = 0;
+                Song[] getSongs = new Song[0];
+                try
+                {
+                    getSongs = Song.GetHotMusic(1, 20);
+                }
+                catch (Exception ex)
+                {
+                    var reslut = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                    {
+                        Frame.Navigate(typeof(Fail), new Error { ErrorCode = ex.Message, ReTryPage = typeof(Home) });
+                    });
+                    while (true)
+                    {
+                        if (reslut.Status == AsyncStatus.Completed)
+                        {
+                            return;
+                        }
+                    }
+                }
+
+                while (i != getSongs.Length - 1)
+                {
+                    Invoke(new Action(delegate { songs.Add(getSongs[i]); }));
+                    i++;
+                }
+            })
+            { IsBackground = false }.Start();
+
+            new Thread(a =>
+            {
+                int i = 0;
+                Banner[] getBanners = new Banner[0];
+                try
+                {
+                    getBanners = Banner.GetBanners();
+                }
+                catch (Exception ex)
+                {
+                    var reslut = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                    {
+                        Frame.Navigate(typeof(Fail), new Error { ErrorCode = ex.Message, ReTryPage = typeof(Home) });
+                    });
+                    while (true)
+                    {
+                        if (reslut.Status == AsyncStatus.Completed)
+                        {
+                            return;
+                        }
+                    }
+                }
+
+                while (i != getBanners.Length - 1)
+                {
+                    Invoke(new Action(delegate { banners.Add(getBanners[i]); }));
+                    i++;
+                }
+            })
+            { IsBackground = false }.Start();
+
+            new Thread(a =>
+            {
+                int i = 0;
+                Vocal[] getVocals = new Vocal[0];
+                try
+                {
+                    getVocals = Vocal.GetVocalList("Id", "", 1, 20, "Watch", "desc");
+                }
+                catch (Exception ex)
+                {
+                    var reslut = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                    {
+                        Frame.Navigate(typeof(Fail), new Error { ErrorCode = ex.Message, ReTryPage = typeof(Home) });
+                    });
+                    while (true)
+                    {
+                        if (reslut.Status == AsyncStatus.Completed)
+                        {
+                            return;
+                        }
+                    }
+                }
+
+                while (i != getVocals.Length - 1)
+                {
+                    Invoke(new Action(delegate { vocals.Add(getVocals[i]); }));
+                    i++;
+                }
+            })
+            { IsBackground = false }.Start();
+
+            new Thread(a =>
+            {
+                int i = 0;
+                SongListList[] getSongLists = new SongListList[0];
+                try
+                {
+                    getSongLists = SongListList.GetSongListList("Id", "", 1, 20, "CreateTime", "desc");
+                }
+                catch (Exception ex)
+                {
+                    var reslut = Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+                    {
+                        Frame.Navigate(typeof(Fail), new Error { ErrorCode = ex.Message, ReTryPage = typeof(Home) });
+                    });
+                    while (true)
+                    {
+                        if (reslut.Status == AsyncStatus.Completed)
+                        {
+                            return;
+                        }
+                    }
+                }
+
+                while (i != getSongLists.Length - 1)
+                {
+                    Invoke(new Action(delegate { songLists.Add(getSongLists[i]); }));
+                    i++;
+                }
+            })
+            { IsBackground = false }.Start();
         }
 
         private void RefreshContainer_RefreshRequested(RefreshContainer sender, RefreshRequestedEventArgs args)
         {
-            songs = Song.GetHotMusic(1, 1);
-            banners = Banner.GetBanners();
-            vocals = Vocal.GetVocalList("OriginaName", "", 1, 10, "Watch", "desc");
-            songList = SongListList.GetSongListList("Id", "", 1, 10, "CreateTime", "desc");
+
         }
 
         private void SongGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -53,7 +178,7 @@ namespace VTuberMusic.Page
 
         private void SongListGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Frame.Navigate(typeof(SongList), songList[SongListGridView.SelectedIndex].Id);
+            Frame.Navigate(typeof(SongList), songLists[SongListGridView.SelectedIndex].Id);
         }
 
         private void SongGridView_Tapped(object sender, TappedRoutedEventArgs e)
@@ -81,5 +206,17 @@ namespace VTuberMusic.Page
                 Frame.Navigate(typeof(Page.VTuber), vocals[VocalGridView.SelectedIndex].Id);
             }
         }
+
+        public void Invoke(Action action, Windows.UI.Core.CoreDispatcherPriority Priority = Windows.UI.Core.CoreDispatcherPriority.Normal)
+        {
+            var reslut = CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Priority, () => { action(); });
+            while (reslut.Status != AsyncStatus.Completed)
+            {
+                //
+            }
+            return;
+        }
     }
 }
+
+

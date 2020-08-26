@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:appmodel="using:Windows.ApplicationModel"
     xmlns:data ="using:VTuberMusic.Modules"
-    mc:Ignorable="d" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    mc:Ignorable="d" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="Page_Loaded">
 
     <Page.Resources>
         <DataTemplate x:Key="PlayListDataTemplate" x:DataType="data:Song">
@@ -55,14 +55,14 @@
                 <!--<NavigationViewItem Icon="Download" Content="下载的音乐" Tag="Download"/>
                 <NavigationViewItem Icon="Audio" Content="本地音乐" Tag="LocalMusic"/>-->
                 <NavigationViewItem Icon="Favorite" x:Uid="LikesMusic" Content="我喜欢的音乐" Tag="SongList"/>
-                <!--<NavigationViewItemHeader Content="我创建的歌单"/>
-                <NavigationViewItemHeader Content="我收藏的歌单"/>-->
+                <NavigationViewItemHeader x:Uid="MyCreateSongList" Content="我创建的歌单"/>
+                <!--<NavigationViewItemHeader Content="我收藏的歌单"/>-->
             </NavigationView.MenuItems>
             <NavigationView.PaneFooter>
                 <StackPanel>
-                    <NavigationViewItem Name="HistoryItem" Content="播放历史" Icon="Clock" Tapped="HistoryItem_Tapped" Tag="History"/>
-                    <!--<NavigationViewItem x:Name="AccountNavigationViewItem" Content="个人空间" Icon="Contact" Tag="Account" Tapped="AccountNavigationViewItem_Tapped"/>
-                    <NavigationViewItem Content="投稿管理" Icon="Upload" Tag="UploadManger"/>-->
+                    <NavigationViewItem x:Name="HistoryItem" x:Uid="PlayHistory" Content="播放历史" Icon="Clock" Tapped="HistoryItem_Tapped" Tag="History"/>
+                    <NavigationViewItem x:Name="AccountItem" x:Uid="MySpace" Content="个人空间" Icon="Contact" Tag="Account" Tapped="AccountItem_Tapped"/>
+                    <NavigationViewItem x:Name="UploadMangerItem" x:Uid="UploadManger" Content="投稿管理" Icon="Upload" Tag="UploadManger"/>
                 </StackPanel>
             </NavigationView.PaneFooter>
             <Frame x:Name="PageFrame"/>
@@ -128,7 +128,10 @@
                 </Button>
             </Grid>
         </Grid>
-        <Grid x:Name="PlayListWindow" Width="500" HorizontalAlignment="Right" Margin="0,100,0,0" Background="{StaticResource SystemControlAcrylicElementBrush}" Visibility="Collapsed">
+        <Grid x:Name="PlayListWindow" Width="500" HorizontalAlignment="Right" Margin="0,100,20,20" Visibility="Collapsed">
+            <Grid.Background>
+                <AcrylicBrush BackgroundSource="Backdrop"/>
+            </Grid.Background>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -139,7 +142,7 @@
                     <SymbolIcon Symbol="Delete" Margin="2,0,0,0"/>
                 </Button>
             </Grid>
-            <ListView x:Name="PlayListView" Grid.Row="1" ItemTemplate="{StaticResource PlayListDataTemplate}" ItemsSource="{x:Bind playList}" ContainerContentChanging="PlayListView_ContainerContentChanging">
+            <ListView x:Name="PlayListView" Grid.Row="1" ItemTemplate="{StaticResource PlayListDataTemplate}" ItemsSource="{x:Bind playList}">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

@@ -15,7 +15,7 @@
         <DataTemplate x:Key='SongTemplate' x:DataType="data:Song">
             <Grid AutomationProperties.Name='{x:Bind OriginName}' Width='210' Height="210">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="0.6*"/>
                     <RowDefinition Height="0.3*"/>
                 </Grid.RowDefinitions>
@@ -65,9 +65,9 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="40"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="0.1*"/>
+                    <ColumnDefinition Width="40"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Row="1" Grid.Column="1">
                     <FlipView Height="400" ItemsSource="{x:Bind banners}" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,0,0,10">
@@ -75,42 +75,85 @@
                             <DataTemplate x:DataType="data:Banner">
                                 <Grid>
                                     <Image Source="{x:Bind BannerImg}" Stretch="UniformToFill" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <Grid VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="10,0,0,10" Padding="10,0,10,0">
+                                        <Grid.Background>
+                                            <AcrylicBrush TintColor="Black" TintOpacity="0.1"/>
+                                        </Grid.Background>
+                                        <TextBlock Text="{x:Bind OriginName}" FontSize="26" Foreground="White"/>
+                                    </Grid>
                                 </Grid>
                             </DataTemplate>
                         </FlipView.ItemTemplate>
                     </FlipView>
                     <!--热门歌曲-->
-                    <TextBlock x:Uid="PopularSong" x:Name="test" Style="{StaticResource SmallTitle}" Text="热门播放" VerticalAlignment="Top"/>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon Glyph="&#xE90B; " FontFamily="Segoe MDL2 Assets" FontSize="36"/>
+                            <TextBlock x:Uid="PopularSong" Style="{StaticResource Title}" Text="热门播放"/>
+                        </StackPanel>
+                        <HyperlinkButton Style="{StaticResource SmallHyperlinkButton}" Content="查看更多" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                    </Grid>
                     <ScrollViewer HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled">
-                        <GridView x:Name="SongGridView" ItemsSource="{x:Bind songs}" ItemTemplate="{StaticResource SongTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top" SelectionChanged="SongGridView_SelectionChanged" Tapped="SongGridView_Tapped">
-                            <GridView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid x:Name="MaxItemsWrapGrid" MaximumRowsOrColumns="1" Orientation="Vertical"/>
-                                </ItemsPanelTemplate>
-                            </GridView.ItemsPanel>
-                        </GridView>
+                        <Grid>
+                            <GridView x:Name="SongGridView" Height="220" ItemsSource="{x:Bind songs}" ItemTemplate="{StaticResource SongTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top" SelectionChanged="SongGridView_SelectionChanged" Tapped="SongGridView_Tapped" Canvas.ZIndex="10">
+                                <GridView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <ItemsWrapGrid x:Name="MaxItemsWrapGrid" MaximumRowsOrColumns="1" Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </GridView.ItemsPanel>
+                                <GridView.ItemContainerStyle>
+                                    <Style TargetType="GridViewItem">
+                                        <Setter Property="Margin" Value="5,0,5,0"/>
+                                    </Style>
+                                </GridView.ItemContainerStyle>
+                            </GridView>
+                            <ProgressRing IsActive="True" Height="50" Width="50"/>
+                        </Grid>
                     </ScrollViewer>
                     <!--VTuber-->
-                    <TextBlock x:Uid="PopularVTuber" Style="{StaticResource SmallTitle}" Text="人气 VTubers" VerticalAlignment="Top"/>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon Glyph="&#xE716; " FontFamily="Segoe MDL2 Assets" FontSize="36"/>
+                            <TextBlock x:Uid="PopularVTuber" Style="{StaticResource Title}" Text="人气 VTubers"/>
+                        </StackPanel>
+                        <HyperlinkButton Style="{StaticResource SmallHyperlinkButton}" Content="查看更多" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                    </Grid>
                     <ScrollViewer HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled">
-                        <GridView x:Name="VocalGridView" ItemsSource="{x:Bind vocals}" ItemTemplate="{StaticResource VocalObjectTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top" Tapped="VocalGridView_Tapped">
-                            <GridView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid x:Name="MaxItemsWrapGrid" MaximumRowsOrColumns="1" Orientation="Vertical"/>
-                                </ItemsPanelTemplate>
-                            </GridView.ItemsPanel>
-                        </GridView>
+                        <Grid>
+                            <GridView x:Name="VocalGridView" Height="160" ItemsSource="{x:Bind vocals}" ItemTemplate="{StaticResource VocalObjectTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top" Tapped="VocalGridView_Tapped" Canvas.ZIndex="10">
+                                <GridView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <ItemsWrapGrid x:Name="MaxItemsWrapGrid" MaximumRowsOrColumns="1" Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </GridView.ItemsPanel>
+                            </GridView>
+                            <ProgressRing IsActive="True" Height="50" Width="50"/>
+                        </Grid>
                     </ScrollViewer>
                     <!--歌单-->
-                    <TextBlock x:Uid="SongList" Style="{StaticResource SmallTitle}" Text="歌单"/>
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <FontIcon Glyph="&#xE93C; " FontFamily="Segoe MDL2 Assets" FontSize="36"/>
+                            <TextBlock x:Uid="SongList" Style="{StaticResource Title}" Text="歌单"/>
+                        </StackPanel>
+                        <HyperlinkButton Style="{StaticResource SmallHyperlinkButton}" Content="查看更多" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                    </Grid>
                     <ScrollViewer HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled">
-                        <GridView x:Name="SongListGridView" ItemsSource="{x:Bind songList}" ItemTemplate="{StaticResource SongListObjectTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top" SelectionChanged="SongListGridView_SelectionChanged">
-                            <GridView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <ItemsWrapGrid x:Name="MaxItemsWrapGrid" MaximumRowsOrColumns="1" Orientation="Vertical"/>
-                                </ItemsPanelTemplate>
-                            </GridView.ItemsPanel>
-                        </GridView>
+                        <Grid Height="220">
+                            <GridView x:Name="SongListGridView" ItemsSource="{x:Bind songLists}" ItemTemplate="{StaticResource SongListObjectTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top" SelectionChanged="SongListGridView_SelectionChanged" Canvas.ZIndex="10">
+                                <GridView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <ItemsWrapGrid x:Name="MaxItemsWrapGrid" MaximumRowsOrColumns="1" Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </GridView.ItemsPanel>
+                                <GridView.ItemContainerStyle>
+                                    <Style TargetType="GridViewItem">
+                                        <Setter Property="Margin" Value="5,0,5,0"/>
+                                    </Style>
+                                </GridView.ItemContainerStyle>
+                            </GridView>
+                            <ProgressRing IsActive="True" Height="50" Width="50"/>
+                        </Grid>
                     </ScrollViewer>
                 </StackPanel>
             </Grid>

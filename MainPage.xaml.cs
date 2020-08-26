@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography.X509Certificates;
@@ -16,11 +17,13 @@ using Windows.Foundation.Collections;
 using Windows.Media;
 using Windows.Media.Playback;
 using Windows.UI;
+using Windows.UI.Composition;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Hosting;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
@@ -35,6 +38,7 @@ namespace VTuberMusic
         public static NavigationView navigationView;
         public static Player player;
         private bool ok = false;
+        private Error error = null;
         ObservableCollection<Song> playList = new ObservableCollection<Song>();
 
         #region Item Tag 属性对应的页面
@@ -64,8 +68,15 @@ namespace VTuberMusic
             // 让其他对象控制导航视图
             navigationView = TheNavigationView;
             Log.WriteLine("[UI]准备就绪", Level.Info);
-            // 获取 CDN 列表并且保存
-            GetTools.CDNList = GetTools.GetCDNList();
+            // 获取 CDN 列表并保存
+            try
+            {
+                GetTools.CDNList = GetTools.GetCDNList();
+            }
+            catch (Exception ex)
+            {
+                error = new Error { CanBackHome = false, ReTryArgs = null, ReTryPage = typeof(MainPage), ErrorCode = ex.Message };
+            }
             // 初始化播放核心
             player = new Player();
             DispatcherTimer timer = new DispatcherTimer();
@@ -75,10 +86,23 @@ namespace VTuberMusic
             player.PlayListChanged += PlayListUpdate;
             player.BufferingProgressChanged += BufferingProgressChanged;
             ok = true;
+            // 更新播放列表标题
+            PlayListNum.Text = string.Format(Lang.ReadLangText("PlayList"), "0");
+            // 创建播放列表阴影
             // 跳转到首页
             navigationView.SelectedItem = Home;
             Log.WriteLine("[UI]跳转到首页", Level.Info);
         }
+
+        #region 页面加载完成
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (error != null)
+            {
+                Frame.Navigate(typeof(Page.Fail), error);
+            }
+        }
+        #endregion
 
         #region NavigationView 相关
         #region 监听 NavigationView
@@ -133,9 +157,9 @@ namespace VTuberMusic
         #endregion
 
         #region Footer 按钮点击事件
-        private void AccountNavigationViewItem_Tapped(object sender, TappedRoutedEventArgs e)
+        private void AccountItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            // TheNavigationView.SelectedItem = AccountNavigationViewItem;
+            TheNavigationView.SelectedItem = AccountItem;
         }
 
         private void HistoryItem_Tapped(object sender, TappedRoutedEventArgs e)
@@ -305,18 +329,6 @@ namespace VTuberMusic
         private void ClearPlayList_Click(object sender, RoutedEventArgs e)
         {
             player.PlayListClear();
-        }
-
-        private void PlayListView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
-        {
-            if (args.ItemIndex % 2 == 0)
-            {
-                args.ItemContainer.Background = new SolidColorBrush(Colors.WhiteSmoke);
-            }
-            else
-            {
-                args.ItemContainer.Background = new SolidColorBrush(Colors.White);
-            }
         }
 
         private void PlayMode_Click(object sender, RoutedEventArgs e)

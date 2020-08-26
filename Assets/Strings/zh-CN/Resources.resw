@@ -118,7 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutDev.Text" xml:space="preserve">
-    <value>后端: Dishonek
+    <value>前任站长 (隐退): 静谷
+现任站长 &amp; 后端: Dishonek
 前端: BK 黑木先森
 算法: LovEver
 架构: 绒球帽
@@ -152,7 +153,8 @@ Github 仓库: https://github.com/LitJSON/litjson</value>
   </data>
   <data name="AboutSpecialThanks.Text" xml:space="preserve">
     <value>感谢各位 dd 的使用和支持，没有你们的支持没有现在的我们
-感谢 VTuber 们愿意将音乐授权给本站，没有你们也不会有本站</value>
+感谢各位 VTuber 的贡献，没有你们也不会有本站
+感谢所有开发和工作人员</value>
     <comment>使用: SettingsPage.xaml</comment>
   </data>
   <data name="AboutSpecialThanksTitle" xml:space="preserve">
@@ -191,6 +193,18 @@ Github 仓库: https://github.com/LitJSON/litjson</value>
     <value>评论</value>
     <comment>使用: Playing.xaml</comment>
   </data>
+  <data name="ErrorCode" xml:space="preserve">
+    <value>错误信息: {0}</value>
+    <comment>使用: Fail.xaml {0}=错误代码</comment>
+  </data>
+  <data name="ErrorCodeNotFound" xml:space="preserve">
+    <value>无法输出错误信息</value>
+    <comment>使用: Fail.xaml</comment>
+  </data>
+  <data name="Fail.Text" xml:space="preserve">
+    <value>Oops... 发生了错误</value>
+    <comment>使用: Fail.xaml</comment>
+  </data>
   <data name="History.Text" xml:space="preserve">
     <value>历史记录</value>
     <comment>使用: History.xaml</comment>
@@ -207,12 +221,24 @@ Github 仓库: https://github.com/LitJSON/litjson</value>
     <value>我喜欢的音乐</value>
     <comment>使用: MainPage.xaml</comment>
   </data>
+  <data name="Login.Header" xml:space="preserve">
+    <value>登录</value>
+    <comment>使用: Login.xaml</comment>
+  </data>
   <data name="LogTitle.Text" xml:space="preserve">
     <value>日志</value>
     <comment>使用: SettingsPage.xaml</comment>
   </data>
+  <data name="MyCreateSongList.Content" xml:space="preserve">
+    <value>我创建的歌单</value>
+    <comment>使用: MainPage.xaml</comment>
+  </data>
   <data name="MyMusic.Content" xml:space="preserve">
     <value>我的音乐</value>
+    <comment>使用: MainPage.xaml</comment>
+  </data>
+  <data name="MySpace.Content" xml:space="preserve">
+    <value>个人空间</value>
     <comment>使用: MainPage.xaml</comment>
   </data>
   <data name="MySubscrube.Content" xml:space="preserve">
@@ -226,6 +252,10 @@ Github 仓库: https://github.com/LitJSON/litjson</value>
   <data name="PlayAll.Text" xml:space="preserve">
     <value>全部播放</value>
     <comment>使用: VTuber.xaml SongList.xaml</comment>
+  </data>
+  <data name="PlayHistory.Content" xml:space="preserve">
+    <value>播放历史</value>
+    <comment>使用: MianPage.xaml</comment>
   </data>
   <data name="Playing.Content" xml:space="preserve">
     <value>正在播放</value>
@@ -242,6 +272,10 @@ Github 仓库: https://github.com/LitJSON/litjson</value>
   <data name="PopularVTuber.Text" xml:space="preserve">
     <value>人气 VTuber</value>
     <comment>使用: Home.xaml</comment>
+  </data>
+  <data name="Register.Header" xml:space="preserve">
+    <value>注册</value>
+    <comment>使用: Login.xaml</comment>
   </data>
   <data name="SearchPlaceholder.PlaceholderText" xml:space="preserve">
     <value>搜索歌曲 / VTuber / 歌单</value>
@@ -262,6 +296,10 @@ Github 仓库: https://github.com/LitJSON/litjson</value>
   <data name="Twitter.Text" xml:space="preserve">
     <value>Twitter</value>
     <comment>使用: VTuber.xaml</comment>
+  </data>
+  <data name="UploadManger.Content" xml:space="preserve">
+    <value>投稿管理</value>
+    <comment>使用: MainPage.xaml</comment>
   </data>
   <data name="VTuberGroup" xml:space="preserve">
     <value>所属: {0}</value>

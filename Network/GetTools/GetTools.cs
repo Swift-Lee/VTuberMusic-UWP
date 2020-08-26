@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using VTuberMusic.Modules;
 using VTuberMusic.Tools;
 
 namespace VTuberMusic.Network.GetTools
@@ -88,7 +89,7 @@ namespace VTuberMusic.Network.GetTools
             }
             else
             {
-                throw new Exception("错误代码:" + response.StatusCode.ToString());
+                throw new Exception(response.StatusCode.ToString());
             }
         }
 

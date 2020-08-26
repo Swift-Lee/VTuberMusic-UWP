@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading;
 using VTuberMusic.Modules;
 using VTuberMusic.Tools;
+using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -28,8 +31,8 @@ namespace VTuberMusic.Page
     public sealed partial class SongList
     {
         public string songListId;
-        SongListList[] songListList;
-        public Song[] songs;
+        SongListList[] songListList = null;
+        public ObservableCollection<Song> songs = new ObservableCollection<Song>();
 
         public SongList()
         {
@@ -40,17 +43,52 @@ namespace VTuberMusic.Page
         {
             base.OnNavigatedTo(e);
             songListId = (string)e.Parameter;
+            LoadingRing.IsActive = true;
             if (songListId != null)
             {
                 Log.WriteLine("[GUI]跳转到歌单: " + songListId, Level.Info);
-                songListList = SongListList.GetSongListList("Id", songListId, 1, 1, "Id", "dasc");
-                songs = Modules.SongList.GetSongListSong(songListId);
-                BitmapImage bitmapImage = new BitmapImage(new Uri(songListList[0].CoverImg));
-                SongListName.Text = songListList[0].Name;
-                intro.Text = songListList[0].introduce;
-                SongListCreator.Text = songListList[0].CreatorRealName;
-                SongListCreatorImage.DisplayName = songListList[0].CreatorRealName;
-                SongListImage.Source = (bitmapImage);
+                new Thread(a =>
+                {
+                    Song[] getSongs = null;
+                    try
+                    {
+                        songListList = SongListList.GetSongListList("Id", songListId, 1, 1, "Id", "dasc");
+                        getSongs = Modules.SongList.GetSongListSong(songListId);
+                    }
+                    catch (Exception ex)
+                    {
+                        Invoke(new Action(delegate
+                        {
+                            Frame.Navigate(typeof(Fail), new Error { ErrorCode = ex.Message, CanBackHome = true, ReTryPage = typeof(VTuber), ReTryArgs = songListId });
+                        }));
+                    }
+
+                    if (getSongs != null)
+                    {
+                        Invoke(new Action(delegate
+                        {
+                            songs.Clear();
+                            for (int i = 0; i != getSongs.Length; i++)
+                            {
+                                songs.Add(getSongs[i]);
+                            }
+                        }));
+                    }
+
+                    if (songListList != null)
+                    {
+                        Invoke(new Action(delegate
+                        {
+                            LoadingRing.IsActive = false;
+                            SongListName.Text = songListList[0].Name;
+                            intro.Text = songListList[0].introduce;
+                            SongListCreator.Text = songListList[0].CreatorRealName;
+                            SongListCreatorImage.DisplayName = songListList[0].CreatorRealName;
+                            BitmapImage bitmapImage = new BitmapImage(new Uri(songListList[0].CoverImg));
+                            SongListImage.Source = (bitmapImage);
+                        }));
+                    }
+                }).Start();
             }
             else
             {
@@ -62,11 +100,13 @@ namespace VTuberMusic.Page
         {
             if (args.ItemIndex % 2 == 0)
             {
-                args.ItemContainer.Background = new SolidColorBrush(Colors.WhiteSmoke);
+                var brush = new SolidColorBrush((Color)Resources["SystemListLowColor"]);
+                args.ItemContainer.Background = brush;
             }
             else
             {
-                args.ItemContainer.Background = new SolidColorBrush(Colors.White);
+                var brush = new SolidColorBrush((Color)Resources["SystemChromeMediumColor"]);
+                args.ItemContainer.Background = brush;
             }
         }
 
@@ -75,7 +115,7 @@ namespace VTuberMusic.Page
             if (SongListView.SelectedIndex != -1)
             {
                 MainPage.player.PlayListClear();
-                MainPage.player.PlayListAddSongList(songs);
+                MainPage.player.PlayListAddSongList(songs.ToArray());
                 MainPage.player.PlayIndex(MainPage.player.PlayList.IndexOf(songs[SongListView.SelectedIndex]));
             }
         }
@@ -95,12 +135,22 @@ namespace VTuberMusic.Page
 
         private void PlayAll_Click(object sender, RoutedEventArgs e)
         {
-            if(songs.Length != 0)
+            if(songs.Count != 0)
             {
                 MainPage.player.PlayListClear();
-                MainPage.player.PlayListAddSongList(songs);
+                MainPage.player.PlayListAddSongList(songs.ToArray());
                 MainPage.player.PlayIndex(0);
             }
+        }
+
+        public void Invoke(Action action, Windows.UI.Core.CoreDispatcherPriority Priority = Windows.UI.Core.CoreDispatcherPriority.Normal)
+        {
+            var reslut = CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Priority, () => { action(); });
+            while (reslut.Status != AsyncStatus.Completed)
+            {
+                //
+            }
+            return;
         }
     }
 }
