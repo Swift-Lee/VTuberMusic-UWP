@@ -118,5 +118,28 @@ namespace VTuberMusic.Network.GetTools
             }
         }
         #endregion
+
+        #region 歌曲数据请求模型
+        public class LyricGetModules
+        {
+            public bool karaoke { get; set; }
+            public bool scrollDisabled { get; set; }
+            public bool translated { get; set; }
+            public Origin origin { get; set; }
+            public Translate translate { get; set; }
+
+            public class Origin
+            {
+                public int version { get; set; }
+                public string text { get; set; }
+            }
+
+            public class Translate
+            {
+                public int version { get; set; }
+                public string text { get; set; }
+            }
+        }
+        #endregion
     }
 }

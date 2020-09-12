@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using VTuberMusic.Modules;
 using VTuberMusic.Tools;
+using Windows.UI.Xaml.Documents;
 
 namespace VTuberMusic.Network.GetTools
 {
@@ -91,6 +92,15 @@ namespace VTuberMusic.Network.GetTools
             {
                 throw new Exception(response.StatusCode.ToString());
             }
+        }
+
+        public static string GetRequest(string Uri)
+        {
+            var client = new RestClient();
+            var request = new RestRequest(Uri);
+            var response = client.Get(request);
+            
+            return response.Content;
         }
 
         public class PostTemplate

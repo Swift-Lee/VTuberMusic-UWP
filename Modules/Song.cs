@@ -120,7 +120,7 @@ namespace VTuberMusic.Modules
         public static Song[] GetHotMusic(int PageIndex,int PageRows)
         {
             string postJson = JsonMapper.ToJson(new GetModules.ListPostModule { pageIndex = PageIndex, pageRows = PageRows});
-            var response = GetTools.PostApi("/v1/GetMusicList", postJson);
+            var response = GetTools.PostApi("/v1/GetHotMusicList", postJson);
             if (response.IsSuccessful)
             {
                 GetModules.MusicListGetModule jsonData = JsonMapper.ToObject<GetModules.MusicListGetModule>(response.Content);

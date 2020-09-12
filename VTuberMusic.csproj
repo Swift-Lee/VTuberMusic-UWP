@@ -129,6 +129,7 @@
     </Compile>
     <Compile Include="Modules\Banner.cs" />
     <Compile Include="Modules\Error.cs" />
+    <Compile Include="Modules\Lyric.cs" />
     <Compile Include="Modules\Player.cs" />
     <Compile Include="Modules\SongList.cs" />
     <Compile Include="Modules\Song.cs" />

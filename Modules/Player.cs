@@ -12,6 +12,8 @@ using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
+using VTuberMusic.Network;
+using VTuberMusic.Network.GetTools;
 
 namespace VTuberMusic.Modules
 {
@@ -29,6 +31,7 @@ namespace VTuberMusic.Modules
         public string VocalName { get; private set; } = "";
         public string SongImage { get; private set; } = "ms-appx:///Assets/Image/noimage.png";
         public string SongId { get; private set; } = "";
+        public Song songObject { get; private set; } = new Song();
         public TimeSpan Position;
         public TimeSpan Duration;
         public ObservableCollection<Song> PlayList = new ObservableCollection<Song>();
@@ -86,7 +89,7 @@ namespace VTuberMusic.Modules
         }
         #endregion
 
-        #region 通过 Song Id 载入歌曲
+        #region 通过 Song 载入歌曲
         private void GetSong(Song song)
         {
             // 设置播放歌曲信息
@@ -94,6 +97,7 @@ namespace VTuberMusic.Modules
             VocalName = song.VocalName;
             SongImage = song.assestLink.CoverImg;
             SongId = song.Id;
+            songObject = song;
             // 启用 Button 们
             systemMediaTransportControls.IsEnabled = true;
             systemMediaTransportControls.IsPlayEnabled = true;
