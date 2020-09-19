@@ -40,7 +40,15 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="85"/>
         </Grid.RowDefinitions>
-        <NavigationView x:Name="TheNavigationView" IsBackButtonVisible="Collapsed" SelectionChanged="TheNavigationView_SelectionChanged" ItemInvoked="TheNavigationView_ItemInvoked">
+        <NavigationView 
+            x:Name="TheNavigationView"
+            IsBackButtonVisible="Visible"
+            IsBackEnabled="False"
+            SelectionChanged="TheNavigationView_SelectionChanged"
+            Loaded="TheNavigationView_Loaded"
+            ItemInvoked="TheNavigationView_ItemInvoked"
+            BackRequested="NavView_BackRequested"
+            >
             <NavigationView.AutoSuggestBox>
                 <AutoSuggestBox x:Name="Search" x:Uid="SearchPlaceholder" QueryIcon="Find" AutomationProperties.Name="Search" PlaceholderText="搜索歌曲 / VTuber / 歌单" QuerySubmitted="Search_QuerySubmitted"/>
             </NavigationView.AutoSuggestBox>
@@ -50,19 +58,19 @@
             <NavigationView.MenuItems>
                 <NavigationViewItem x:Name="Home" x:Uid="Home" Icon="Home" Content="发现" Tag="Home"/>
                 <NavigationViewItem x:Name="Playing" x:Uid="Playing" Icon="Play" Content="正在播放" Tag="Playing"/>
-                <NavigationViewItem Icon="People" x:Uid="MySubscrube" Content="我的主推" Tag="Subscribe"/>
-                <NavigationViewItemHeader x:Uid="MyMusic" Content="我的音乐"/>
+                <!--<NavigationViewItem Icon="People" x:Uid="MySubscrube" Content="我的主推" Tag="Subscribe"/>-->
+                <!--<NavigationViewItemHeader x:Uid="MyMusic" Content="我的音乐"/>-->
                 <!--<NavigationViewItem Icon="Download" Content="下载的音乐" Tag="Download"/>
                 <NavigationViewItem Icon="Audio" Content="本地音乐" Tag="LocalMusic"/>-->
-                <NavigationViewItem Icon="Favorite" x:Uid="LikesMusic" Content="我喜欢的音乐" Tag="SongList"/>
-                <NavigationViewItemHeader x:Uid="MyCreateSongList" Content="我创建的歌单"/>
+                <!--<NavigationViewItem Icon="Favorite" x:Uid="LikesMusic" Content="我喜欢的音乐" Tag="SongList"/>-->
+                <!--<NavigationViewItemHeader x:Uid="MyCreateSongList" Content="我创建的歌单"/>-->
                 <!--<NavigationViewItemHeader Content="我收藏的歌单"/>-->
             </NavigationView.MenuItems>
             <NavigationView.PaneFooter>
                 <StackPanel>
-                    <NavigationViewItem x:Name="HistoryItem" x:Uid="PlayHistory" Content="播放历史" Icon="Clock" Tapped="HistoryItem_Tapped" Tag="History"/>
+                    <!--<NavigationViewItem x:Name="HistoryItem" x:Uid="PlayHistory" Content="播放历史" Icon="Clock"Tag="History"/>-->
                     <NavigationViewItem x:Name="AccountItem" x:Uid="MySpace" Content="个人空间" Icon="Contact" Tag="Account" Tapped="AccountItem_Tapped"/>
-                    <NavigationViewItem x:Name="UploadMangerItem" x:Uid="UploadManger" Content="投稿管理" Icon="Upload" Tag="UploadManger"/>
+                    <!--<NavigationViewItem x:Name="UploadMangerItem" x:Uid="UploadManger" Content="投稿管理" Icon="Upload" Tag="UploadManger"/>-->
                 </StackPanel>
             </NavigationView.PaneFooter>
             <Frame x:Name="PageFrame"/>

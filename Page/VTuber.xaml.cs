@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestSharp;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -11,6 +12,7 @@ using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Graphics.Imaging;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -32,11 +34,13 @@ namespace VTuberMusic.Page
     {
         Vocal vocal = null;
         string vocalId;
+        Thread loadThread;
         ObservableCollection<Song> songs = new ObservableCollection<Song>();
 
         public VTuber()
         {
             this.InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Disabled;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -44,7 +48,7 @@ namespace VTuberMusic.Page
             base.OnNavigatedTo(e);
             vocalId = (string)e.Parameter;
             LoadingRing.IsActive = true;
-            new Thread(a =>
+            loadThread = new Thread(a =>
             {
                 try
                 {
@@ -59,42 +63,67 @@ namespace VTuberMusic.Page
                     }));
                 }
 
-                Invoke(new Action(delegate { LoadingRing.IsActive = false; }));
                 if (vocal != null)
                 {
                     Invoke(new Action(delegate
                     {
-                        // 判断 Youtube 推特 Bilibili 是否为空 null
-                        if (string.IsNullOrEmpty(vocal.Bilibili) && vocal.Bilibili == "")
-                        {
-                            BiliBili.Visibility = Visibility.Collapsed;
-                        }
-                        if (string.IsNullOrEmpty(vocal.YouTube) && vocal.YouTube == "")
-                        {
-                            Youtube.Visibility = Visibility.Collapsed;
-                        }
-                        if (string.IsNullOrEmpty(vocal.Twitter) && vocal.Twitter == "")
-                        {
-                            Twitter.Visibility = Visibility.Collapsed;
-                        }
-                        // 获取歌曲
-                        Song[] songsArray = Song.GetMusicList("VocalId", vocalId, 1, 1000, "CreateTime", "desc");
-                        // 输出歌曲
-                        for (int i = 0; i != songsArray.Length; i++)
-                        {
-                            songs.Add(songsArray[i]);
-                        }
                         // 显示数据
                         OriginalName.Text = vocal.OriginalName;
                         ChineseName.Text = vocal.ChineseName;
                         VocalGroup.Text = string.Format(Lang.ReadLangText("VTuberGroup"), vocal.GroupsId);
-                        // 载入图片
-                        BitmapImage vocalImage = new BitmapImage(new Uri(vocal.AvatarImg));
-                        BackgroundImage.Source = vocalImage;
-                        VocalImage.ProfilePicture = vocalImage;
+                    }));
+
+                    // 判断 Youtube 推特 Bilibili 是否为空 null
+                    if (!string.IsNullOrEmpty(vocal.Bilibili) && vocal.Bilibili != "")
+                    {
+                        Invoke(new Action(delegate { BiliBili.Visibility = Visibility.Visible; }));
+                    }
+                    if (!string.IsNullOrEmpty(vocal.YouTube) && vocal.YouTube != "")
+                    {
+                        Invoke(new Action(delegate { Youtube.Visibility = Visibility.Visible; }));
+                    }
+                    if (!string.IsNullOrEmpty(vocal.Twitter) && vocal.Twitter != "")
+                    {
+                        Invoke(new Action(delegate { Twitter.Visibility = Visibility.Visible; }));
+                    }
+
+                    Invoke(new Action(delegate
+                    {
+                        var vocalAvatarImg = new BitmapImage();
+                        BackgroundImage.Source = vocalAvatarImg;
+                        VocalImage.ProfilePicture = vocalAvatarImg;
+                        vocalAvatarImg.UriSource = new Uri(vocal.AvatarImg);
+                    }));
+
+                    // 获取歌曲
+                    Song[] songsArray = Song.GetMusicList("VocalId", vocalId, 1, 5000, "CreateTime", "desc");
+
+                    // 输出歌曲
+                    //songs = Collection.ArrayToObservableCollection(songsArray);
+                    foreach(Song songTemp in songsArray)
+                    {
+                        Invoke(new Action(delegate
+                        {
+                            songs.Add(songTemp);
+                        }));
+                    }
+                    // 释放内存
+                    songsArray = null;
+                    GC.Collect();
+                    Invoke(new Action(delegate
+                    {
+                        LoadingRing.IsActive = false;
                     }));
                 }
-            }).Start();
+            });
+            loadThread.Start();
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            loadThread.Interrupt();
+            songs.Clear();
+            GC.Collect();
         }
 
         private void SongListView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)

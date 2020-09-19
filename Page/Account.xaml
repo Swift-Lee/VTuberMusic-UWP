@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
@@ -15,35 +16,35 @@
         </Grid.RowDefinitions>
         <Grid Margin="30,10,10,10">
             <StackPanel Orientation="Horizontal">
-                <PersonPicture x:Name="PersonPicture" DisplayName="Misaka-L" ProfilePicture="https://cdn.aqua.chat/user/1298272546046611456a60613b465f2dd5c6f5848d3feb40ffd.jpg" Width="100" Height="100"/>
+                <PersonPicture x:Name="PersonPicture" DisplayName="" Width="100" Height="100"/>
                 <StackPanel Orientation="Vertical" Padding="20,10,0,0">
-                    <TextBlock Text="Misaka-L" Style="{StaticResource TitleTextBlockStyle}"/>
+                    <TextBlock x:Name="UserName" Text="" Style="{StaticResource TitleTextBlockStyle}"/>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="可能是女孩子"/>
-                        <FontIcon FontFamily="/Assets/Font/iconfont.ttf#iconfont" Glyph="&#xe63a;" Foreground="Pink"/>
+                        <TextBlock x:Name="SexText" Text=""/>
+                        <FontIcon x:Name="SexIcon" FontFamily="/Assets/Font/iconfont.ttf#iconfont" Margin="5,0,0,0"/>
                     </StackPanel>
-                    <TextBlock Text="这里应该有一些文字" TextWrapping="Wrap"/>
+                    <TextBlock Text="" TextWrapping="Wrap"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Padding="0,10,10,0">
                 <StackPanel>
-                    <TextBlock Text="关注" HorizontalAlignment="Right"/>
-                    <TextBlock Text="1k" HorizontalAlignment="Right"/>
+                    <TextBlock Text="主推" HorizontalAlignment="Right"/>
+                    <TextBlock Text="null" HorizontalAlignment="Right"/>
                 </StackPanel>
                 <Rectangle Height="40" Width="2" Fill="Black" VerticalAlignment="Top" Margin="5,0,5,0"/>
                 <StackPanel>
                     <TextBlock Text="粉丝" HorizontalAlignment="Left"/>
-                    <TextBlock Text="1k" HorizontalAlignment="Left"/>
+                    <TextBlock Text="null" HorizontalAlignment="Left"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
-        <Pivot Grid.Row="1">
+        <!--<Pivot Grid.Row="1">
             <PivotItem Header="创建的歌单">
                 
             </PivotItem>
             <PivotItem Header="公告">
                 <TextBlock Text="日本那边使用的字符编码是 Shift-JIS， 那边的计算机创建的文件都是以 Shift-JIS 来编码的。所以如果你用其他国家的计算机打开日本国家的计算机创建的文件会直接乱码。" TextWrapping="Wrap"/>
             </PivotItem>
-        </Pivot>
+        </Pivot>-->
     </Grid>
 </Page>

@@ -9,7 +9,7 @@
 
   <Identity
     Name="d0a417bf-8346-4bec-aad8-d72a0e209f88"
-    Publisher="CN=VTuberMusic"
+    Publisher="CN=VtuberMusic"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="d0a417bf-8346-4bec-aad8-d72a0e209f88" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>

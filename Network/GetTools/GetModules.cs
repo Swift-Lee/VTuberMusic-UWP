@@ -82,6 +82,12 @@ namespace VTuberMusic.Network.GetTools
         {
             public string[] ids { get; set; }
         }
+
+        public class LoginPostModule
+        {
+            public string password { get; set; }
+            public string userName { get; set; }
+        }
         #endregion
 
         #region Banner 请求数据模型
@@ -138,6 +144,30 @@ namespace VTuberMusic.Network.GetTools
             {
                 public int version { get; set; }
                 public string text { get; set; }
+            }
+        }
+        #endregion
+
+        #region 用户账户请求数据模型
+        public class LoginGetModules
+        {
+            public string Data { get; set; }
+            public bool Success { get; set; }
+            public int ErrorCode { get; set; }
+            public string Msg { get; set; }
+        }
+
+        public class UserGetModules
+        {
+            public rdData Data { get; set; }
+            public bool Success { get; set; }
+            public int ErrorCode { get; set; }
+            public string Msg { get; set; }
+
+            public class rdData
+            {
+                public Account UserInfo { get; set; }
+                public int Message { get; set; }
             }
         }
         #endregion

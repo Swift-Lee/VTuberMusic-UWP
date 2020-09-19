@@ -65,19 +65,19 @@
                                 <TextBlock Text="添加到" x:Uid="AddTo" Foreground="White" Margin="5,0,0,0"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="BiliBili" Background="{x:Null}" Click="BiliBili_Click">
+                        <Button x:Name="BiliBili" Background="{x:Null}" Click="BiliBili_Click" Visibility="Collapsed">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock FontFamily="/Assets/Font/iconfont.ttf#iconfont" Text="&#xe6e9;" Foreground="White" FontSize="16" Padding="0,2,0,0"/>
                                 <TextBlock Text="BiliBili" x:Uid="BiliBiliLink" Foreground="White" Margin="5,0,0,0"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="Youtube" Background="{x:Null}" Click="Youtube_Click">
+                        <Button x:Name="Youtube" Background="{x:Null}" Click="Youtube_Click" Visibility="Collapsed">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock FontFamily="/Assets/Font/iconfont.ttf#iconfont" Text="&#xe7af;" Foreground="White" FontSize="16" Padding="0,2,0,0"/>
                                 <TextBlock Text="Yoututbe" x:Uid="YoutubeLink" Foreground="White" Margin="5,0,0,0"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="Twitter" Background="{x:Null}" Click="Twitter_Click">
+                        <Button x:Name="Twitter" Background="{x:Null}" Click="Twitter_Click" Visibility="Collapsed">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock FontFamily="/Assets/Font/iconfont.ttf#iconfont" Text="&#xe600;" Foreground="White" FontSize="16" Padding="0,2,0,0"/>
                                 <TextBlock Text="Twitter" x:Uid="TwitterLink" Foreground="White" Margin="5,0,0,0"/>
@@ -94,7 +94,7 @@
             </Grid>
             <!--歌曲列表-->
             <Grid>
-                <ListView x:Name="SongListView" ItemsSource="{x:Bind songs}" ItemTemplate="{StaticResource SongInListTemplate}" Margin="5,0,5,0" ContainerContentChanging="SongListView_ContainerContentChanging" DoubleTapped="SongListView_DoubleTapped">
+                <ListView x:Name="SongListView" ItemsSource="{x:Bind songs}" ItemTemplate="{StaticResource SongInListTemplate}" ContainerContentChanging="SongListView_ContainerContentChanging" DoubleTapped="SongListView_DoubleTapped">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

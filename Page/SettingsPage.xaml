@@ -11,6 +11,18 @@
     <ScrollViewer KeyDown="ScrollViewer_KeyDown">
         <StackPanel Padding="30,25,0,0">
             <TextBlock Style="{StaticResource TitleTextBlockStyle}" x:Uid="SettingsTitle" Text="设置" Margin="0,0,0,10" TextWrapping="Wrap"/>
+            <TextBlock x:Uid="AccountTitle" Style="{StaticResource SubtitleTextBlockStyle}" Text="账户" TextWrapping="Wrap"/>
+            <Grid Margin="0,10,0,10">
+                <StackPanel Orientation="Horizontal">
+                    <PersonPicture x:Name="UserAvatar" Height="60" Width="60"/>
+                    <StackPanel VerticalAlignment="Center" Margin="10,0,0,0">
+                        <TextBlock x:Name="UserName"/>
+                        <TextBlock x:Name="UserRealName"/>
+                        <TextBlock x:Name="UserId"/>
+                    </StackPanel>
+                </StackPanel>
+                <Button x:Uid="LogOut" x:Name="LogOut" Visibility="Collapsed" Content="登出" HorizontalAlignment="Right" Margin="0,0,20,0" Click="LogOut_Click"/>
+            </Grid>
             <TextBlock x:Uid="LogTitle" Style="{StaticResource SubtitleTextBlockStyle}" Text="日志" TextWrapping="Wrap"/>
             <HyperlinkButton x:Name="Log" x:Uid="CheckLog" Content="查看日志" Click="Log_Click"/>
             <Button x:Name="ClearLog" x:Uid="ClearLog" Content="清空日志" Click="ClearLog_Click"/>

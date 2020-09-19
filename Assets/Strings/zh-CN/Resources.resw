@@ -165,9 +165,17 @@ Github 仓库: https://github.com/LitJSON/litjson</value>
     <value>关于</value>
     <comment>使用: SettingsPage.xaml</comment>
   </data>
+  <data name="AccountTitle.Text" xml:space="preserve">
+    <value>账户</value>
+    <comment>使用: SettingsPage.xaml</comment>
+  </data>
   <data name="AddTo.Text" xml:space="preserve">
     <value>添加到</value>
     <comment>使用: VTuber.xaml SongList.xaml</comment>
+  </data>
+  <data name="AuthCode.PlaceholderText" xml:space="preserve">
+    <value>验证码</value>
+    <comment>使用: Login.xaml</comment>
   </data>
   <data name="BiliBiliLink.Text" xml:space="preserve">
     <value>BiliBili</value>
@@ -205,6 +213,10 @@ Github 仓库: https://github.com/LitJSON/litjson</value>
     <value>Oops... 发生了错误</value>
     <comment>使用: Fail.xaml</comment>
   </data>
+  <data name="ForgetPassword.Content" xml:space="preserve">
+    <value>忘记密码</value>
+    <comment>使用: Login.xaml</comment>
+  </data>
   <data name="History.Text" xml:space="preserve">
     <value>历史记录</value>
     <comment>使用: History.xaml</comment>
@@ -224,6 +236,18 @@ Github 仓库: https://github.com/LitJSON/litjson</value>
   <data name="Login.Header" xml:space="preserve">
     <value>登录</value>
     <comment>使用: Login.xaml</comment>
+  </data>
+  <data name="LoginButton.Content" xml:space="preserve">
+    <value>登录</value>
+    <comment>使用: Login.xaml</comment>
+  </data>
+  <data name="LoginUser.PlaceholderText" xml:space="preserve">
+    <value>用户名/邮箱</value>
+    <comment>使用: Login.xaml</comment>
+  </data>
+  <data name="LogOut.Content" xml:space="preserve">
+    <value>登出</value>
+    <comment>使用: SettingsPage.xaml</comment>
   </data>
   <data name="LogTitle.Text" xml:space="preserve">
     <value>日志</value>
@@ -248,6 +272,14 @@ Github 仓库: https://github.com/LitJSON/litjson</value>
   <data name="MySubscrubeTitle" xml:space="preserve">
     <value>我的主推 ({0})</value>
     <comment>使用: Subscribe.xaml {0}=主推数量</comment>
+  </data>
+  <data name="NoAccount.Content" xml:space="preserve">
+    <value>没有账号？注册</value>
+    <comment>使用: Login.xaml</comment>
+  </data>
+  <data name="Password.PlaceholderText" xml:space="preserve">
+    <value>密码</value>
+    <comment>使用: Login.xaml</comment>
   </data>
   <data name="PlayAll.Text" xml:space="preserve">
     <value>全部播放</value>
@@ -277,9 +309,29 @@ Github 仓库: https://github.com/LitJSON/litjson</value>
     <value>注册</value>
     <comment>使用: Login.xaml</comment>
   </data>
+  <data name="RegisterButton.Content" xml:space="preserve">
+    <value>注册</value>
+    <comment>使用: Login.xaml</comment>
+  </data>
+  <data name="RegisterEmail.PlaceholderText" xml:space="preserve">
+    <value>邮箱</value>
+    <comment>使用: Login.xaml</comment>
+  </data>
+  <data name="RegisterUserName.PlaceholderText" xml:space="preserve">
+    <value>用户名</value>
+    <comment>使用: Login.xaml</comment>
+  </data>
+  <data name="RePassword.PlaceholderText" xml:space="preserve">
+    <value>重复密码</value>
+    <comment>使用: Login.xaml</comment>
+  </data>
   <data name="SearchPlaceholder.PlaceholderText" xml:space="preserve">
     <value>搜索歌曲 / VTuber / 歌单</value>
     <comment>使用: MainPage.xaml</comment>
+  </data>
+  <data name="SendAuthEmail.Content" xml:space="preserve">
+    <value>发送验证码</value>
+    <comment>使用: Login.xaml</comment>
   </data>
   <data name="SettingsTitle.Text" xml:space="preserve">
     <value>设置</value>
@@ -292,6 +344,10 @@ Github 仓库: https://github.com/LitJSON/litjson</value>
   <data name="SongList.Text" xml:space="preserve">
     <value>歌单</value>
     <comment>使用: Home.xaml Search.xaml</comment>
+  </data>
+  <data name="ToLogin.Content" xml:space="preserve">
+    <value>已有账号？登录</value>
+    <comment>使用: Login.xaml</comment>
   </data>
   <data name="Twitter.Text" xml:space="preserve">
     <value>Twitter</value>

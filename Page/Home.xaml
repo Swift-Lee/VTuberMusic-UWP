@@ -140,7 +140,7 @@
                     </Grid>
                     <ScrollViewer HorizontalScrollMode="Enabled" HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled" VerticalScrollBarVisibility="Disabled">
                         <Grid Height="220">
-                            <GridView x:Name="SongListGridView" ItemsSource="{x:Bind songLists}" ItemTemplate="{StaticResource SongListObjectTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top" SelectionChanged="SongListGridView_SelectionChanged" Canvas.ZIndex="10">
+                            <GridView x:Name="SongListGridView" ItemsSource="{x:Bind songLists}" ItemTemplate="{StaticResource SongListObjectTemplate}" Style="{StaticResource HomeGridView}" VerticalAlignment="Top" Tapped="SongListGridView_Tapped" Canvas.ZIndex="10">
                                 <GridView.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <ItemsWrapGrid x:Name="MaxItemsWrapGrid" MaximumRowsOrColumns="1" Orientation="Vertical"/>

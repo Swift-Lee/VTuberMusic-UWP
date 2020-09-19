@@ -9,35 +9,44 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Grid x:Name="ProgressPanel" Visibility="Collapsed" Background="#B2000000" Canvas.ZIndex="10">
+            <ProgressRing x:Name="Progress" IsActive="True" Width="100" Height="100"/>
+        </Grid>
         <Pivot Width="500" Height="350">
             <PivotItem Header="登录" x:Uid="LoginTitle">
                 <StackPanel Padding="10,10,10,10">
-                    <TextBox x:Name="LoginUserName" PlaceholderText="用户名/邮箱"/>
-                    <PasswordBox x:Name="LoginPassword" PlaceholderText="密码" Margin="0,10,0,0"/>
-                    <Button x:Name="LoginButton" Content="登录" Margin="0,10,0,0" HorizontalAlignment="Stretch"/>
+                    <TextBox x:Uid="LoginUser" x:Name="LoginUserName" PlaceholderText="用户名/邮箱"/>
+                    <PasswordBox x:Uid="Password" x:Name="LoginPassword" PlaceholderText="密码" Margin="0,10,0,0"/>
+                    <Button x:Uid="LoginButton" x:Name="LoginButton" Content="登录" Margin="0,10,0,0" HorizontalAlignment="Stretch" Click="LoginButton_Click"/>
+                    <TextBlock x:Name="LoginStatue" Visibility="Collapsed" Margin="0,10,0,0"/>
                     <StackPanel Orientation="Horizontal">
-                        <HyperlinkButton Name="ToRegister" Content="没有账号？注册"/>
-                        <HyperlinkButton Name="ForgetPassword" Content="忘记密码" Margin="10,0,0,0"/>
+                        <HyperlinkButton x:Uid="NoAccount" Name="ToRegister" Content="没有账号？注册"/>
+                        <HyperlinkButton x:Uid="ForgetPassword" Name="ForgetPassword" Content="忘记密码" Margin="10,0,0,0"/>
                     </StackPanel>
                 </StackPanel>
             </PivotItem>
             <PivotItem Header="注册" x:Uid="RegisterTitle">
-                <StackPanel Padding="10,10,10,10">
-                    <TextBox x:Name="RegisterUserName" PlaceholderText="用户名"/>
-                    <PasswordBox x:Name="RegisterPassword" PlaceholderText="密码" Margin="0,10,0,0"/>
-                    <PasswordBox x:Name="RegisterRePassword" PlaceholderText="重复密码" Margin="0,10,0,0"/>
-                    <Grid Margin="0,10,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBox x:Name="RegisterEmail" PlaceholderText="邮箱"/>
-                        <Button x:Name="SendAuthEmail" Content="发送验证码" Grid.Column="1"/>
+                <Grid>
+                    <Grid Canvas.ZIndex="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#7F000000">
+                        <TextBlock Text="暂不开放" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48"/>
                     </Grid>
-                    <TextBox x:Name="AuthCode" PlaceholderText="验证码" Margin="0,10,0,0"/>
-                    <HyperlinkButton Name="ToLogin" Content="已有账号？登录"/>
-                    <Button x:Name="RegisterButton" Content="注册" Margin="0,10,0,0" HorizontalAlignment="Stretch"/>
-                </StackPanel>
+                    <StackPanel Padding="10,10,10,10">
+                        <TextBox x:Name="RegisterUserName" PlaceholderText="用户名"/>
+                        <PasswordBox x:Uid="Password" x:Name="RegisterPassword" PlaceholderText="密码" Margin="0,10,0,0"/>
+                        <PasswordBox x:Uid="RePassword" x:Name="RegisterRePassword" PlaceholderText="重复密码" Margin="0,10,0,0"/>
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Uid="RegisterEmail" x:Name="RegisterEmail" PlaceholderText="邮箱"/>
+                            <Button x:Uid="SendAuthEmail" x:Name="SendAuthEmail" Content="发送验证码" Grid.Column="1"/>
+                        </Grid>
+                        <TextBox x:Uid="AuthCode" x:Name="AuthCode" PlaceholderText="验证码" Margin="0,10,0,0"/>
+                        <HyperlinkButton x:Uid="ToLogin" Name="ToLogin" Content="已有账号？登录"/>
+                        <Button x:Uid="RegisterButton" x:Name="RegisterButton" Content="注册" Margin="0,10,0,0" HorizontalAlignment="Stretch"/>
+                    </StackPanel>
+                </Grid>
             </PivotItem>
         </Pivot>
     </Grid>

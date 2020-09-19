@@ -35,8 +35,8 @@
         <StackPanel>
             <Grid Height="300">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="7*"/>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="6*"/>
                 </Grid.ColumnDefinitions>
                 <Image x:Name="SongListImage" Margin="10,20,12,20" Stretch="UniformToFill" HorizontalAlignment="Center"/>
                 <StackPanel Grid.Column="1">

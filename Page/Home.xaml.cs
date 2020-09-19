@@ -40,9 +40,9 @@ namespace VTuberMusic.Page
         public Home()
         {
             InitializeComponent();
+            #region 获取歌曲
             new Thread(a =>
             {
-                int i = 0;
                 Song[] getSongs = new Song[0];
                 try
                 {
@@ -63,17 +63,22 @@ namespace VTuberMusic.Page
                     }
                 }
 
-                while (i != getSongs.Length - 1)
+                foreach(Song songTemp in getSongs)
                 {
-                    Invoke(new Action(delegate { songs.Add(getSongs[i]); }));
-                    i++;
+                    Invoke(new Action(delegate
+                    {
+                        songs.Add(songTemp);
+                    }));
                 }
-            })
-            { IsBackground = false }.Start();
 
+                getSongs = null;
+            })
+            { IsBackground = true }.Start();
+            #endregion
+
+            #region 获取 Banners
             new Thread(a =>
             {
-                int i = 0;
                 Banner[] getBanners = new Banner[0];
                 try
                 {
@@ -94,17 +99,22 @@ namespace VTuberMusic.Page
                     }
                 }
 
-                while (i != getBanners.Length - 1)
+                foreach(Banner bannerTemp in getBanners)
                 {
-                    Invoke(new Action(delegate { banners.Add(getBanners[i]); }));
-                    i++;
+                    Invoke(new Action(delegate
+                    {
+                        banners.Add(bannerTemp);
+                    }));
                 }
+                
+                getBanners = null;
             })
-            { IsBackground = false }.Start();
+            { IsBackground = true }.Start();
+            #endregion
 
+            #region 获取歌手
             new Thread(a =>
             {
-                int i = 0;
                 Vocal[] getVocals = new Vocal[0];
                 try
                 {
@@ -125,17 +135,20 @@ namespace VTuberMusic.Page
                     }
                 }
 
-                while (i != getVocals.Length - 1)
+                foreach(Vocal vocalTemp in getVocals)
                 {
-                    Invoke(new Action(delegate { vocals.Add(getVocals[i]); }));
-                    i++;
+                    Invoke(new Action(delegate
+                    {
+                        vocals.Add(vocalTemp);
+                    }));
                 }
             })
-            { IsBackground = false }.Start();
+            { IsBackground = true }.Start();
+            #endregion
 
+            #region 获取歌单
             new Thread(a =>
             {
-                int i = 0;
                 SongListList[] getSongLists = new SongListList[0];
                 try
                 {
@@ -156,13 +169,21 @@ namespace VTuberMusic.Page
                     }
                 }
 
-                while (i != getSongLists.Length - 1)
+                foreach (SongListList songListTemp in getSongLists)
                 {
-                    Invoke(new Action(delegate { songLists.Add(getSongLists[i]); }));
-                    i++;
+                    Invoke(new Action(delegate
+                    {
+                        songLists.Add(songListTemp);
+                    }));
                 }
             })
-            { IsBackground = false }.Start();
+            { IsBackground = true }.Start();
+            #endregion
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            GC.Collect();
         }
 
         private void RefreshContainer_RefreshRequested(RefreshContainer sender, RefreshRequestedEventArgs args)
@@ -170,15 +191,23 @@ namespace VTuberMusic.Page
 
         }
 
+        #region 处理点击卡片事件
         private void SongGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MainPage.player.PlayListAddSong(songs[SongGridView.SelectedIndex]);
-            MainPage.player.PlayIndex(MainPage.player.PlayList.IndexOf(songs[SongGridView.SelectedIndex]));
+            if (SongGridView.SelectedIndex != -1)
+            {
+                MainPage.player.PlayListAddSong(songs[SongGridView.SelectedIndex]);
+                MainPage.player.PlayIndex(MainPage.player.PlayList.IndexOf(songs[SongGridView.SelectedIndex]));
+            }
         }
 
-        private void SongListGridView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void SongListGridView_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            Frame.Navigate(typeof(SongList), songLists[SongListGridView.SelectedIndex].Id);
+            if (SongListGridView.SelectedIndex != -1)
+            {
+                Log.WriteLine(SongListGridView.SelectedIndex.ToString());
+                Frame.Navigate(typeof(SongList), songLists[SongListGridView.SelectedIndex].Id);
+            }
         }
 
         private void SongGridView_Tapped(object sender, TappedRoutedEventArgs e)
@@ -206,6 +235,7 @@ namespace VTuberMusic.Page
                 Frame.Navigate(typeof(Page.VTuber), vocals[VocalGridView.SelectedIndex].Id);
             }
         }
+        #endregion
 
         public void Invoke(Action action, Windows.UI.Core.CoreDispatcherPriority Priority = Windows.UI.Core.CoreDispatcherPriority.Normal)
         {

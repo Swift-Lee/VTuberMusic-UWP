@@ -49,14 +49,16 @@ namespace VTuberMusic
             ("SongList",typeof(Page.SongList)),
             ("Account",typeof(Page.Account)),
             ("Playing",typeof(Page.Playing)),
-            ("History",typeof(Page.History))
+            ("History",typeof(Page.History)),
+            ("Login",typeof(Page.Login))
         };
         #endregion
 
         public MainPage()
         {
             InitializeComponent();
-            Tools.Version.Build = Tools.Version.GetBuild(File.GetLastWriteTime(GetType().Assembly.Location));
+            NavigationCacheMode = NavigationCacheMode.Disabled;
+            //Tools.Version.Build = Tools.Version.GetBuild(File.GetLastWriteTime(GetType().Assembly.Location));
             // 输出 Build 版本号和版权信息
             Log.WriteLine("VTuberMusic-UWP " + Tools.Version.VersionNum + " Build:" + Tools.Version.Build, Level.Info);
             Log.WriteLine("Copyright ©  2020 VTuberMusic", Level.Info);
@@ -89,9 +91,8 @@ namespace VTuberMusic
             // 更新播放列表标题
             PlayListNum.Text = string.Format(Lang.ReadLangText("PlayList"), "0");
             // 创建播放列表阴影
-            // 跳转到首页
-            navigationView.SelectedItem = Home;
-            Log.WriteLine("[UI]跳转到首页", Level.Info);
+            // 释放内存
+            GC.Collect();
         }
 
         #region 页面加载完成
@@ -105,7 +106,105 @@ namespace VTuberMusic
         #endregion
 
         #region NavigationView 相关
-        #region 监听 NavigationView
+        #region View 加载
+        private void TheNavigationView_Loaded(object sender, RoutedEventArgs e)
+        {
+            // 绑定跳转事件
+            PageFrame.Navigated += PageFrame_Navigated; ;
+            // 跳转到首页
+            NavView_Navigate("Home", new EntranceNavigationTransitionInfo());
+            // 添加返回键快捷方式 
+            var goBack = new KeyboardAccelerator { Key = Windows.System.VirtualKey.GoBack };
+            goBack.Invoked += BackInvoked;
+            this.KeyboardAccelerators.Add(goBack);
+            // Alt 键扩展
+            var altLeft = new KeyboardAccelerator
+            {
+                Key = Windows.System.VirtualKey.Left,
+                Modifiers = Windows.System.VirtualKeyModifiers.Menu
+            };
+            altLeft.Invoked += BackInvoked;
+            this.KeyboardAccelerators.Add(altLeft);
+        }
+        #endregion
+
+        #region BackPage
+        // 返回按钮
+        private void NavView_BackRequested(NavigationView sender, NavigationViewBackRequestedEventArgs args)
+        {
+            On_BackRequested();
+        }
+
+        private void BackInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
+        {
+            On_BackRequested();
+            args.Handled = true;
+        }
+
+        private bool On_BackRequested()
+        {
+            if (!PageFrame.CanGoBack)
+                return false;
+
+            // 如果侧边栏被隐藏不返回
+            if (TheNavigationView.IsPaneOpen &&
+                (TheNavigationView.DisplayMode == NavigationViewDisplayMode.Compact ||
+                 TheNavigationView.DisplayMode == NavigationViewDisplayMode.Minimal))
+                return false;
+
+            PageFrame.GoBack();
+            return true;
+        }
+        #endregion
+
+        #region Frame 跳转事件
+        private void PageFrame_Navigated(object sender, NavigationEventArgs e)
+        {
+            TheNavigationView.IsBackEnabled = PageFrame.CanGoBack;
+
+            if (PageFrame.SourcePageType == typeof(Page.SettingsPage))
+            {
+                TheNavigationView.SelectedItem = (NavigationViewItem)TheNavigationView.SettingsItem;
+            }
+            else if (PageFrame.SourcePageType != null)
+            {
+                var item = _pages.FirstOrDefault(p => p.Page == e.SourcePageType);
+                try
+                {
+                    TheNavigationView.SelectedItem = TheNavigationView.MenuItems
+                    .OfType<NavigationViewItem>()
+                    .First(n => n.Tag.Equals(item.Tag));
+                }
+                catch { }
+            }
+        }
+        #endregion
+
+        #region 跳转页面
+        private void NavView_Navigate(string navItemTag, NavigationTransitionInfo transitionInfo)
+        {
+            Type _page = null;
+            // 判断是否是跳转到错误页
+            if (navItemTag == "settings")
+            {
+                _page = typeof(Page.SettingsPage);
+            }
+            else
+            {
+                var item = _pages.FirstOrDefault(p => p.Tag.Equals(navItemTag));
+                _page = item.Page;
+            }
+            // 防止重复跳转页面
+            var preNavPageType = PageFrame.CurrentSourcePageType;
+
+            if (!(_page is null) && !Type.Equals(preNavPageType, _page))
+            {
+                PageFrame.Navigate(_page, null, transitionInfo);
+            }
+        }
+        #endregion
+
+        #region NavigationView Item
         private void TheNavigationView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
             if (args.IsSettingsInvoked == true)
@@ -116,29 +215,6 @@ namespace VTuberMusic
             {
                 var navItemTag = args.InvokedItemContainer.Tag.ToString();
                 NavView_Navigate(navItemTag, args.RecommendedNavigationTransitionInfo);
-            }
-        }
-
-        private void NavView_Navigate(string navItemTag, NavigationTransitionInfo transitionInfo)
-        {
-            Type _page = null;
-            if (navItemTag == "settings")
-            {
-                _page = typeof(Page.SettingsPage);
-            }
-            else
-            {
-                var item = _pages.FirstOrDefault(p => p.Tag.Equals(navItemTag));
-                _page = item.Page;
-            }
-            // Get the page type before navigation so you can prevent duplicate
-            // entries in the backstack.
-            var preNavPageType = PageFrame.CurrentSourcePageType;
-
-            // Only navigate if the selected page isn't currently loaded.
-            if (!(_page is null) && !Type.Equals(preNavPageType, _page))
-            {
-                PageFrame.Navigate(_page, null, transitionInfo);
             }
         }
 
@@ -156,16 +232,10 @@ namespace VTuberMusic
         }
         #endregion
 
-        #region Footer 按钮点击事件
+        #region Footer
         private void AccountItem_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            TheNavigationView.SelectedItem = AccountItem;
-        }
-
-        private void HistoryItem_Tapped(object sender, TappedRoutedEventArgs e)
-        {
-            TheNavigationView.SelectedItem = HistoryItem;
-
+            NavView_Navigate(((NavigationViewItem)sender).Tag.ToString(), new EntranceNavigationTransitionInfo());
         }
         #endregion
         #endregion
@@ -273,7 +343,7 @@ namespace VTuberMusic
                 VocalName.Text = sender.VocalName;
                 SongImage.Source = SongImageBitmap;
                 BackgroudImage.Source = SongImageBitmap;
-                
+                GC.Collect();
             }));
         }
         #endregion

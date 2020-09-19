@@ -41,12 +41,12 @@
             </StackPanel>
 
             <ScrollViewer x:Name="LyricScrollViewer" Grid.Row="1" Margin="0,10,0,10">
-                <ItemsControl x:Name="LyricControl" ItemsSource="{x:Bind lrcs}">
+                <ItemsControl x:Name="LyricControl" ItemsSource="{x:Bind lrcs}" >
                     <ItemsControl.ItemTemplate>
                         <DataTemplate x:DataType="data:WordWithTranslate">
-                            <StackPanel Margin="0,5,0,5" Height="Auto">
-                                <TextBlock Tag="{x:Bind Id}" Text="{x:Bind Orgin}" Foreground="{x:Bind brush}" HorizontalAlignment="Center" TextWrapping="WrapWholeWords"/>
-                                <TextBlock Tag="{x:Bind Id}" Text="{x:Bind Translate}" Foreground="{x:Bind brush}" HorizontalAlignment="Center" TextWrapping="WrapWholeWords"/>
+                            <StackPanel Margin="0,10,0,10" Height="Auto">
+                                <TextBlock Tag="{x:Bind Id}" Text="{x:Bind Orgin}" Foreground="{x:Bind brush}" HorizontalAlignment="Center" FontSize="18" TextWrapping="WrapWholeWords"/>
+                                <TextBlock Tag="{x:Bind Id}" Text="{x:Bind Translate}" Foreground="{x:Bind brush}" HorizontalAlignment="Center" FontSize="18" TextWrapping="WrapWholeWords"/>
                             </StackPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

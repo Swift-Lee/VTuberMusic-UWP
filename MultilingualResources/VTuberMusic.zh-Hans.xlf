@@ -263,6 +263,76 @@ Github 仓库: https://github.com/LitJSON/litjson</target>
           <target state="new">投稿管理</target>
           <note from="MultilingualBuild" annotates="source" priority="2">使用: MainPage.xaml</note>
         </trans-unit>
+        <trans-unit id="AccountTitle.Text" translate="yes" xml:space="preserve">
+          <source>账户</source>
+          <target state="new">账户</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: SettingsPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="AuthCode.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>验证码</source>
+          <target state="new">验证码</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Login.xaml</note>
+        </trans-unit>
+        <trans-unit id="ForgetPassword.Content" translate="yes" xml:space="preserve">
+          <source>忘记密码</source>
+          <target state="new">忘记密码</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Login.xaml</note>
+        </trans-unit>
+        <trans-unit id="LoginButton.Content" translate="yes" xml:space="preserve">
+          <source>登录</source>
+          <target state="new">登录</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Login.xaml</note>
+        </trans-unit>
+        <trans-unit id="LoginUser.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>用户名/邮箱</source>
+          <target state="new">用户名/邮箱</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Login.xaml</note>
+        </trans-unit>
+        <trans-unit id="LogOut.Content" translate="yes" xml:space="preserve">
+          <source>登出</source>
+          <target state="new">登出</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: SettingsPage.xaml</note>
+        </trans-unit>
+        <trans-unit id="NoAccount.Content" translate="yes" xml:space="preserve">
+          <source>没有账号？注册</source>
+          <target state="new">没有账号？注册</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Login.xaml</note>
+        </trans-unit>
+        <trans-unit id="Password.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>密码</source>
+          <target state="new">密码</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Login.xaml</note>
+        </trans-unit>
+        <trans-unit id="RegisterButton.Content" translate="yes" xml:space="preserve">
+          <source>注册</source>
+          <target state="new">注册</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Login.xaml</note>
+        </trans-unit>
+        <trans-unit id="RegisterEmail.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>邮箱</source>
+          <target state="new">邮箱</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Login.xaml</note>
+        </trans-unit>
+        <trans-unit id="RegisterUserName.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>用户名</source>
+          <target state="new">用户名</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Login.xaml</note>
+        </trans-unit>
+        <trans-unit id="RePassword.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>重复密码</source>
+          <target state="new">重复密码</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Login.xaml</note>
+        </trans-unit>
+        <trans-unit id="SendAuthEmail.Content" translate="yes" xml:space="preserve">
+          <source>发送验证码</source>
+          <target state="new">发送验证码</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Login.xaml</note>
+        </trans-unit>
+        <trans-unit id="ToLogin.Content" translate="yes" xml:space="preserve">
+          <source>已有账号？登录</source>
+          <target state="new">已有账号？登录</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">使用: Login.xaml</note>
+        </trans-unit>
       </group>
     </body>
   </file>

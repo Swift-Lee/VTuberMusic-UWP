@@ -36,6 +36,7 @@ namespace VTuberMusic.Page
         public SongList()
         {
             this.InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Disabled;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -85,14 +86,26 @@ namespace VTuberMusic.Page
                             SongListCreatorImage.DisplayName = songListList[0].CreatorRealName;
                             BitmapImage bitmapImage = new BitmapImage(new Uri(songListList[0].CoverImg));
                             SongListImage.Source = (bitmapImage);
+                            bitmapImage = null;
+                            getSongs = null;
+                            GC.Collect();
                         }));
                     }
+
+                    songListList = null;
                 }).Start();
             }
             else
             {
                 Log.WriteLine("[GUI]跳转到歌单: 本地我喜欢歌单", Level.Info);
             }
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            songs.Clear();
+            songs = null;
+            GC.Collect();
         }
 
         private void SongListView_ContainerContentChanging(ListViewBase sender, ContainerContentChangingEventArgs args)
