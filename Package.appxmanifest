@@ -34,14 +34,13 @@
       EntryPoint="VTuberMusic.App">
       <uap:VisualElements
         DisplayName="VTuberMusic"
-        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square150x150Logo="Assets\Square\Square150x150Logo.png"
         Square44x44Logo="Assets\AppIcon\AppIcon.png"
         Description="VTuberMusic"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\Tile\LargeTile\LargeTile.png" Square71x71Logo="Assets\Tile\SmallTile\SmallTile.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide\Wide310x150Logo.png" Square310x310Logo="Assets\Tile\LargeTile\LargeTile.png" Square71x71Logo="Assets\Tile\SmallTile\SmallTile.png">
         </uap:DefaultTile >
         <uap:SplashScreen Image="Assets\SplashScreen\SplashScreen.png" />
-        <uap:LockScreen BadgeLogo="Assets\BadgeLogo\BadgeLogo.png" Notification="badgeAndTileText"/>
         <uap:InitialRotationPreference>
           <uap:Rotation Preference="landscape"/>
           <uap:Rotation Preference="landscapeFlipped"/></uap:InitialRotationPreference>
