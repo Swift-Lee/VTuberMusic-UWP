@@ -42,31 +42,25 @@ namespace VTuberMusic.Modules
             public string Text = "";
         }
 
-        public static void test(string content)
-        {
-            Lyric lyric = JsonMapper.ToObject<Lyric>(content);
-            string orgin = lyric.origin.text;
-            string translate = lyric.translate.text;
-            string[] ContentLines = orgin.Split(new string[] { "\n" }, StringSplitOptions.RemoveEmptyEntries);
-            for (int i = 0; i != ContentLines.Length; i++)
-            {
-                Regex regex = new Regex(@"\[(.*?)\]([^[\]]*)\s*", RegexOptions.Compiled);
-                MatchCollection mc = regex.Matches(ContentLines[i]);
-                Log.WriteLine("\r\n[" + mc[0].Groups[1].Value + "]\r\n" + mc[0].Groups[2].Value);
-            }
-        }
-
         public static Lyric ParseLyric(string LyricContent)
         {
             try
             {
-                return ParseVrc(LyricContent);
+                var lyric = ParseVrc(LyricContent);
+                return lyric;
             }
             catch (Exception ex)
             {
                 Log.WriteLine("[歌词解析器]无法以 Vrc 方式解析 错误原因: " + ex.Message, Level.Error);
             }
-            return new Lyric();
+            var errorLyric = new WordWithTranslate[1];
+            errorLyric[0] = new WordWithTranslate { brush = new SolidColorBrush(Colors.White), Id = "-1", Orgin = "无法解析歌词", Time = TimeSpan.Zero, Translate = "无法解析歌词" };
+            return new Lyric {
+                karaoke = false,
+                scrollDisabled = true,
+                translated = false,
+                parse = errorLyric
+            };
         }
 
         #region 解析 Vrc
@@ -74,23 +68,71 @@ namespace VTuberMusic.Modules
         {
             // 将 Json 转换为对象
             Lyric lyric = JsonMapper.ToObject<Lyric>(Vrc);
+            // 检查是否可以解析 json
+            if (lyric == null)
+            {
+                throw new Exception("歌词格式可能错误");
+            }
             // 声明个带翻译的歌词
             List<WordWithTranslate> wordWithTranslates = new List<WordWithTranslate>();
             // 解析 Lrc
             Word[] oringWord = ParseLrc(lyric.origin.text);
-            Word[] translateWord = ParseLrc(lyric.translate.text);
-            // 向列表添加歌词
-            for(int i = 0; i != oringWord.Length; i++)
+            // 检查是否有翻译
+            if (lyric.translate != null)
             {
-                wordWithTranslates.Add(new WordWithTranslate {
-                    Id = i.ToString(),
-                    Time = oringWord[i].Time,
-                    Orgin = oringWord[i].Text,
-                    brush = new SolidColorBrush(Colors.Black),
-                    Translate = translateWord[i].Text }) ;
+                try
+                {
+                    Word[] translateWord = ParseLrc(lyric.translate.text);
+                    // 向列表添加歌词
+                    for (int i = 0; i != oringWord.Length; i++)
+                    {
+                        wordWithTranslates.Add(new WordWithTranslate
+                        {
+                            Id = i.ToString(),
+                            Time = oringWord[i].Time,
+                            Orgin = oringWord[i].Text,
+                            brush = new SolidColorBrush(Colors.Black),
+                            Translate = translateWord[i].Text
+                        });
+                    }
+                    lyric.parse = wordWithTranslates.ToArray();
+                    return lyric;
+                }
+                catch
+                {
+                    // 向列表添加歌词
+                    for (int i = 0; i != oringWord.Length; i++)
+                    {
+                        wordWithTranslates.Add(new WordWithTranslate
+                        {
+                            Id = i.ToString(),
+                            Time = oringWord[i].Time,
+                            Orgin = oringWord[i].Text,
+                            brush = new SolidColorBrush(Colors.Black),
+                            Translate = ""
+                        });
+                    }
+                    lyric.parse = wordWithTranslates.ToArray();
+                    return lyric;
+                }
             }
-            lyric.parse = wordWithTranslates.ToArray();
-            return lyric;
+            else
+            {
+                // 向列表添加歌词
+                for (int i = 0; i != oringWord.Length; i++)
+                {
+                    wordWithTranslates.Add(new WordWithTranslate
+                    {
+                        Id = i.ToString(),
+                        Time = oringWord[i].Time,
+                        Orgin = oringWord[i].Text,
+                        brush = new SolidColorBrush(Colors.Black),
+                        Translate = ""
+                    });
+                }
+                lyric.parse = wordWithTranslates.ToArray();
+                return lyric;
+            }
         }
         #endregion
 

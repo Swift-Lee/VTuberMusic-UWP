@@ -100,6 +100,7 @@ namespace VTuberMusic.Page
             UserRealName.Text = "";
             localSettings.Values["Token"] = null;
             LogOut.Visibility = Visibility.Collapsed;
+            Tools.Log.WriteLine("[账户]已登出账户", Level.Info);
         }
 
         public void Invoke(Action action, Windows.UI.Core.CoreDispatcherPriority Priority = Windows.UI.Core.CoreDispatcherPriority.Normal)

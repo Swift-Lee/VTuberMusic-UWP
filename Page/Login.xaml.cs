@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using VTuberMusic.Modules;
+using VTuberMusic.Tools;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -47,6 +48,7 @@ namespace VTuberMusic.Page
                     {
                         var result = Modules.Account.GetToken(userName, password);
                         localSettings.Values["Token"] = result;
+                        Log.WriteLine("[账户]登陆成功，用户名: " + Modules.Account.GetAccountInfo(result).UserName, Level.Info);
                         Invoke(new Action(delegate
                         {
                             Frame.Navigate(typeof(Account));
@@ -54,6 +56,7 @@ namespace VTuberMusic.Page
                     }
                     catch (Exception ex)
                     {
+                        Tools.Log.WriteLine("[账户]登陆失败: " + ex.Message);
                         Invoke(new Action(delegate
                         {
                             ProgressPanel.Visibility = Visibility.Collapsed;

@@ -136,65 +136,72 @@ namespace VTuberMusic.Page
         #region 跳转到指定歌词
         private void ToLyric(int Index)
         {
-            if (loadingComplete)
+            try
             {
-                if (NowLyricWord != -1)
+                if (loadingComplete)
                 {
-                    lrcs[NowLyricWord] = new WordWithTranslate
+                    if (NowLyricWord != -1)
                     {
-                        brush = new SolidColorBrush(Colors.Black),
-                        Id = lrcs[NowLyricWord].Id,
-                        Orgin = lrcs[NowLyricWord].Orgin,
-                        Translate = lrcs[NowLyricWord].Translate,
-                        Time = lrcs[NowLyricWord].Time
-                    };
-                    lrcs[Index] = new WordWithTranslate
-                    {
-                        brush = new SolidColorBrush(Colors.White),
-                        Id = lrcs[Index].Id,
-                        Orgin = lrcs[Index].Orgin,
-                        Translate = lrcs[Index].Translate,
-                        Time = lrcs[Index].Time
-                    };
-                    NowLyricWord = Index;
-                    UpdateLayout();
-                    var item = (UIElement)LyricControl.ContainerFromItem(LyricControl.Items[Index]);
-                    GeneralTransform generalTransform = LyricScrollViewer.TransformToVisual(item);
-                    Point point = generalTransform.TransformPoint(new Point());
-                    point.Y = -point.Y;
-                    if(LyricScrollViewer != null && ((ContentPresenter)item) != null)
-                    {
-                        LyricScrollViewer.ChangeView(0, point.Y + LyricScrollViewer.VerticalOffset - (LyricScrollViewer.ActualHeight / 3) - (((ContentPresenter)item).ActualHeight / 2), null);
+                        lrcs[NowLyricWord] = new WordWithTranslate
+                        {
+                            brush = new SolidColorBrush(Colors.Black),
+                            Id = lrcs[NowLyricWord].Id,
+                            Orgin = lrcs[NowLyricWord].Orgin,
+                            Translate = lrcs[NowLyricWord].Translate,
+                            Time = lrcs[NowLyricWord].Time
+                        };
+                        lrcs[Index] = new WordWithTranslate
+                        {
+                            brush = new SolidColorBrush(Colors.White),
+                            Id = lrcs[Index].Id,
+                            Orgin = lrcs[Index].Orgin,
+                            Translate = lrcs[Index].Translate,
+                            Time = lrcs[Index].Time
+                        };
+                        NowLyricWord = Index;
+                        UpdateLayout();
+                        var item = (UIElement)LyricControl.ContainerFromItem(LyricControl.Items[Index]);
+                        GeneralTransform generalTransform = LyricScrollViewer.TransformToVisual(item);
+                        Point point = generalTransform.TransformPoint(new Point());
+                        point.Y = -point.Y;
+                        if (LyricScrollViewer != null && ((ContentPresenter)item) != null)
+                        {
+                            LyricScrollViewer.ChangeView(0, point.Y + LyricScrollViewer.VerticalOffset - (LyricScrollViewer.ActualHeight / 3) - (((ContentPresenter)item).ActualHeight / 2), null);
+                        }
+                        UpdateLayout();
                     }
-                    UpdateLayout();
-                }
-                else
-                {
-                    NowLyricWord = Index;
-                    lrcs[NowLyricWord] = new WordWithTranslate
+                    else
                     {
-                        brush = new SolidColorBrush(Colors.White),
-                        Id = lrcs[NowLyricWord].Id,
-                        Orgin = lrcs[NowLyricWord].Orgin,
-                        Translate = lrcs[NowLyricWord].Translate,
-                        Time = lrcs[NowLyricWord].Time
-                    };
-                    UpdateLayout();
-                    var item = (UIElement)LyricControl.ContainerFromItem(LyricControl.Items[Index]);
-                    GeneralTransform generalTransform = LyricScrollViewer.TransformToVisual(item);
-                    Point point = generalTransform.TransformPoint(new Point());
-                    if(point.Y < 0)
-                    {
-                        Log.WriteLine("bf:"+point.Y.ToString());
-                        point.Y = - point.Y;
-                    }
+                        NowLyricWord = Index;
+                        lrcs[NowLyricWord] = new WordWithTranslate
+                        {
+                            brush = new SolidColorBrush(Colors.White),
+                            Id = lrcs[NowLyricWord].Id,
+                            Orgin = lrcs[NowLyricWord].Orgin,
+                            Translate = lrcs[NowLyricWord].Translate,
+                            Time = lrcs[NowLyricWord].Time
+                        };
+                        UpdateLayout();
+                        var item = (UIElement)LyricControl.ContainerFromItem(LyricControl.Items[Index]);
+                        GeneralTransform generalTransform = LyricScrollViewer.TransformToVisual(item);
+                        Point point = generalTransform.TransformPoint(new Point());
+                        if (point.Y < 0)
+                        {
+                            Log.WriteLine("bf:" + point.Y.ToString());
+                            point.Y = -point.Y;
+                        }
 
-                    if (LyricScrollViewer != null && ((ContentPresenter)item) != null)
-                    {
-                        LyricScrollViewer.ChangeView(0, point.Y, null);
+                        if (LyricScrollViewer != null && ((ContentPresenter)item) != null)
+                        {
+                            LyricScrollViewer.ChangeView(0, point.Y, null);
+                        }
+                        UpdateLayout();
                     }
-                    UpdateLayout();
                 }
+            }
+            catch (Exception ex)
+            {
+                Log.WriteLine("[歌词模块]程序发生错误: " + ex.Message + "\r\n错误追踪:\r\n" + ex.StackTrace, Level.Error);
             }
         }
         #endregion
@@ -205,6 +212,7 @@ namespace VTuberMusic.Page
         {
             Invoke(new Action(delegate
             {
+                lyricTimer.Dispose();
                 MusicName.Text = sender.SongName;
                 Vocal.Text = sender.VocalName;
                 var image = new BitmapImage();
@@ -226,7 +234,6 @@ namespace VTuberMusic.Page
             #region 加载歌词
             new Thread(a =>
             {
-                lyricTimer.Dispose();
                 string jsonText = GetTools.GetRequest(MainPage.player.songObject.assestLink.Lyric);
                 Invoke(new Action(delegate
                 {
